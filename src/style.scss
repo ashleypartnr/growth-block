@@ -178,11 +178,12 @@
 
 	&:hover {
 		box-shadow: var(--gg-current-shadow-hover, var(--gg-shadow-hover));
+	}
 
-		.gg-project-title {
-			color: var(--gg-accent-color);
-			transition: color var(--gg-transition-medium);
-		}
+	/* Only apply title hover effect when explore button is not present */
+	&:hover:not(:has(.gg-explore-button)) .gg-project-title {
+		color: var(--gg-accent-color);
+		transition: color var(--gg-transition-medium);
 	}
 }
 
@@ -279,6 +280,41 @@
 	text-overflow: ellipsis;
 }
 
+/* Explore More Button */
+.gg-explore-button {
+	@apply inline-block mt-4 py-2.5;
+	@apply font-medium text-sm tracking-wide uppercase;
+	@apply transition-all duration-300 ease-in-out;
+	@apply cursor-pointer;
+
+	font-family: var(--gg-body-font);
+	background-color: var(--gg-explore-btn-bg);
+	color: var(--gg-explore-btn-text);
+	border: var(--gg-explore-btn-border-width) solid var(--gg-explore-btn-border);
+	border-radius: var(--gg-explore-btn-radius);
+
+	&:hover {
+		background-color: var(--gg-explore-btn-hover-bg);
+		color: var(--gg-explore-btn-hover-text);
+	}
+
+	&:focus {
+		outline: 3px solid var(--gg-accent-color);
+		outline-offset: 3px;
+	}
+
+	&:focus:not(:focus-visible) {
+		outline: none;
+	}
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.gg-explore-button:hover {
+		transform: none;
+	}
+}
+
 /* Empty State  */
 .gg-empty-state {
 	@apply py-20 px-10 text-center;
@@ -316,7 +352,7 @@
 	}
 }
 
-/* Dark Mode Support - Ultra Premium */
+/* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
 	:root {
 		--gg-primary-color: #ffffff;
@@ -371,6 +407,12 @@
 /* Editor Specific Styles */
 .editor-styles-wrapper .wp-block-greengrowth-impact-showcase {
 	@apply max-w-full;
+
+	/* Disable clicks on card links in editor to prevent navigation */
+	.gg-project-card-link {
+		pointer-events: none;
+		cursor: default;
+	}
 }
 
 /* Loading State */

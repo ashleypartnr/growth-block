@@ -10,6 +10,8 @@ import {
 	PanelBody,
 	RangeControl,
 	SelectControl,
+	ToggleControl,
+	TextControl,
 	__experimentalHStack as HStack,
 	__experimentalHeading as Heading,
 } from '@wordpress/components';
@@ -68,21 +70,37 @@ export default function Edit( props ) {
 		buttonActiveBorderColor,
 		buttonBorderRadius,
 		buttonBorderWidth,
+		showExploreButton,
+		exploreButtonText,
+		exploreButtonBackgroundColor,
+		exploreButtonTextColor,
+		exploreButtonBorderColor,
+		exploreButtonBorderWidth,
+		exploreButtonBorderRadius,
+		exploreButtonHoverBackgroundColor,
+		exploreButtonHoverTextColor,
 	} = attributes;
 
 	const blockProps = useBlockProps( {
 		style: {
-			'--gg-primary-color': primaryColor,
-			'--gg-accent-color': accentColor,
-			'--gg-background-color': backgroundColor,
-			'--gg-text-color': textColor,
-			'--gg-card-bg-color': cardBackgroundColor,
+			'--gg-primary-color': primaryColor || 'transparent',
+			'--gg-accent-color': accentColor || 'transparent',
+			'--gg-background-color': backgroundColor || 'transparent',
+			'--gg-text-color': textColor || 'transparent',
+			'--gg-card-bg-color': cardBackgroundColor || 'transparent',
 			'--gg-title-size': `${ titleFontSize }px`,
 			'--gg-excerpt-size': `${ excerptFontSize }px`,
 			'--gg-button-size': `${ buttonFontSize }px`,
 			'--gg-card-radius': `${ cardBorderRadius }px`,
 			'--gg-card-gap': `${ cardGap }px`,
 			'--gg-overlay-opacity': overlayOpacity / 100,
+			'--gg-explore-btn-bg': exploreButtonBackgroundColor || 'transparent',
+			'--gg-explore-btn-text': exploreButtonTextColor || 'transparent',
+			'--gg-explore-btn-border': exploreButtonBorderColor || 'transparent',
+			'--gg-explore-btn-border-width': `${ exploreButtonBorderWidth }px`,
+			'--gg-explore-btn-radius': `${ exploreButtonBorderRadius }px`,
+			'--gg-explore-btn-hover-bg': exploreButtonHoverBackgroundColor || 'transparent',
+			'--gg-explore-btn-hover-text': exploreButtonHoverTextColor || 'transparent',
 		},
 	} );
 
@@ -223,6 +241,96 @@ export default function Edit( props ) {
 							'greengrowth-impact-showcase'
 						) }
 					/>
+
+					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
+
+					<Heading level={ 4 }>
+						{ __( 'Explore More Button', 'greengrowth-impact-showcase' ) }
+					</Heading>
+
+					<ToggleControl
+						label={ __( 'Show Explore More Button', 'greengrowth-impact-showcase' ) }
+						checked={ showExploreButton }
+						onChange={ ( value ) => setAttributes( { showExploreButton: value } ) }
+						help={ __(
+							'Display a button on each card',
+							'greengrowth-impact-showcase'
+						) }
+					/>
+
+					{ showExploreButton && (
+						<>
+							<TextControl
+								label={ __( 'Button Text', 'greengrowth-impact-showcase' ) }
+								value={ exploreButtonText }
+								onChange={ ( value ) => setAttributes( { exploreButtonText: value } ) }
+								help={ __( 'Text displayed on the button', 'greengrowth-impact-showcase' ) }
+							/>
+
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ exploreButtonBackgroundColor }
+								onChange={ ( color ) => setAttributes( { exploreButtonBackgroundColor: color } ) }
+							/>
+
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ exploreButtonTextColor }
+								onChange={ ( color ) => setAttributes( { exploreButtonTextColor: color } ) }
+							/>
+
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Border Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ exploreButtonBorderColor }
+								onChange={ ( color ) => setAttributes( { exploreButtonBorderColor: color } ) }
+							/>
+
+							<RangeControl
+								label={ __( 'Border Width', 'greengrowth-impact-showcase' ) }
+								value={ exploreButtonBorderWidth }
+								onChange={ ( value ) => setAttributes( { exploreButtonBorderWidth: value } ) }
+								min={ 0 }
+								max={ 5 }
+								step={ 1 }
+							/>
+
+							<RangeControl
+								label={ __( 'Border Radius', 'greengrowth-impact-showcase' ) }
+								value={ exploreButtonBorderRadius }
+								onChange={ ( value ) => setAttributes( { exploreButtonBorderRadius: value } ) }
+								min={ 0 }
+								max={ 50 }
+								step={ 1 }
+							/>
+
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Hover Background Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ exploreButtonHoverBackgroundColor }
+								onChange={ ( color ) => setAttributes( { exploreButtonHoverBackgroundColor: color } ) }
+							/>
+
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Hover Text Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ exploreButtonHoverTextColor }
+								onChange={ ( color ) => setAttributes( { exploreButtonHoverTextColor: color } ) }
+							/>
+						</>
+					) }
 				</PanelBody>
 
 				{/* Typography */}

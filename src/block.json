@@ -100,6 +100,42 @@
       "type": "number",
       "default": 1
     },
+    "showExploreButton": {
+      "type": "boolean",
+      "default": true
+    },
+    "exploreButtonText": {
+      "type": "string",
+      "default": "Explore More"
+    },
+    "exploreButtonBackgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "exploreButtonTextColor": {
+      "type": "string",
+      "default": ""
+    },
+    "exploreButtonBorderColor": {
+      "type": "string",
+      "default": ""
+    },
+    "exploreButtonBorderWidth": {
+      "type": "number",
+      "default": 0
+    },
+    "exploreButtonBorderRadius": {
+      "type": "number",
+      "default": 0
+    },
+    "exploreButtonHoverBackgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "exploreButtonHoverTextColor": {
+      "type": "string",
+      "default": ""
+    },
     "align": {
       "type": "string",
       "default": "full"
@@ -114,6 +150,7 @@
     }
   },
   "editorScript": "file:./index.js",
+  "editorScriptModule": "file:./view.js",
   "editorStyle": "file:./style-index.css",
   "style": "file:./style-index.css",
   "viewScriptModule": "file:./view.js",
