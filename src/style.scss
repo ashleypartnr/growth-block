@@ -1,9 +1,5 @@
 /**
- * Impact Showcase Block - Ultra Modern Luxury Design
- *
- * High-end, sophisticated aesthetic with full customization support
- * Now powered by Tailwind CSS for consistency across sites
- *
+ * Impact Showcase Block
  * @package GreenGrowth_Impact_Showcase
  */
 
@@ -11,20 +7,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import luxury typography (Google Fonts via WordPress) */
+/* Import typography (Google Fonts via WordPress) */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-/* Default Luxury Design Tokens */
+/* Design Tokens */
 :root {
-	/* Colors - Ultra Modern Luxury Palette */
-	--gg-primary-color: #1a1a1a; /* Midnight Black */
-	--gg-accent-color: #d4af37; /* Luxury Gold */
+	/* Colors */
+	--gg-primary-color: #1a1a1a;
+	--gg-accent-color: #d4af37; 
 	--gg-background-color: #ffffff;
 	--gg-text-color: #1a1a1a;
 	--gg-card-bg-color: #ffffff;
 	--gg-secondary-text: #666666;
 
-	/* Typography - Luxury Font Stack */
+	/* Typography - Font Stack */
 	--gg-title-font: 'Cormorant Garamond', 'Georgia', serif;
 	--gg-body-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	--gg-title-size: 24px;
@@ -33,12 +29,12 @@
 	--gg-title-weight: 600;
 	--gg-body-weight: 400;
 
-	/* Layout - Premium Spacing */
+	/* Layout - Spacing */
 	--gg-card-radius: 0px;
 	--gg-card-gap: 32px;
 	--gg-content-padding: 32px;
 
-	/* Effects - Sophisticated Shadows */
+	/* Effects - Shadows */
 	--gg-shadow-none: none;
 	--gg-shadow-subtle: 0 2px 20px rgba(0, 0, 0, 0.04);
 	--gg-shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.06);
@@ -46,7 +42,7 @@
 	--gg-shadow-dramatic: 0 20px 80px rgba(0, 0, 0, 0.18), 0 8px 30px rgba(0, 0, 0, 0.12);
 	--gg-shadow-hover: 0 12px 70px rgba(0, 0, 0, 0.15), 0 6px 25px rgba(0, 0, 0, 0.10);
 
-	/* Transitions - Smooth & Luxurious */
+	/* Transitions */
 	--gg-transition-fast: 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
 	--gg-transition-medium: 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 	--gg-transition-slow: 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -137,9 +133,7 @@
 	}
 }
 
-/* Button styles now fully controlled by custom CSS variables
-   (buttonBackgroundColor, buttonTextColor, buttonBorderColor, etc.)
-   Style variations removed to allow full customization */
+/* Button styles  */
 
 /* Focus state - WCAG 2.1 compliant */
 .gg-filter-button:focus {
@@ -151,7 +145,7 @@
 	outline: none;
 }
 
-/* Projects Grid - Premium Layout */
+/* Projects Grid */
 .gg-projects-grid {
 	@apply grid mb-10;
 	grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
@@ -172,7 +166,7 @@
 	}
 }
 
-/* Project Card - Luxury Design */
+/* Project Card  */
 .gg-project-card {
 	@apply relative flex flex-col h-full overflow-hidden;
 
@@ -220,7 +214,7 @@
 	}
 }
 
-/* Project Image - Ultra Premium */
+/* Project Image  */
 .gg-project-image {
 	@apply relative w-full overflow-hidden;
 
@@ -250,7 +244,7 @@
 	background-color: var(--gg-card-bg-color);
 }
 
-/* Project Title - Luxury Typography */
+/* Project Title  */
 .gg-project-title {
 	@apply m-0 mb-4 overflow-hidden;
 
@@ -268,7 +262,7 @@
 	text-overflow: ellipsis;
 }
 
-/* Project Excerpt - Refined Typography */
+/* Project Excerpt  */
 .gg-project-excerpt {
 	@apply m-0 overflow-hidden;
 
@@ -285,7 +279,7 @@
 	text-overflow: ellipsis;
 }
 
-/* Empty State - Sophisticated */
+/* Empty State  */
 .gg-empty-state {
 	@apply py-20 px-10 text-center;
 
@@ -386,7 +380,7 @@
 	background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
 }
 
-/* Premium Hover Effects */
+/*  Hover Effects */
 @media (hover: hover) {
 	.gg-project-card::after {
 		@apply absolute top-0 left-0 right-0 h-[3px];
@@ -424,7 +418,7 @@
 	}
 }
 
-/* Ultra Premium: Subtle Animations on Load */
+/* Subtle Animations on Load */
 @keyframes fadeInUp {
 	from {
 		opacity: 0;
@@ -436,10 +430,9 @@
 	}
 }
 
-/* GSAP handles all animations - CSS animations disabled */
+/* GSAP handles all animations */
 @media (prefers-reduced-motion: no-preference) {
 	.gg-project-card {
-		/* Animation handled by GSAP */
 		will-change: transform, opacity;
 	}
 }

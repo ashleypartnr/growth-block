@@ -21,7 +21,7 @@ import { ColorPalette } from '@wordpress/block-editor';
 import metadata from './block.json';
 
 /**
- * Luxury color presets
+ * Color presets
  */
 const COLORS = [
 	{ name: 'Midnight Black', color: '#1a1a1a' },
@@ -89,18 +89,40 @@ export default function Edit( props ) {
 	return (
 		<>
 			<InspectorControls>
+				{/* General Colors */}
 				<PanelBody
-					title={ __( 'Color Settings', 'greengrowth-impact-showcase' ) }
+					title={ __( 'Colors', 'greengrowth-impact-showcase' ) }
 					initialOpen={ true }
 				>
+					<Heading level={ 4 }>
+						{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
+					</Heading>
+					<p className="components-base-control__help">
+						{ __( 'Main background color', 'greengrowth-impact-showcase' ) }
+					</p>
+					<ColorPalette
+						colors={ COLORS }
+						value={ backgroundColor }
+						onChange={ ( color ) => setAttributes( { backgroundColor: color } ) }
+					/>
+
+					<Heading level={ 4 }>
+						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
+					</Heading>
+					<p className="components-base-control__help">
+						{ __( 'Main text color', 'greengrowth-impact-showcase' ) }
+					</p>
+					<ColorPalette
+						colors={ COLORS }
+						value={ textColor }
+						onChange={ ( color ) => setAttributes( { textColor: color } ) }
+					/>
+
 					<Heading level={ 4 }>
 						{ __( 'Primary Color', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<p className="components-base-control__help">
-						{ __(
-							'Main brand color for active buttons',
-							'greengrowth-impact-showcase'
-						) }
+						{ __( 'Brand color for accents', 'greengrowth-impact-showcase' ) }
 					</p>
 					<ColorPalette
 						colors={ COLORS }
@@ -112,35 +134,20 @@ export default function Edit( props ) {
 						{ __( 'Accent Color', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<p className="components-base-control__help">
-						{ __(
-							'Luxury accent color for highlights',
-							'greengrowth-impact-showcase'
-						) }
+						{ __( 'Highlight color for hover states', 'greengrowth-impact-showcase' ) }
 					</p>
 					<ColorPalette
 						colors={ COLORS }
 						value={ accentColor }
 						onChange={ ( color ) => setAttributes( { accentColor: color } ) }
 					/>
+				</PanelBody>
 
-					<Heading level={ 4 }>
-						{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ backgroundColor }
-						onChange={ ( color ) => setAttributes( { backgroundColor: color } ) }
-					/>
-
-					<Heading level={ 4 }>
-						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ textColor }
-						onChange={ ( color ) => setAttributes( { textColor: color } ) }
-					/>
-
+				{/* Card Settings */}
+				<PanelBody
+					title={ __( 'Card Settings', 'greengrowth-impact-showcase' ) }
+					initialOpen={ false }
+				>
 					<Heading level={ 4 }>
 						{ __( 'Card Background', 'greengrowth-impact-showcase' ) }
 					</Heading>
@@ -151,50 +158,7 @@ export default function Edit( props ) {
 							setAttributes( { cardBackgroundColor: color } )
 						}
 					/>
-				</PanelBody>
 
-				<PanelBody
-					title={ __( 'Typography', 'greengrowth-impact-showcase' ) }
-					initialOpen={ false }
-				>
-					<RangeControl
-						label={ __( 'Title Font Size', 'greengrowth-impact-showcase' ) }
-						value={ titleFontSize }
-						onChange={ ( value ) => setAttributes( { titleFontSize: value } ) }
-						min={ 16 }
-						max={ 48 }
-						step={ 1 }
-						help={ __( 'Size of project card titles', 'greengrowth-impact-showcase' ) }
-					/>
-
-					<RangeControl
-						label={ __( 'Excerpt Font Size', 'greengrowth-impact-showcase' ) }
-						value={ excerptFontSize }
-						onChange={ ( value ) => setAttributes( { excerptFontSize: value } ) }
-						min={ 12 }
-						max={ 24 }
-						step={ 1 }
-						help={ __(
-							'Size of project descriptions',
-							'greengrowth-impact-showcase'
-						) }
-					/>
-
-					<RangeControl
-						label={ __( 'Button Font Size', 'greengrowth-impact-showcase' ) }
-						value={ buttonFontSize }
-						onChange={ ( value ) => setAttributes( { buttonFontSize: value } ) }
-						min={ 11 }
-						max={ 20 }
-						step={ 1 }
-						help={ __( 'Size of filter button text', 'greengrowth-impact-showcase' ) }
-					/>
-				</PanelBody>
-
-				<PanelBody
-					title={ __( 'Layout & Spacing', 'greengrowth-impact-showcase' ) }
-					initialOpen={ false }
-				>
 					<RangeControl
 						label={ __( 'Card Border Radius', 'greengrowth-impact-showcase' ) }
 						value={ cardBorderRadius }
@@ -203,7 +167,7 @@ export default function Edit( props ) {
 						max={ 40 }
 						step={ 1 }
 						help={ __(
-							'0 for sharp edges, 40 for ultra rounded',
+							'0 for sharp edges, 40 for rounded',
 							'greengrowth-impact-showcase'
 						) }
 					/>
@@ -215,7 +179,7 @@ export default function Edit( props ) {
 						min={ 16 }
 						max={ 80 }
 						step={ 4 }
-						help={ __( 'Space between project cards', 'greengrowth-impact-showcase' ) }
+						help={ __( 'Space between cards', 'greengrowth-impact-showcase' ) }
 					/>
 
 					<SelectControl
@@ -242,16 +206,11 @@ export default function Edit( props ) {
 						] }
 						onChange={ ( value ) => setAttributes( { shadowIntensity: value } ) }
 						help={ __(
-							'Card shadow depth for luxury feel',
+							'Card shadow depth',
 							'greengrowth-impact-showcase'
 						) }
 					/>
-				</PanelBody>
 
-				<PanelBody
-					title={ __( 'Advanced Style', 'greengrowth-impact-showcase' ) }
-					initialOpen={ false }
-				>
 					<RangeControl
 						label={ __( 'Image Overlay Opacity', 'greengrowth-impact-showcase' ) }
 						value={ overlayOpacity }
@@ -260,13 +219,58 @@ export default function Edit( props ) {
 						max={ 70 }
 						step={ 5 }
 						help={ __(
-							'Dark overlay on card images for text contrast',
+							'Dark overlay on images',
+							'greengrowth-impact-showcase'
+						) }
+					/>
+				</PanelBody>
+
+				{/* Typography */}
+				<PanelBody
+					title={ __( 'Typography', 'greengrowth-impact-showcase' ) }
+					initialOpen={ false }
+				>
+					<RangeControl
+						label={ __( 'Title Font Size', 'greengrowth-impact-showcase' ) }
+						value={ titleFontSize }
+						onChange={ ( value ) => setAttributes( { titleFontSize: value } ) }
+						min={ 16 }
+						max={ 48 }
+						step={ 1 }
+						help={ __( 'Project card titles', 'greengrowth-impact-showcase' ) }
+					/>
+
+					<RangeControl
+						label={ __( 'Excerpt Font Size', 'greengrowth-impact-showcase' ) }
+						value={ excerptFontSize }
+						onChange={ ( value ) => setAttributes( { excerptFontSize: value } ) }
+						min={ 12 }
+						max={ 24 }
+						step={ 1 }
+						help={ __(
+							'Project descriptions',
 							'greengrowth-impact-showcase'
 						) }
 					/>
 
+					<RangeControl
+						label={ __( 'Button Font Size', 'greengrowth-impact-showcase' ) }
+						value={ buttonFontSize }
+						onChange={ ( value ) => setAttributes( { buttonFontSize: value } ) }
+						min={ 11 }
+						max={ 20 }
+						step={ 1 }
+						help={ __( 'Filter button text', 'greengrowth-impact-showcase' ) }
+					/>
+				</PanelBody>
+
+				{/* Filter Buttons */}
+				<PanelBody
+					title={ __( 'Filter Buttons', 'greengrowth-impact-showcase' ) }
+					initialOpen={ false }
+				>
 					<SelectControl
-						label={ __( 'Filter Button Style', 'greengrowth-impact-showcase' ) }
+						label={ __( 'Button Style', 'greengrowth-impact-showcase' ) }
 						value={ buttonStyle }
 						options={ [
 							{
@@ -285,18 +289,19 @@ export default function Edit( props ) {
 						] }
 						onChange={ ( value ) => setAttributes( { buttonStyle: value } ) }
 						help={ __(
-							'Visual style of category filters',
+							'Visual style of filters',
 							'greengrowth-impact-showcase'
 						) }
 					/>
-				</PanelBody>
 
-				<PanelBody
-					title={ __( 'Button Colors', 'greengrowth-impact-showcase' ) }
-					initialOpen={ false }
-				>
+					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
+
 					<Heading level={ 4 }>
-						{ __( 'Button Background (Default)', 'greengrowth-impact-showcase' ) }
+						{ __( 'Default State', 'greengrowth-impact-showcase' ) }
+					</Heading>
+
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Background', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<ColorPalette
 						colors={ COLORS }
@@ -304,8 +309,8 @@ export default function Edit( props ) {
 						onChange={ ( color ) => setAttributes( { buttonBackgroundColor: color } ) }
 					/>
 
-					<Heading level={ 4 }>
-						{ __( 'Button Text (Default)', 'greengrowth-impact-showcase' ) }
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Text', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<ColorPalette
 						colors={ COLORS }
@@ -313,8 +318,8 @@ export default function Edit( props ) {
 						onChange={ ( color ) => setAttributes( { buttonTextColor: color } ) }
 					/>
 
-					<Heading level={ 4 }>
-						{ __( 'Button Border (Default)', 'greengrowth-impact-showcase' ) }
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Border', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<ColorPalette
 						colors={ COLORS }
@@ -322,8 +327,14 @@ export default function Edit( props ) {
 						onChange={ ( color ) => setAttributes( { buttonBorderColor: color } ) }
 					/>
 
+					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
+
 					<Heading level={ 4 }>
-						{ __( 'Active Button Background', 'greengrowth-impact-showcase' ) }
+						{ __( 'Active State', 'greengrowth-impact-showcase' ) }
+					</Heading>
+
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Background', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<ColorPalette
 						colors={ COLORS }
@@ -331,8 +342,8 @@ export default function Edit( props ) {
 						onChange={ ( color ) => setAttributes( { buttonActiveBackgroundColor: color } ) }
 					/>
 
-					<Heading level={ 4 }>
-						{ __( 'Active Button Text', 'greengrowth-impact-showcase' ) }
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Text', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<ColorPalette
 						colors={ COLORS }
@@ -340,8 +351,8 @@ export default function Edit( props ) {
 						onChange={ ( color ) => setAttributes( { buttonActiveTextColor: color } ) }
 					/>
 
-					<Heading level={ 4 }>
-						{ __( 'Active Button Border', 'greengrowth-impact-showcase' ) }
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Border', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<ColorPalette
 						colors={ COLORS }
@@ -349,8 +360,10 @@ export default function Edit( props ) {
 						onChange={ ( color ) => setAttributes( { buttonActiveBorderColor: color } ) }
 					/>
 
+					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
+
 					<RangeControl
-						label={ __( 'Button Border Radius', 'greengrowth-impact-showcase' ) }
+						label={ __( 'Border Radius', 'greengrowth-impact-showcase' ) }
 						value={ buttonBorderRadius }
 						onChange={ ( value ) => setAttributes( { buttonBorderRadius: value } ) }
 						min={ 0 }
@@ -359,7 +372,7 @@ export default function Edit( props ) {
 					/>
 
 					<RangeControl
-						label={ __( 'Button Border Width', 'greengrowth-impact-showcase' ) }
+						label={ __( 'Border Width', 'greengrowth-impact-showcase' ) }
 						value={ buttonBorderWidth }
 						onChange={ ( value ) => setAttributes( { buttonBorderWidth: value } ) }
 						min={ 0 }
