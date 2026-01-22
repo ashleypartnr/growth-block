@@ -1,0 +1,445 @@
+/**
+ * Impact Showcase Block - Ultra Modern Luxury Design
+ *
+ * High-end, sophisticated aesthetic with full customization support
+ * Now powered by Tailwind CSS for consistency across sites
+ *
+ * @package GreenGrowth_Impact_Showcase
+ */
+
+/* Import Tailwind CSS - utilities only to avoid global resets */
+@tailwind components;
+@tailwind utilities;
+
+/* Import luxury typography (Google Fonts via WordPress) */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* Default Luxury Design Tokens */
+:root {
+	/* Colors - Ultra Modern Luxury Palette */
+	--gg-primary-color: #1a1a1a; /* Midnight Black */
+	--gg-accent-color: #d4af37; /* Luxury Gold */
+	--gg-background-color: #ffffff;
+	--gg-text-color: #1a1a1a;
+	--gg-card-bg-color: #ffffff;
+	--gg-secondary-text: #666666;
+
+	/* Typography - Luxury Font Stack */
+	--gg-title-font: 'Cormorant Garamond', 'Georgia', serif;
+	--gg-body-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--gg-title-size: 24px;
+	--gg-excerpt-size: 16px;
+	--gg-button-size: 14px;
+	--gg-title-weight: 600;
+	--gg-body-weight: 400;
+
+	/* Layout - Premium Spacing */
+	--gg-card-radius: 0px;
+	--gg-card-gap: 32px;
+	--gg-content-padding: 32px;
+
+	/* Effects - Sophisticated Shadows */
+	--gg-shadow-none: none;
+	--gg-shadow-subtle: 0 2px 20px rgba(0, 0, 0, 0.04);
+	--gg-shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.06);
+	--gg-shadow-strong: 0 10px 60px rgba(0, 0, 0, 0.12), 0 4px 20px rgba(0, 0, 0, 0.08);
+	--gg-shadow-dramatic: 0 20px 80px rgba(0, 0, 0, 0.18), 0 8px 30px rgba(0, 0, 0, 0.12);
+	--gg-shadow-hover: 0 12px 70px rgba(0, 0, 0, 0.15), 0 6px 25px rgba(0, 0, 0, 0.10);
+
+	/* Transitions - Smooth & Luxurious */
+	--gg-transition-fast: 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+	--gg-transition-medium: 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+	--gg-transition-slow: 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+	/* Overlay */
+	--gg-overlay-opacity: 0;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--gg-transition-fast: 0s;
+		--gg-transition-medium: 0s;
+		--gg-transition-slow: 0s;
+	}
+}
+
+/* Block Wrapper */
+.wp-block-greengrowth-impact-showcase {
+	padding: 60px 0;
+	background-color: var(--gg-background-color);
+	font-family: var(--gg-body-font);
+	color: var(--gg-text-color);
+	border: none;
+	border-style: none;
+	border-width: 0;
+
+	/* Apply shadow intensity class dynamically */
+	&[data-shadow="none"] {
+		--gg-current-shadow: var(--gg-shadow-none);
+		--gg-current-shadow-hover: var(--gg-shadow-subtle);
+	}
+
+	&[data-shadow="subtle"] {
+		--gg-current-shadow: var(--gg-shadow-subtle);
+		--gg-current-shadow-hover: var(--gg-shadow-medium);
+	}
+
+	&[data-shadow="medium"] {
+		--gg-current-shadow: var(--gg-shadow-medium);
+		--gg-current-shadow-hover: var(--gg-shadow-strong);
+	}
+
+	&[data-shadow="strong"] {
+		--gg-current-shadow: var(--gg-shadow-strong);
+		--gg-current-shadow-hover: var(--gg-shadow-dramatic);
+	}
+
+	&[data-shadow="dramatic"] {
+		--gg-current-shadow: var(--gg-shadow-dramatic);
+		--gg-current-shadow-hover: var(--gg-shadow-dramatic);
+	}
+}
+
+/* Filter Buttons Container */
+.gg-filter-buttons {
+	@apply flex flex-wrap gap-3 justify-center;
+	@apply p-0 border-0;
+
+	margin-bottom: 60px;
+}
+
+/* Filter Button Base */
+.gg-filter-button {
+	@apply relative inline-flex items-center justify-center;
+	@apply px-8 py-3.5;
+	@apply font-medium text-sm tracking-widest leading-6 uppercase;
+	@apply cursor-pointer whitespace-nowrap overflow-hidden;
+
+	font-family: var(--gg-body-font);
+	font-size: var(--gg-button-size);
+	color: var(--gg-button-text);
+	background-color: var(--gg-button-bg);
+	border: var(--gg-button-border-width) solid var(--gg-button-border);
+	border-radius: var(--gg-button-radius);
+	transition: all var(--gg-transition-medium);
+
+	&:hover {
+		@apply opacity-80;
+	}
+
+	&.active,
+	&[aria-pressed="true"] {
+		@apply font-semibold;
+		background-color: var(--gg-button-active-bg);
+		color: var(--gg-button-active-text);
+		border-color: var(--gg-button-active-border);
+	}
+}
+
+/* Button styles now fully controlled by custom CSS variables
+   (buttonBackgroundColor, buttonTextColor, buttonBorderColor, etc.)
+   Style variations removed to allow full customization */
+
+/* Focus state - WCAG 2.1 compliant */
+.gg-filter-button:focus {
+	outline: 3px solid var(--gg-accent-color);
+	outline-offset: 3px;
+}
+
+.gg-filter-button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Projects Grid - Premium Layout */
+.gg-projects-grid {
+	@apply grid mb-10;
+	grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+	gap: var(--gg-card-gap);
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 768px) {
+	.gg-projects-grid {
+		grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr));
+	}
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+	.gg-projects-grid {
+		@apply grid-cols-3;
+	}
+}
+
+/* Project Card - Luxury Design */
+.gg-project-card {
+	@apply relative flex flex-col h-full overflow-hidden;
+
+	background-color: var(--gg-card-bg-color);
+	border-radius: var(--gg-card-radius);
+	box-shadow: var(--gg-current-shadow, var(--gg-shadow-medium));
+	transition: box-shadow var(--gg-transition-medium);
+	will-change: transform;
+
+	&:hover {
+		box-shadow: var(--gg-current-shadow-hover, var(--gg-shadow-hover));
+
+		.gg-project-title {
+			color: var(--gg-accent-color);
+			transition: color var(--gg-transition-medium);
+		}
+	}
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.gg-project-card:hover {
+		transform: none;
+
+		.gg-project-image img {
+			transform: none;
+		}
+	}
+}
+
+/* Project Card Link */
+.gg-project-card-link {
+	@apply flex flex-col h-full;
+	@apply no-underline;
+
+	color: inherit;
+
+	&:focus {
+		outline: 3px solid var(--gg-accent-color);
+		outline-offset: 4px;
+	}
+
+	&:focus:not(:focus-visible) {
+		@apply outline-none;
+	}
+}
+
+/* Project Image - Ultra Premium */
+.gg-project-image {
+	@apply relative w-full overflow-hidden;
+
+	aspect-ratio: 16 / 10;
+	background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+
+	&::before {
+		@apply absolute inset-0 z-[1] pointer-events-none;
+
+		content: '';
+		background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, var(--gg-overlay-opacity)) 100%);
+	}
+
+	img {
+		@apply w-full h-full object-cover;
+
+		transition: transform var(--gg-transition-slow);
+		filter: contrast(1.05) saturate(1.1);
+	}
+}
+
+/* Project Content */
+.gg-project-content {
+	@apply flex flex-col flex-1;
+
+	padding: var(--gg-content-padding);
+	background-color: var(--gg-card-bg-color);
+}
+
+/* Project Title - Luxury Typography */
+.gg-project-title {
+	@apply m-0 mb-4 overflow-hidden;
+
+	font-family: var(--gg-title-font);
+	font-size: var(--gg-title-size);
+	font-weight: var(--gg-title-weight);
+	line-height: 1.3;
+	color: var(--gg-text-color);
+	transition: color var(--gg-transition-medium);
+
+	/* Elegant truncation */
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+}
+
+/* Project Excerpt - Refined Typography */
+.gg-project-excerpt {
+	@apply m-0 overflow-hidden;
+
+	font-family: var(--gg-body-font);
+	font-size: var(--gg-excerpt-size);
+	font-weight: var(--gg-body-weight);
+	line-height: 1.7;
+	color: var(--gg-secondary-text);
+
+	/* Elegant truncation */
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+}
+
+/* Empty State - Sophisticated */
+.gg-empty-state {
+	@apply py-20 px-10 text-center;
+
+	color: var(--gg-secondary-text);
+	font-family: var(--gg-body-font);
+	font-size: 18px;
+	font-weight: 300;
+	letter-spacing: 0.5px;
+
+	&.hidden {
+		display: none;
+	}
+
+	p {
+		@apply m-0;
+	}
+}
+
+/* Screen Reader Only */
+.sr-only {
+	@apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+
+	clip: rect(0, 0, 0, 0);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+	.gg-filter-button {
+		@apply border-2 border-current;
+	}
+
+	.gg-project-card {
+		@apply border-2 border-current;
+	}
+}
+
+/* Dark Mode Support - Ultra Premium */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--gg-primary-color: #ffffff;
+		--gg-accent-color: #d4af37;
+		--gg-background-color: #0a0a0a;
+		--gg-text-color: #f5f5f5;
+		--gg-card-bg-color: #1a1a1a;
+		--gg-secondary-text: #a0a0a0;
+	}
+
+	.gg-project-image {
+		background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+
+		img {
+			filter: contrast(0.95) saturate(0.9) brightness(0.95);
+		}
+	}
+}
+
+/* Print Styles */
+@media print {
+	.gg-filter-buttons {
+		display: none;
+	}
+
+	.gg-project-card {
+		@apply border border-gray-300;
+
+		break-inside: avoid;
+		box-shadow: none;
+	}
+
+	.gg-project-card:hover {
+		transform: none;
+	}
+}
+
+/* Wide & Full Alignment Support */
+.wp-block-greengrowth-impact-showcase.alignwide {
+	@apply mx-auto;
+
+	max-width: var(--wp--style--global--wide-size, 1280px);
+}
+
+.wp-block-greengrowth-impact-showcase.alignfull {
+	@apply max-w-none;
+
+	padding-left: 60px;
+	padding-right: 60px;
+}
+
+/* Editor Specific Styles */
+.editor-styles-wrapper .wp-block-greengrowth-impact-showcase {
+	@apply max-w-full;
+}
+
+/* Loading State */
+.components-placeholder.is-loading {
+	@apply min-h-[500px];
+
+	background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+}
+
+/* Premium Hover Effects */
+@media (hover: hover) {
+	.gg-project-card::after {
+		@apply absolute top-0 left-0 right-0 h-[3px];
+
+		content: '';
+		background: linear-gradient(90deg, var(--gg-accent-color), var(--gg-primary-color));
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform var(--gg-transition-medium);
+	}
+
+	.gg-project-card:hover::after {
+		transform: scaleX(1);
+	}
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+	.wp-block-greengrowth-impact-showcase {
+		@apply py-10;
+	}
+
+	.gg-filter-buttons {
+		@apply mb-10;
+	}
+
+	.gg-project-content {
+		@apply p-6;
+	}
+
+	.gg-filter-button {
+		@apply px-6 py-3;
+
+		font-size: calc(var(--gg-button-size) * 0.9);
+	}
+}
+
+/* Ultra Premium: Subtle Animations on Load */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* GSAP handles all animations - CSS animations disabled */
+@media (prefers-reduced-motion: no-preference) {
+	.gg-project-card {
+		/* Animation handled by GSAP */
+		will-change: transform, opacity;
+	}
+}

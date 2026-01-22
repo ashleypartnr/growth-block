@@ -1,0 +1,121 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "greengrowth/impact-showcase",
+  "version": "1.0.0",
+  "title": "Impact Showcase",
+  "category": "widgets",
+  "icon": "admin-site-alt3",
+  "description": "Display GreenGrowth projects in a filterable, responsive grid.",
+  "keywords": [
+    "projects",
+    "showcase",
+    "portfolio",
+    "filter",
+    "greengrowth"
+  ],
+  "textDomain": "greengrowth-impact-showcase",
+  "attributes": {
+    "primaryColor": {
+      "type": "string",
+      "default": "#1a1a1a"
+    },
+    "accentColor": {
+      "type": "string",
+      "default": "#d4af37"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#1a1a1a"
+    },
+    "cardBackgroundColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "titleFontSize": {
+      "type": "number",
+      "default": 24
+    },
+    "excerptFontSize": {
+      "type": "number",
+      "default": 16
+    },
+    "buttonFontSize": {
+      "type": "number",
+      "default": 14
+    },
+    "cardBorderRadius": {
+      "type": "number",
+      "default": 0
+    },
+    "cardGap": {
+      "type": "number",
+      "default": 32
+    },
+    "shadowIntensity": {
+      "type": "string",
+      "default": "medium"
+    },
+    "overlayOpacity": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonStyle": {
+      "type": "string",
+      "default": "minimal"
+    },
+    "buttonBackgroundColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "buttonTextColor": {
+      "type": "string",
+      "default": "#1a1a1a"
+    },
+    "buttonBorderColor": {
+      "type": "string",
+      "default": "#e0e0e0"
+    },
+    "buttonActiveBackgroundColor": {
+      "type": "string",
+      "default": "#1a1a1a"
+    },
+    "buttonActiveTextColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "buttonActiveBorderColor": {
+      "type": "string",
+      "default": "#1a1a1a"
+    },
+    "buttonBorderRadius": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonBorderWidth": {
+      "type": "number",
+      "default": 1
+    },
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./style-index.css",
+  "style": "file:./style-index.css",
+  "viewScriptModule": "file:./view.js",
+  "render": "file:./render.php"
+}
