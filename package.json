@@ -6,9 +6,8 @@
   "license": "GPL-2.0-or-later",
   "main": "build/index.js",
   "scripts": {
-    "build": "wp-scripts build src/index.js --output-path=build && npm run copy-files && npm run fix-css",
+    "build": "wp-scripts build src/index.js --output-path=build && npm run copy-files",
     "copy-files": "cp src/block.json build/ && cp src/render.php build/",
-    "fix-css": "cd build && mv style-style-index.css style-index.css 2>/dev/null || true && mv style-style-index-rtl.css style-index-rtl.css 2>/dev/null || true",
     "start": "wp-scripts start src/index.js --output-path=build",
     "lint:js": "wp-scripts lint-js",
     "lint:css": "wp-scripts lint-style",
