@@ -9,6 +9,103 @@ import { store, getContext, getElement } from '@wordpress/interactivity';
 const getShowcaseRoot = ( element ) =>
 	element?.closest?.( '[data-wp-interactive="greengrowth-showcase"]' ) || null;
 
+/**
+ * Normalize heights of titles and excerpts within each row
+ * so that cards align properly in the grid.
+ */
+const normalizeCardHeights = ( root ) => {
+	if ( ! root ) {
+		return;
+	}
+
+	const grid = root.querySelector( '.gg-projects-grid' );
+	if ( ! grid ) {
+		return;
+	}
+
+	const cards = Array.from( grid.querySelectorAll( '.gg-project-card' ) );
+	const visibleCards = cards.filter( ( card ) => card.style.display !== 'none' );
+
+	if ( visibleCards.length === 0 ) {
+		return;
+	}
+
+	// Reset min-heights first
+	visibleCards.forEach( ( card ) => {
+		const title = card.querySelector( '.gg-project-title' );
+		const excerpt = card.querySelector( '.gg-project-excerpt' );
+		if ( title ) {
+			title.style.minHeight = '';
+		}
+		if ( excerpt ) {
+			excerpt.style.minHeight = '';
+		}
+	} );
+
+	// Group cards by row based on their offsetTop position
+	const rows = [];
+	let currentRow = [];
+	let currentTop = null;
+
+	visibleCards.forEach( ( card ) => {
+		const top = card.offsetTop;
+		if ( currentTop === null || Math.abs( top - currentTop ) < 10 ) {
+			// Same row (within 10px tolerance for sub-pixel rendering)
+			currentRow.push( card );
+			currentTop = top;
+		} else {
+			// New row
+			if ( currentRow.length > 0 ) {
+				rows.push( currentRow );
+			}
+			currentRow = [ card ];
+			currentTop = top;
+		}
+	} );
+
+	// Add the last row
+	if ( currentRow.length > 0 ) {
+		rows.push( currentRow );
+	}
+
+	// Normalize heights within each row (skip single-column layouts)
+	rows.forEach( ( rowCards ) => {
+		// Skip normalization if there's only 1 card in the row (single column layout)
+		if ( rowCards.length === 1 ) {
+			return;
+		}
+
+		// Find max title height in this row
+		let maxTitleHeight = 0;
+		let maxExcerptHeight = 0;
+
+		rowCards.forEach( ( card ) => {
+			const title = card.querySelector( '.gg-project-title' );
+			const excerpt = card.querySelector( '.gg-project-excerpt' );
+
+			if ( title ) {
+				maxTitleHeight = Math.max( maxTitleHeight, title.offsetHeight );
+			}
+			if ( excerpt ) {
+				maxExcerptHeight = Math.max( maxExcerptHeight, excerpt.offsetHeight );
+			}
+		} );
+
+		// Apply min-heights to all cards in the row
+		rowCards.forEach( ( card ) => {
+			const title = card.querySelector( '.gg-project-title' );
+			const excerpt = card.querySelector( '.gg-project-excerpt' );
+
+			if ( title && maxTitleHeight > 0 ) {
+				title.style.minHeight = `${ maxTitleHeight }px`;
+			}
+			if ( excerpt && maxExcerptHeight > 0 ) {
+				excerpt.style.minHeight = `${ maxExcerptHeight }px`;
+			}
+		} );
+	} );
+};
+
 const createProjectCard = ( project, showExploreButton, exploreButtonText ) => {
 	const article = document.createElement( 'article' );
 	article.className = 'gg-project-card';
@@ -117,6 +214,8 @@ const loadMoreProjects = ( context, root ) => {
 	// Update loading state
 	setTimeout( () => {
 		context.isLoading = false;
+		// Normalize card heights after new cards are added
+		normalizeCardHeights( root );
 	}, 300 );
 };
 
@@ -193,6 +292,11 @@ store( 'greengrowth-showcase', {
 				if ( emptyState ) {
 					emptyState.style.display = context.displayedProjects.length === 0 ? '' : 'none';
 				}
+
+				// Normalize card heights after filtering
+				setTimeout( () => {
+					normalizeCardHeights( root );
+				}, 50 );
 			}
 		},
 	},
@@ -228,6 +332,54 @@ store( 'greengrowth-showcase', {
 			// Cleanup on unmount
 			return () => {
 				observer.disconnect();
+			};
+		},
+		initCardHeightNormalization() {
+			const { ref } = getElement();
+			const root = getShowcaseRoot( ref );
+
+			if ( ! root ) {
+				return;
+			}
+
+			// Normalize heights on initial load
+			setTimeout( () => {
+				normalizeCardHeights( root );
+			}, 100 );
+
+			// Recalculate on window resize using requestAnimationFrame for instant response
+			let resizeTimeout;
+			let rafId;
+			const handleResize = () => {
+				// Cancel any pending animation frame
+				if ( rafId ) {
+					cancelAnimationFrame( rafId );
+				}
+
+				// Clear existing timeout
+				clearTimeout( resizeTimeout );
+
+				// Use RAF for immediate visual update
+				rafId = requestAnimationFrame( () => {
+					normalizeCardHeights( root );
+					rafId = null;
+				} );
+
+				// Debounce for final recalculation after resize stops
+				resizeTimeout = setTimeout( () => {
+					normalizeCardHeights( root );
+				}, 50 );
+			};
+
+			window.addEventListener( 'resize', handleResize );
+
+			// Cleanup
+			return () => {
+				window.removeEventListener( 'resize', handleResize );
+				if ( rafId ) {
+					cancelAnimationFrame( rafId );
+				}
+				clearTimeout( resizeTimeout );
 			};
 		},
 	},

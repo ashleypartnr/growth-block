@@ -216,7 +216,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 		<?php endif; ?>
 	</nav>
 
-	<div class="gg-projects-grid">
+	<div class="gg-projects-grid" data-wp-init="callbacks.initCardHeightNormalization">
 		<?php if ( ! empty( $displayed_projects ) ) : ?>
 			<?php foreach ( $displayed_projects as $project ) : ?>
 				<article class="gg-project-card" data-wp-key="<?php echo esc_attr( $project['id'] ); ?>" data-service-areas="<?php echo esc_attr( implode( ',', $project['serviceAreas'] ) ); ?>">
