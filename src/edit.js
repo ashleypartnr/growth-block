@@ -278,15 +278,15 @@ export default function Edit( props ) {
 					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
 
 					<Heading level={ 4 }>
-						{ __( 'Explore More Button', 'greengrowth-impact-showcase' ) }
+						{ __( 'Explore Link', 'greengrowth-impact-showcase' ) }
 					</Heading>
 
 					<ToggleControl
-						label={ __( 'Show Explore More Button', 'greengrowth-impact-showcase' ) }
+						label={ __( 'Show Explore Link', 'greengrowth-impact-showcase' ) }
 						checked={ showExploreButton }
 						onChange={ ( value ) => setAttributes( { showExploreButton: value } ) }
 						help={ __(
-							'Display a button on each card',
+							'Display a link with arrow icon on each card',
 							'greengrowth-impact-showcase'
 						) }
 					/>
@@ -294,19 +294,9 @@ export default function Edit( props ) {
 					{ showExploreButton && (
 						<>
 							<TextControl
-								label={ __( 'Button Text', 'greengrowth-impact-showcase' ) }
+								label={ __( 'Link Text', 'greengrowth-impact-showcase' ) }
 								value={ exploreButtonText }
 								onChange={ ( value ) => setAttributes( { exploreButtonText: value } ) }
-								help={ __( 'Text displayed on the button', 'greengrowth-impact-showcase' ) }
-							/>
-
-							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-								{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ exploreButtonBackgroundColor }
-								onChange={ ( color ) => setAttributes( { exploreButtonBackgroundColor: color } ) }
 							/>
 
 							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
@@ -319,43 +309,7 @@ export default function Edit( props ) {
 							/>
 
 							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-								{ __( 'Border Color', 'greengrowth-impact-showcase' ) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ exploreButtonBorderColor }
-								onChange={ ( color ) => setAttributes( { exploreButtonBorderColor: color } ) }
-							/>
-
-							<RangeControl
-								label={ __( 'Border Width', 'greengrowth-impact-showcase' ) }
-								value={ exploreButtonBorderWidth }
-								onChange={ ( value ) => setAttributes( { exploreButtonBorderWidth: value } ) }
-								min={ 0 }
-								max={ 5 }
-								step={ 1 }
-							/>
-
-							<RangeControl
-								label={ __( 'Border Radius', 'greengrowth-impact-showcase' ) }
-								value={ exploreButtonBorderRadius }
-								onChange={ ( value ) => setAttributes( { exploreButtonBorderRadius: value } ) }
-								min={ 0 }
-								max={ 50 }
-								step={ 1 }
-							/>
-
-							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-								{ __( 'Hover Background Color', 'greengrowth-impact-showcase' ) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ exploreButtonHoverBackgroundColor }
-								onChange={ ( color ) => setAttributes( { exploreButtonHoverBackgroundColor: color } ) }
-							/>
-
-							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-								{ __( 'Hover Text Color', 'greengrowth-impact-showcase' ) }
+								{ __( 'Hover Color', 'greengrowth-impact-showcase' ) }
 							</Heading>
 							<ColorPalette
 								colors={ COLORS }
@@ -415,14 +369,13 @@ export default function Edit( props ) {
 						value={ buttonStyle }
 						options={ [
 							{
-								label: __( 'Minimal', 'greengrowth-impact-showcase' ),
-								value: 'minimal',
+								label: __( 'Text Only', 'greengrowth-impact-showcase' ),
+								value: 'text',
 							},
 							{
-								label: __( 'Outlined', 'greengrowth-impact-showcase' ),
-								value: 'outlined',
+								label: __( 'Button', 'greengrowth-impact-showcase' ),
+								value: 'button',
 							},
-							{ label: __( 'Filled', 'greengrowth-impact-showcase' ), value: 'filled' },
 							{
 								label: __( 'Underline', 'greengrowth-impact-showcase' ),
 								value: 'underline',
@@ -438,20 +391,7 @@ export default function Edit( props ) {
 					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
 
 					<Heading level={ 4 }>
-						{ __( 'Default State', 'greengrowth-impact-showcase' ) }
-					</Heading>
-
-					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Background', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonBackgroundColor }
-						onChange={ ( color ) => setAttributes( { buttonBackgroundColor: color } ) }
-					/>
-
-					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Text', 'greengrowth-impact-showcase' ) }
+						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<ColorPalette
 						colors={ COLORS }
@@ -459,14 +399,27 @@ export default function Edit( props ) {
 						onChange={ ( color ) => setAttributes( { buttonTextColor: color } ) }
 					/>
 
-					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Border', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonBorderColor }
-						onChange={ ( color ) => setAttributes( { buttonBorderColor: color } ) }
-					/>
+					{ buttonStyle === 'button' && (
+						<>
+							<Heading level={ 4 } style={{ marginTop: '24px' }}>
+								{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ buttonBackgroundColor }
+								onChange={ ( color ) => setAttributes( { buttonBackgroundColor: color } ) }
+							/>
+
+							<RangeControl
+								label={ __( 'Border Radius', 'greengrowth-impact-showcase' ) }
+								value={ buttonBorderRadius }
+								onChange={ ( value ) => setAttributes( { buttonBorderRadius: value } ) }
+								min={ 0 }
+								max={ 50 }
+								step={ 1 }
+							/>
+						</>
+					) }
 
 					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
 
@@ -475,16 +428,7 @@ export default function Edit( props ) {
 					</Heading>
 
 					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Background', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonActiveBackgroundColor }
-						onChange={ ( color ) => setAttributes( { buttonActiveBackgroundColor: color } ) }
-					/>
-
-					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Text', 'greengrowth-impact-showcase' ) }
+						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
 					</Heading>
 					<ColorPalette
 						colors={ COLORS }
@@ -492,34 +436,34 @@ export default function Edit( props ) {
 						onChange={ ( color ) => setAttributes( { buttonActiveTextColor: color } ) }
 					/>
 
-					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Border', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonActiveBorderColor }
-						onChange={ ( color ) => setAttributes( { buttonActiveBorderColor: color } ) }
-					/>
+					{ buttonStyle === 'button' && (
+						<>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ buttonActiveBackgroundColor }
+								onChange={ ( color ) => setAttributes( { buttonActiveBackgroundColor: color } ) }
+							/>
+						</>
+					) }
 
-					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
-
-					<RangeControl
-						label={ __( 'Border Radius', 'greengrowth-impact-showcase' ) }
-						value={ buttonBorderRadius }
-						onChange={ ( value ) => setAttributes( { buttonBorderRadius: value } ) }
-						min={ 0 }
-						max={ 50 }
-						step={ 1 }
-					/>
-
-					<RangeControl
-						label={ __( 'Border Width', 'greengrowth-impact-showcase' ) }
-						value={ buttonBorderWidth }
-						onChange={ ( value ) => setAttributes( { buttonBorderWidth: value } ) }
-						min={ 0 }
-						max={ 5 }
-						step={ 1 }
-					/>
+					{ ( buttonStyle === 'text' || buttonStyle === 'underline' ) && (
+						<>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Accent Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<p className="components-base-control__help" style={{ marginTop: '-8px', marginBottom: '8px' }}>
+								{ __( 'Underline color for selected filter', 'greengrowth-impact-showcase' ) }
+							</p>
+							<ColorPalette
+								colors={ COLORS }
+								value={ buttonActiveBackgroundColor }
+								onChange={ ( color ) => setAttributes( { buttonActiveBackgroundColor: color } ) }
+							/>
+						</>
+					) }
 
 					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
 
@@ -527,32 +471,43 @@ export default function Edit( props ) {
 						{ __( 'Hover State', 'greengrowth-impact-showcase' ) }
 					</Heading>
 
-					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Background', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonHoverBackgroundColor }
-						onChange={ ( color ) => setAttributes( { buttonHoverBackgroundColor: color } ) }
-					/>
+					{ buttonStyle === 'button' && (
+						<>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ buttonHoverBackgroundColor }
+								onChange={ ( color ) => setAttributes( { buttonHoverBackgroundColor: color } ) }
+							/>
 
-					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Text', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonHoverTextColor }
-						onChange={ ( color ) => setAttributes( { buttonHoverTextColor: color } ) }
-					/>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ buttonHoverTextColor }
+								onChange={ ( color ) => setAttributes( { buttonHoverTextColor: color } ) }
+							/>
+						</>
+					) }
 
-					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
-						{ __( 'Border', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonHoverBorderColor }
-						onChange={ ( color ) => setAttributes( { buttonHoverBorderColor: color } ) }
-					/>
+					{ ( buttonStyle === 'text' || buttonStyle === 'underline' ) && (
+						<>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<p className="components-base-control__help" style={{ marginTop: '-8px', marginBottom: '8px' }}>
+								{ __( 'Text and underline color', 'greengrowth-impact-showcase' ) }
+							</p>
+							<ColorPalette
+								colors={ COLORS }
+								value={ buttonHoverTextColor }
+								onChange={ ( color ) => setAttributes( { buttonHoverTextColor: color } ) }
+							/>
+						</>
+					) }
 				</PanelBody>
 			</InspectorControls>
 

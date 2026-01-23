@@ -50,6 +50,25 @@ const createProjectCard = ( project, showExploreButton, exploreButtonText ) => {
 		const button = document.createElement( 'span' );
 		button.className = 'gg-explore-button';
 		button.textContent = exploreButtonText;
+
+		// Add arrow icon
+		const svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
+		svg.setAttribute( 'class', 'gg-explore-icon' );
+		svg.setAttribute( 'width', '20' );
+		svg.setAttribute( 'height', '20' );
+		svg.setAttribute( 'viewBox', '0 0 20 20' );
+		svg.setAttribute( 'fill', 'none' );
+		svg.setAttribute( 'aria-hidden', 'true' );
+
+		const path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
+		path.setAttribute( 'd', 'M4 10H16M16 10L11 5M16 10L11 15' );
+		path.setAttribute( 'stroke', 'currentColor' );
+		path.setAttribute( 'stroke-width', '2' );
+		path.setAttribute( 'stroke-linecap', 'round' );
+		path.setAttribute( 'stroke-linejoin', 'round' );
+
+		svg.appendChild( path );
+		button.appendChild( svg );
 		contentDiv.appendChild( button );
 	}
 

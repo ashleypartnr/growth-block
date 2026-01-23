@@ -18,19 +18,19 @@
   "attributes": {
     "primaryColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "#1b3a2f"
     },
     "accentColor": {
       "type": "string",
-      "default": "#d4af37"
+      "default": "#c9a961"
     },
     "backgroundColor": {
       "type": "string",
-      "default": "#ffffff"
+      "default": "transparent"
     },
     "textColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "#2d2d2d"
     },
     "cardBackgroundColor": {
       "type": "string",
@@ -42,23 +42,23 @@
     },
     "excerptFontSize": {
       "type": "number",
-      "default": 16
+      "default": 14
     },
     "buttonFontSize": {
       "type": "number",
-      "default": 14
+      "default": 15
     },
     "cardBorderRadius": {
       "type": "number",
-      "default": 0
+      "default": 16
     },
     "cardGap": {
       "type": "number",
-      "default": 32
+      "default": 24
     },
     "shadowIntensity": {
       "type": "string",
-      "default": "medium"
+      "default": "strong"
     },
     "overlayOpacity": {
       "type": "number",
@@ -66,23 +66,23 @@
     },
     "buttonStyle": {
       "type": "string",
-      "default": "minimal"
+      "default": "button"
     },
     "buttonBackgroundColor": {
       "type": "string",
-      "default": "#ffffff"
+      "default": "#f0f0f0"
     },
     "buttonTextColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "#1b3a2f"
     },
     "buttonBorderColor": {
       "type": "string",
-      "default": "#e0e0e0"
+      "default": "#f0f0f0"
     },
     "buttonActiveBackgroundColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "#1b3a2f"
     },
     "buttonActiveTextColor": {
       "type": "string",
@@ -90,27 +90,27 @@
     },
     "buttonActiveBorderColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "#1b3a2f"
     },
     "buttonBorderRadius": {
       "type": "number",
-      "default": 0
+      "default": 8
     },
     "buttonBorderWidth": {
       "type": "number",
-      "default": 1
+      "default": 0
     },
     "buttonHoverBackgroundColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "#c9a961"
     },
     "buttonHoverTextColor": {
       "type": "string",
-      "default": "#d4af37"
+      "default": "#ffffff"
     },
     "buttonHoverBorderColor": {
       "type": "string",
-      "default": "#d4af37"
+      "default": "#c9a961"
     },
     "showExploreButton": {
       "type": "boolean",
@@ -118,19 +118,19 @@
     },
     "exploreButtonText": {
       "type": "string",
-      "default": "Explore More"
+      "default": "View Project"
     },
     "exploreButtonBackgroundColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "transparent"
     },
     "exploreButtonTextColor": {
       "type": "string",
-      "default": "#ffffff"
+      "default": "#c9a961"
     },
     "exploreButtonBorderColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "transparent"
     },
     "exploreButtonBorderWidth": {
       "type": "number",
@@ -142,15 +142,15 @@
     },
     "exploreButtonHoverBackgroundColor": {
       "type": "string",
-      "default": "#d4af37"
+      "default": "transparent"
     },
     "exploreButtonHoverTextColor": {
       "type": "string",
-      "default": "#1a1a1a"
+      "default": "#b89551"
     },
     "postsPerPage": {
       "type": "number",
-      "default": 3
+      "default": 6
     },
     "align": {
       "type": "string",

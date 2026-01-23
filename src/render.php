@@ -189,12 +189,13 @@ $wrapper_attributes = get_block_wrapper_attributes(
 	<nav class="gg-filter-buttons" role="group" aria-label="<?php esc_attr_e( 'Filter projects by service area', 'greengrowth-impact-showcase' ); ?>" data-button-style="<?php echo esc_attr( $button_style ); ?>">
 		<button
 			type="button"
-			class="gg-filter-button"
+			class="gg-filter-button active"
 			data-wp-on--click="actions.filterByArea"
 			data-wp-class--active="state.isActive"
 			data-wp-bind--aria-pressed="state.isActive"
 			data-wp-context='<?php echo wp_json_encode( array( 'buttonArea' => 'all' ) ); ?>'
-			data-area="all">
+			data-area="all"
+			aria-pressed="true">
 			<?php esc_html_e( 'All Projects', 'greengrowth-impact-showcase' ); ?>
 		</button>
 
@@ -207,7 +208,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
 					data-wp-class--active="state.isActive"
 					data-wp-bind--aria-pressed="state.isActive"
 					data-wp-context='<?php echo wp_json_encode( array( 'buttonArea' => $term->slug ) ); ?>'
-					data-area="<?php echo esc_attr( $term->slug ); ?>">
+					data-area="<?php echo esc_attr( $term->slug ); ?>"
+					aria-pressed="false">
 					<?php echo esc_html( $term->name ); ?>
 				</button>
 			<?php endforeach; ?>
@@ -235,6 +237,9 @@ $wrapper_attributes = get_block_wrapper_attributes(
 							<?php if ( $show_explore_button ) : ?>
 								<span class="gg-explore-button">
 									<?php echo esc_html( $explore_button_text ); ?>
+									<svg class="gg-explore-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+										<path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
 								</span>
 							<?php endif; ?>
 						</div>

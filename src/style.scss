@@ -62,7 +62,7 @@
 
 /* Block Wrapper */
 .wp-block-greengrowth-impact-showcase {
-	padding: 60px 0;
+	padding: 0px 0;
 	background-color: var(--gg-background-color);
 	font-family: var(--gg-body-font);
 	color: var(--gg-text-color);
@@ -138,46 +138,40 @@
 
 /* Button Style Variants */
 
-/* Minimal Style - Clean, text-based buttons */
-.gg-filter-buttons[data-button-style="minimal"] .gg-filter-button {
-	/* Inherits background-color from base .gg-filter-button */
+/* Text Only Style - Pure text, minimal design */
+.gg-filter-buttons[data-button-style="text"] .gg-filter-button {
+	@apply px-4 py-2;
+
+	background-color: transparent;
 	border: none;
 
 	&:hover:not([aria-pressed="true"]) {
-		background-color: var(--gg-button-hover-bg);
+		background-color: transparent;
 		color: var(--gg-button-hover-text);
-		transform: translateY(-2px);
+		transform: translateY(-1px);
 	}
 
 	&.active,
 	&[aria-pressed="true"] {
-		border-bottom: 2px solid var(--gg-button-active-border);
-		border-radius: 0;
+		background-color: transparent;
+		color: var(--gg-button-active-bg);
+		font-weight: 600;
+		position: relative;
+
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 16px;
+			right: 16px;
+			height: 2px;
+			background-color: var(--gg-button-active-bg);
+		}
 	}
 }
 
-/* Outlined Style - Border emphasis */
-.gg-filter-buttons[data-button-style="outlined"] .gg-filter-button {
-	/* Inherits background-color from base .gg-filter-button */
-	border-width: 2px;
-
-	&:hover:not([aria-pressed="true"]) {
-		background-color: var(--gg-button-hover-bg);
-		border-color: var(--gg-button-hover-border);
-		color: var(--gg-button-hover-text);
-		transform: translateY(-2px);
-	}
-
-	&.active,
-	&[aria-pressed="true"] {
-		background-color: var(--gg-button-active-bg);
-		border-color: var(--gg-button-active-border);
-	}
-}
-
-/* Filled Style - Solid background buttons */
-.gg-filter-buttons[data-button-style="filled"] .gg-filter-button {
-	/* Explicitly uses button-bg variable (same as base, but explicit) */
+/* Button Style - Filled background buttons (premium default) */
+.gg-filter-buttons[data-button-style="button"] .gg-filter-button {
 	background-color: var(--gg-button-bg);
 	border-width: 0;
 
@@ -195,26 +189,30 @@
 	}
 }
 
-/* Underline Style - Bottom border emphasis */
+/* Underline Style - Clean underline emphasis */
 .gg-filter-buttons[data-button-style="underline"] .gg-filter-button {
-	@apply rounded-none;
-	/* Inherits background-color from base .gg-filter-button */
+	@apply rounded-none px-4;
+
+	background-color: transparent;
 	border: none;
-	border-bottom: 2px solid var(--gg-button-border);
+	border-bottom: 2px solid transparent;
 	border-radius: 0;
 	padding-bottom: 8px;
+	padding-top: 10px;
 
 	&:hover:not([aria-pressed="true"]) {
-		background-color: var(--gg-button-hover-bg);
-		border-bottom-color: var(--gg-button-hover-border);
-		border-bottom-width: 3px;
+		background-color: transparent;
+		border-bottom-color: var(--gg-button-hover-text);
 		color: var(--gg-button-hover-text);
-		padding-bottom: 7px;
 	}
 
 	&.active,
 	&[aria-pressed="true"] {
-		border-bottom: 3px solid var(--gg-button-active-border);
+		background-color: transparent;
+		border-bottom: 3px solid var(--gg-button-active-bg);
+		color: var(--gg-button-active-bg);
+		padding-bottom: 7px;
+		font-weight: 600;
 	}
 }
 
@@ -365,8 +363,8 @@
 
 /* Explore More Button */
 .gg-explore-button {
-	@apply inline-block mt-4 py-2.5;
-	@apply font-medium text-sm tracking-wide uppercase;
+	@apply inline-flex items-center gap-2 mt-4;
+	@apply font-semibold text-sm tracking-wide;
 	@apply transition-all duration-300 ease-in-out;
 	@apply cursor-pointer;
 
@@ -375,10 +373,15 @@
 	color: var(--gg-explore-btn-text);
 	border: var(--gg-explore-btn-border-width) solid var(--gg-explore-btn-border);
 	border-radius: var(--gg-explore-btn-radius);
+	letter-spacing: 0.02em;
 
 	&:hover {
 		background-color: var(--gg-explore-btn-hover-bg);
 		color: var(--gg-explore-btn-hover-text);
+
+		.gg-explore-icon {
+			transform: translateX(4px);
+		}
 	}
 
 	&:focus {
@@ -391,10 +394,24 @@
 	}
 }
 
+/* Explore Button Icon */
+.gg-explore-icon {
+	@apply inline-block;
+	@apply transition-transform duration-300 ease-out;
+
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
 	.gg-explore-button:hover {
 		transform: none;
+
+		.gg-explore-icon {
+			transform: none;
+		}
 	}
 }
 
@@ -483,8 +500,8 @@
 .wp-block-greengrowth-impact-showcase.alignfull {
 	@apply max-w-none;
 
-	padding-left: 60px;
-	padding-right: 60px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 /* Editor Specific Styles */
