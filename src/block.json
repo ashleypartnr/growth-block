@@ -100,6 +100,18 @@
       "type": "number",
       "default": 1
     },
+    "buttonHoverBackgroundColor": {
+      "type": "string",
+      "default": "#1a1a1a"
+    },
+    "buttonHoverTextColor": {
+      "type": "string",
+      "default": "#d4af37"
+    },
+    "buttonHoverBorderColor": {
+      "type": "string",
+      "default": "#d4af37"
+    },
     "showExploreButton": {
       "type": "boolean",
       "default": true
@@ -110,15 +122,15 @@
     },
     "exploreButtonBackgroundColor": {
       "type": "string",
-      "default": ""
+      "default": "#1a1a1a"
     },
     "exploreButtonTextColor": {
       "type": "string",
-      "default": ""
+      "default": "#ffffff"
     },
     "exploreButtonBorderColor": {
       "type": "string",
-      "default": ""
+      "default": "#1a1a1a"
     },
     "exploreButtonBorderWidth": {
       "type": "number",
@@ -130,11 +142,11 @@
     },
     "exploreButtonHoverBackgroundColor": {
       "type": "string",
-      "default": ""
+      "default": "#d4af37"
     },
     "exploreButtonHoverTextColor": {
       "type": "string",
-      "default": ""
+      "default": "#1a1a1a"
     },
     "postsPerPage": {
       "type": "number",

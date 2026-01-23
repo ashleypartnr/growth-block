@@ -120,8 +120,11 @@
 	border-radius: var(--gg-button-radius);
 	transition: all var(--gg-transition-medium);
 
-	&:hover {
-		@apply opacity-80;
+	&:hover:not([aria-pressed="true"]) {
+		background-color: var(--gg-button-hover-bg);
+		color: var(--gg-button-hover-text);
+		border-color: var(--gg-button-hover-border);
+		transform: translateY(-1px);
 	}
 
 	&.active,
@@ -133,7 +136,87 @@
 	}
 }
 
-/* Button styles  */
+/* Button Style Variants */
+
+/* Minimal Style - Clean, text-based buttons */
+.gg-filter-buttons[data-button-style="minimal"] .gg-filter-button {
+	/* Inherits background-color from base .gg-filter-button */
+	border: none;
+
+	&:hover:not([aria-pressed="true"]) {
+		background-color: var(--gg-button-hover-bg);
+		color: var(--gg-button-hover-text);
+		transform: translateY(-2px);
+	}
+
+	&.active,
+	&[aria-pressed="true"] {
+		border-bottom: 2px solid var(--gg-button-active-border);
+		border-radius: 0;
+	}
+}
+
+/* Outlined Style - Border emphasis */
+.gg-filter-buttons[data-button-style="outlined"] .gg-filter-button {
+	/* Inherits background-color from base .gg-filter-button */
+	border-width: 2px;
+
+	&:hover:not([aria-pressed="true"]) {
+		background-color: var(--gg-button-hover-bg);
+		border-color: var(--gg-button-hover-border);
+		color: var(--gg-button-hover-text);
+		transform: translateY(-2px);
+	}
+
+	&.active,
+	&[aria-pressed="true"] {
+		background-color: var(--gg-button-active-bg);
+		border-color: var(--gg-button-active-border);
+	}
+}
+
+/* Filled Style - Solid background buttons */
+.gg-filter-buttons[data-button-style="filled"] .gg-filter-button {
+	/* Explicitly uses button-bg variable (same as base, but explicit) */
+	background-color: var(--gg-button-bg);
+	border-width: 0;
+
+	&:hover:not([aria-pressed="true"]) {
+		background-color: var(--gg-button-hover-bg);
+		color: var(--gg-button-hover-text);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+
+	&.active,
+	&[aria-pressed="true"] {
+		background-color: var(--gg-button-active-bg);
+		border-width: 0;
+	}
+}
+
+/* Underline Style - Bottom border emphasis */
+.gg-filter-buttons[data-button-style="underline"] .gg-filter-button {
+	@apply rounded-none;
+	/* Inherits background-color from base .gg-filter-button */
+	border: none;
+	border-bottom: 2px solid var(--gg-button-border);
+	border-radius: 0;
+	padding-bottom: 8px;
+
+	&:hover:not([aria-pressed="true"]) {
+		background-color: var(--gg-button-hover-bg);
+		border-bottom-color: var(--gg-button-hover-border);
+		border-bottom-width: 3px;
+		color: var(--gg-button-hover-text);
+		padding-bottom: 7px;
+	}
+
+	&.active,
+	&[aria-pressed="true"] {
+		border-bottom: 3px solid var(--gg-button-active-border);
+	}
+}
 
 /* Focus state - WCAG 2.1 compliant */
 .gg-filter-button:focus {

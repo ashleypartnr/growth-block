@@ -43,15 +43,18 @@ $button_active_text = gg_get_color_value( $attributes, 'buttonActiveTextColor', 
 $button_active_border = gg_get_color_value( $attributes, 'buttonActiveBorderColor', '#1a1a1a' );
 $button_border_radius = isset( $attributes['buttonBorderRadius'] ) ? $attributes['buttonBorderRadius'] : 0;
 $button_border_width = isset( $attributes['buttonBorderWidth'] ) ? $attributes['buttonBorderWidth'] : 1;
+$button_hover_bg = isset( $attributes['buttonHoverBackgroundColor'] ) ? $attributes['buttonHoverBackgroundColor'] : '#1a1a1a';
+$button_hover_text = isset( $attributes['buttonHoverTextColor'] ) ? $attributes['buttonHoverTextColor'] : '#d4af37';
+$button_hover_border = isset( $attributes['buttonHoverBorderColor'] ) ? $attributes['buttonHoverBorderColor'] : '#d4af37';
 $show_explore_button = isset( $attributes['showExploreButton'] ) ? $attributes['showExploreButton'] : true;
 $explore_button_text = isset( $attributes['exploreButtonText'] ) ? $attributes['exploreButtonText'] : 'Explore More';
-$explore_button_bg = gg_get_color_value( $attributes, 'exploreButtonBackgroundColor', '#1a1a1a' );
-$explore_button_text_color = gg_get_color_value( $attributes, 'exploreButtonTextColor', '#ffffff' );
-$explore_button_border = gg_get_color_value( $attributes, 'exploreButtonBorderColor', '#1a1a1a' );
+$explore_button_bg = isset( $attributes['exploreButtonBackgroundColor'] ) ? $attributes['exploreButtonBackgroundColor'] : '#1a1a1a';
+$explore_button_text_color = isset( $attributes['exploreButtonTextColor'] ) ? $attributes['exploreButtonTextColor'] : '#ffffff';
+$explore_button_border = isset( $attributes['exploreButtonBorderColor'] ) ? $attributes['exploreButtonBorderColor'] : '#1a1a1a';
 $explore_button_border_width = isset( $attributes['exploreButtonBorderWidth'] ) ? $attributes['exploreButtonBorderWidth'] : 0;
 $explore_button_radius = isset( $attributes['exploreButtonBorderRadius'] ) ? $attributes['exploreButtonBorderRadius'] : 0;
-$explore_button_hover_bg = gg_get_color_value( $attributes, 'exploreButtonHoverBackgroundColor', '#d4af37' );
-$explore_button_hover_text = gg_get_color_value( $attributes, 'exploreButtonHoverTextColor', '#1a1a1a' );
+$explore_button_hover_bg = isset( $attributes['exploreButtonHoverBackgroundColor'] ) ? $attributes['exploreButtonHoverBackgroundColor'] : '#d4af37';
+$explore_button_hover_text = isset( $attributes['exploreButtonHoverTextColor'] ) ? $attributes['exploreButtonHoverTextColor'] : '#1a1a1a';
 $posts_per_page = isset( $attributes['postsPerPage'] ) ? $attributes['postsPerPage'] : 3;
 
 // Query all projects.
@@ -137,7 +140,7 @@ $context = array(
 
 // Build inline styles from block attributes.
 $inline_styles = sprintf(
-	'--gg-primary-color: %s; --gg-accent-color: %s; --gg-background-color: %s; --gg-text-color: %s; --gg-card-bg-color: %s; --gg-title-size: %spx; --gg-excerpt-size: %spx; --gg-button-size: %spx; --gg-card-radius: %spx; --gg-card-gap: %spx; --gg-overlay-opacity: %s; --gg-button-bg: %s; --gg-button-text: %s; --gg-button-border: %s; --gg-button-active-bg: %s; --gg-button-active-text: %s; --gg-button-active-border: %s; --gg-button-radius: %spx; --gg-button-border-width: %spx; --gg-explore-btn-bg: %s; --gg-explore-btn-text: %s; --gg-explore-btn-border: %s; --gg-explore-btn-border-width: %spx; --gg-explore-btn-radius: %spx; --gg-explore-btn-hover-bg: %s; --gg-explore-btn-hover-text: %s;',
+	'--gg-primary-color: %s; --gg-accent-color: %s; --gg-background-color: %s; --gg-text-color: %s; --gg-card-bg-color: %s; --gg-title-size: %spx; --gg-excerpt-size: %spx; --gg-button-size: %spx; --gg-card-radius: %spx; --gg-card-gap: %spx; --gg-overlay-opacity: %s; --gg-button-bg: %s; --gg-button-text: %s; --gg-button-border: %s; --gg-button-active-bg: %s; --gg-button-active-text: %s; --gg-button-active-border: %s; --gg-button-radius: %spx; --gg-button-border-width: %spx; --gg-button-hover-bg: %s; --gg-button-hover-text: %s; --gg-button-hover-border: %s; --gg-explore-btn-bg: %s; --gg-explore-btn-text: %s; --gg-explore-btn-border: %s; --gg-explore-btn-border-width: %spx; --gg-explore-btn-radius: %spx; --gg-explore-btn-hover-bg: %s; --gg-explore-btn-hover-text: %s;',
 	esc_attr( $primary_color ),
 	esc_attr( $accent_color ),
 	esc_attr( $background_color ),
@@ -157,6 +160,9 @@ $inline_styles = sprintf(
 	esc_attr( $button_active_border ),
 	esc_attr( $button_border_radius ),
 	esc_attr( $button_border_width ),
+	esc_attr( $button_hover_bg ),
+	esc_attr( $button_hover_text ),
+	esc_attr( $button_hover_border ),
 	esc_attr( $explore_button_bg ),
 	esc_attr( $explore_button_text_color ),
 	esc_attr( $explore_button_border ),

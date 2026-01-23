@@ -26,6 +26,7 @@ import metadata from './block.json';
  * Color presets
  */
 const COLORS = [
+	{ name: 'Transparent', color: 'transparent' },
 	{ name: 'Midnight Black', color: '#1a1a1a' },
 	{ name: 'Gold', color: '#d4af37' },
 	{ name: 'Rose Gold', color: '#b76e79' },
@@ -70,6 +71,9 @@ export default function Edit( props ) {
 		buttonActiveBorderColor,
 		buttonBorderRadius,
 		buttonBorderWidth,
+		buttonHoverBackgroundColor,
+		buttonHoverTextColor,
+		buttonHoverBorderColor,
 		showExploreButton,
 		exploreButtonText,
 		exploreButtonBackgroundColor,
@@ -79,28 +83,42 @@ export default function Edit( props ) {
 		exploreButtonBorderRadius,
 		exploreButtonHoverBackgroundColor,
 		exploreButtonHoverTextColor,
+		postsPerPage,
 	} = attributes;
 
 	const blockProps = useBlockProps( {
+		'data-shadow': shadowIntensity,
+		'data-button-style': buttonStyle,
 		style: {
-			'--gg-primary-color': primaryColor || 'transparent',
-			'--gg-accent-color': accentColor || 'transparent',
-			'--gg-background-color': backgroundColor || 'transparent',
-			'--gg-text-color': textColor || 'transparent',
-			'--gg-card-bg-color': cardBackgroundColor || 'transparent',
+			'--gg-primary-color': primaryColor,
+			'--gg-accent-color': accentColor,
+			'--gg-background-color': backgroundColor,
+			'--gg-text-color': textColor,
+			'--gg-card-bg-color': cardBackgroundColor,
 			'--gg-title-size': `${ titleFontSize }px`,
 			'--gg-excerpt-size': `${ excerptFontSize }px`,
 			'--gg-button-size': `${ buttonFontSize }px`,
 			'--gg-card-radius': `${ cardBorderRadius }px`,
 			'--gg-card-gap': `${ cardGap }px`,
 			'--gg-overlay-opacity': overlayOpacity / 100,
-			'--gg-explore-btn-bg': exploreButtonBackgroundColor || 'transparent',
-			'--gg-explore-btn-text': exploreButtonTextColor || 'transparent',
-			'--gg-explore-btn-border': exploreButtonBorderColor || 'transparent',
+			'--gg-button-bg': buttonBackgroundColor,
+			'--gg-button-text': buttonTextColor,
+			'--gg-button-border': buttonBorderColor,
+			'--gg-button-active-bg': buttonActiveBackgroundColor,
+			'--gg-button-active-text': buttonActiveTextColor,
+			'--gg-button-active-border': buttonActiveBorderColor,
+			'--gg-button-radius': `${ buttonBorderRadius }px`,
+			'--gg-button-border-width': `${ buttonBorderWidth }px`,
+			'--gg-button-hover-bg': buttonHoverBackgroundColor,
+			'--gg-button-hover-text': buttonHoverTextColor,
+			'--gg-button-hover-border': buttonHoverBorderColor,
+			'--gg-explore-btn-bg': exploreButtonBackgroundColor,
+			'--gg-explore-btn-text': exploreButtonTextColor,
+			'--gg-explore-btn-border': exploreButtonBorderColor,
 			'--gg-explore-btn-border-width': `${ exploreButtonBorderWidth }px`,
 			'--gg-explore-btn-radius': `${ exploreButtonBorderRadius }px`,
-			'--gg-explore-btn-hover-bg': exploreButtonHoverBackgroundColor || 'transparent',
-			'--gg-explore-btn-hover-text': exploreButtonHoverTextColor || 'transparent',
+			'--gg-explore-btn-hover-bg': exploreButtonHoverBackgroundColor,
+			'--gg-explore-btn-hover-text': exploreButtonHoverTextColor,
 		},
 	} );
 
@@ -166,6 +184,21 @@ export default function Edit( props ) {
 					title={ __( 'Card Settings', 'greengrowth-impact-showcase' ) }
 					initialOpen={ false }
 				>
+					<RangeControl
+						label={ __( 'Posts Per Page', 'greengrowth-impact-showcase' ) }
+						value={ postsPerPage }
+						onChange={ ( value ) => setAttributes( { postsPerPage: value } ) }
+						min={ 1 }
+						max={ 12 }
+						step={ 1 }
+						help={ __(
+							'Number of projects to load initially and on each scroll',
+							'greengrowth-impact-showcase'
+						) }
+					/>
+
+					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
+
 					<Heading level={ 4 }>
 						{ __( 'Card Background', 'greengrowth-impact-showcase' ) }
 					</Heading>
@@ -486,6 +519,39 @@ export default function Edit( props ) {
 						min={ 0 }
 						max={ 5 }
 						step={ 1 }
+					/>
+
+					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
+
+					<Heading level={ 4 }>
+						{ __( 'Hover State', 'greengrowth-impact-showcase' ) }
+					</Heading>
+
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Background', 'greengrowth-impact-showcase' ) }
+					</Heading>
+					<ColorPalette
+						colors={ COLORS }
+						value={ buttonHoverBackgroundColor }
+						onChange={ ( color ) => setAttributes( { buttonHoverBackgroundColor: color } ) }
+					/>
+
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Text', 'greengrowth-impact-showcase' ) }
+					</Heading>
+					<ColorPalette
+						colors={ COLORS }
+						value={ buttonHoverTextColor }
+						onChange={ ( color ) => setAttributes( { buttonHoverTextColor: color } ) }
+					/>
+
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Border', 'greengrowth-impact-showcase' ) }
+					</Heading>
+					<ColorPalette
+						colors={ COLORS }
+						value={ buttonHoverBorderColor }
+						onChange={ ( color ) => setAttributes( { buttonHoverBorderColor: color } ) }
 					/>
 				</PanelBody>
 			</InspectorControls>
