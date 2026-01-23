@@ -539,14 +539,52 @@
 	}
 }
 
-/* Responsive Typography */
+/* Responsive Typography & Mobile Horizontal Scroll */
 @media (max-width: 768px) {
 	.wp-block-greengrowth-impact-showcase {
 		@apply py-10;
 	}
 
+	/* Horizontal Scroll Filter Buttons with Sticky Behavior */
 	.gg-filter-buttons {
 		@apply mb-10;
+		@apply flex-nowrap justify-start;
+		@apply overflow-x-auto overflow-y-hidden;
+		@apply -mx-4 px-4;
+
+		/* Smooth scrolling */
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none; /* Firefox */
+
+		/* Hide scrollbar but keep functionality */
+		&::-webkit-scrollbar {
+			display: none; /* Chrome, Safari, Edge */
+		}
+
+		/* Sticky positioning when scrolled */
+		position: relative;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+		&.is-sticky {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 100;
+			margin-bottom: 0;
+			padding: 16px 16px;
+			
+			backdrop-filter: blur(8px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		}
+
+		
+		
+
+	
+
+	
 	}
 
 	.gg-project-content {
@@ -555,6 +593,7 @@
 
 	.gg-filter-button {
 		@apply px-6 py-3;
+		@apply flex-shrink-0;
 
 		font-size: calc(var(--gg-button-size) * 0.9);
 	}

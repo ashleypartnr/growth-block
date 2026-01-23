@@ -186,7 +186,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 <div <?php echo $wrapper_attributes; ?>>
 
-	<nav class="gg-filter-buttons" role="group" aria-label="<?php esc_attr_e( 'Filter projects by service area', 'greengrowth-impact-showcase' ); ?>" data-button-style="<?php echo esc_attr( $button_style ); ?>">
+	<nav class="gg-filter-buttons" role="group" aria-label="<?php esc_attr_e( 'Filter projects by service area', 'greengrowth-impact-showcase' ); ?>" data-button-style="<?php echo esc_attr( $button_style ); ?>" data-wp-init="callbacks.initStickyFilterBar">
 		<button
 			type="button"
 			class="gg-filter-button active"
