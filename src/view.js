@@ -9,6 +9,48 @@ import { store, getContext, getElement } from '@wordpress/interactivity';
 const getShowcaseRoot = ( element ) =>
 	element?.closest?.( '[data-wp-interactive="greengrowth-showcase"]' ) || null;
 
+const getExploreConfig = ( root ) => {
+	if ( ! root ) {
+		return { showExploreButton: false, exploreButtonText: 'Explore More' };
+	}
+
+	const showExploreButton = root.dataset.showExploreButton === 'true';
+	const exploreButtonText =
+		root.dataset.exploreButtonText || 'Explore More';
+
+	return { showExploreButton, exploreButtonText };
+};
+
+const isMobileViewport = () => window.innerWidth <= 768;
+
+const scrollGridIntoView = ( root ) => {
+	if ( ! root || ! isMobileViewport() ) {
+		return;
+	}
+
+	const grid = root.querySelector( '.gg-projects-grid' );
+	if ( ! grid ) {
+		return;
+	}
+
+	const filterBar = root.querySelector( '.gg-filter-buttons' );
+	const isSticky = filterBar?.classList.contains( 'is-sticky' );
+	const offset = filterBar ? filterBar.offsetHeight : 0;
+	const gap = 8;
+	const firstCard = grid.querySelector( '.gg-project-card' );
+
+	if ( ! isSticky || ! firstCard ) {
+		return;
+	}
+
+	const cardTop = firstCard.getBoundingClientRect().top + window.scrollY;
+
+	window.scrollTo( {
+		top: Math.max( 0, cardTop - offset - gap ),
+		behavior: 'smooth',
+	} );
+};
+
 /**
  * Normalize heights of titles and excerpts within each row
  * so that cards align properly in the grid.
@@ -198,8 +240,7 @@ const loadMoreProjects = ( context, root ) => {
 	const grid = root.querySelector( '.gg-projects-grid' );
 	if ( grid ) {
 		// Get block attributes from existing elements
-		const showExploreButton = root.querySelector( '.gg-explore-button' ) !== null;
-		const exploreButtonText = root.querySelector( '.gg-explore-button' )?.textContent || 'Explore More';
+		const { showExploreButton, exploreButtonText } = getExploreConfig( root );
 
 		nextProjects.forEach( ( project ) => {
 			const card = createProjectCard( project, showExploreButton, exploreButtonText );
@@ -279,8 +320,7 @@ store( 'greengrowth-showcase', {
 				cards.forEach( ( card ) => card.remove() );
 
 				// Re-render displayed projects
-				const showExploreButton = root.querySelector( '.gg-explore-button' ) !== null;
-				const exploreButtonText = root.querySelector( '.gg-explore-button' )?.textContent || 'Explore More';
+				const { showExploreButton, exploreButtonText } = getExploreConfig( root );
 
 				context.displayedProjects.forEach( ( project ) => {
 					const card = createProjectCard( project, showExploreButton, exploreButtonText );
@@ -297,6 +337,8 @@ store( 'greengrowth-showcase', {
 				setTimeout( () => {
 					normalizeCardHeights( root );
 				}, 50 );
+
+				scrollGridIntoView( root );
 			}
 		},
 	},

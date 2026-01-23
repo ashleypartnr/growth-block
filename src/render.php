@@ -176,10 +176,12 @@ $inline_styles = sprintf(
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
 		'class'                 => 'wp-block-greengrowth-impact-showcase',
-		'data-wp-interactive'   => 'greengrowth-showcase',
-		'data-wp-context'       => wp_json_encode( $context ),
-		'data-shadow'           => esc_attr( $shadow_intensity ),
-		'style'                 => $inline_styles,
+	'data-wp-interactive'   => 'greengrowth-showcase',
+	'data-wp-context'       => wp_json_encode( $context ),
+	'data-show-explore-button' => $show_explore_button ? 'true' : 'false',
+	'data-explore-button-text' => esc_attr( $explore_button_text ),
+	'data-shadow'           => esc_attr( $shadow_intensity ),
+	'style'                 => $inline_styles,
 	)
 );
 ?>

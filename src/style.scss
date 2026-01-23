@@ -545,7 +545,7 @@
 		@apply py-10;
 	}
 
-	/* Horizontal Scroll Filter Buttons with Sticky Behavior */
+	/* Horizontal Scroll Filter Buttons Sticky Behavior */
 	.gg-filter-buttons {
 		@apply mb-10;
 		@apply flex-nowrap justify-start;
@@ -578,13 +578,6 @@
 			backdrop-filter: blur(8px);
 			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 		}
-
-		
-		
-
-	
-
-	
 	}
 
 	.gg-project-content {
