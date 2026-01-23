@@ -52,6 +52,7 @@ $explore_button_border_width = isset( $attributes['exploreButtonBorderWidth'] ) 
 $explore_button_radius = isset( $attributes['exploreButtonBorderRadius'] ) ? $attributes['exploreButtonBorderRadius'] : 0;
 $explore_button_hover_bg = gg_get_color_value( $attributes, 'exploreButtonHoverBackgroundColor', '#d4af37' );
 $explore_button_hover_text = gg_get_color_value( $attributes, 'exploreButtonHoverTextColor', '#1a1a1a' );
+$posts_per_page = isset( $attributes['postsPerPage'] ) ? $attributes['postsPerPage'] : 3;
 
 // Query all projects.
 $projects_query = new WP_Query(
@@ -121,11 +122,17 @@ $service_area_terms = get_terms(
 );
 
 // Initial context for Interactivity API.
+$displayed_projects = array_slice( $projects_data, 0, $posts_per_page );
 $context = array(
 	'selectedArea'      => 'all',
 	'selectedAreaLabel' => __( 'All Projects', 'greengrowth-impact-showcase' ),
 	'allProjects'       => $projects_data,
 	'filteredProjects'  => $projects_data,
+	'displayedProjects' => $displayed_projects,
+	'postsPerPage'      => $posts_per_page,
+	'currentOffset'     => $posts_per_page,
+	'isLoading'         => false,
+	'hasMore'           => count( $projects_data ) > $posts_per_page,
 );
 
 // Build inline styles from block attributes.
@@ -202,8 +209,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
 	</nav>
 
 	<div class="gg-projects-grid">
-		<?php if ( ! empty( $projects_data ) ) : ?>
-			<?php foreach ( $projects_data as $project ) : ?>
+		<?php if ( ! empty( $displayed_projects ) ) : ?>
+			<?php foreach ( $displayed_projects as $project ) : ?>
 				<article class="gg-project-card" data-wp-key="<?php echo esc_attr( $project['id'] ); ?>" data-service-areas="<?php echo esc_attr( implode( ',', $project['serviceAreas'] ) ); ?>">
 					<a href="<?php echo esc_url( $project['link'] ); ?>" class="gg-project-card-link">
 						<div class="gg-project-image">
@@ -233,6 +240,15 @@ $wrapper_attributes = get_block_wrapper_attributes(
 				<p><?php esc_html_e( 'No projects found.', 'greengrowth-impact-showcase' ); ?></p>
 			</div>
 		<?php endif; ?>
+	</div>
+
+	<!-- Sentinel element for infinite scroll -->
+	<div class="gg-scroll-sentinel" data-wp-init="callbacks.initInfiniteScroll"></div>
+
+	<!-- Loading indicator -->
+	<div class="gg-loading-indicator" data-wp-class--visible="state.isLoading" style="display: none;">
+		<span class="gg-spinner"></span>
+		<p><?php esc_html_e( 'Loading more projects...', 'greengrowth-impact-showcase' ); ?></p>
 	</div>
 
 	<!-- Empty state (shown when filtering) -->

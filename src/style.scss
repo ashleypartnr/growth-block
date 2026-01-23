@@ -478,3 +478,58 @@
 		will-change: transform, opacity;
 	}
 }
+
+/* Infinite Scroll - Sentinel Element */
+.gg-scroll-sentinel {
+	@apply w-full h-px;
+
+	visibility: hidden;
+	pointer-events: none;
+}
+
+/* Loading Indicator */
+.gg-loading-indicator {
+	@apply flex flex-col items-center justify-center;
+	@apply py-12 px-6;
+	@apply opacity-0 transition-opacity duration-300;
+
+	&.visible {
+		@apply opacity-100;
+	}
+
+	p {
+		@apply m-0 mt-4;
+
+		font-family: var(--gg-body-font);
+		font-size: var(--gg-excerpt-size);
+		color: var(--gg-secondary-text);
+		font-weight: 300;
+		letter-spacing: 0.5px;
+	}
+}
+
+/* Spinner Animation */
+.gg-spinner {
+	@apply inline-block w-10 h-10 rounded-full;
+	@apply border-4 border-solid;
+
+	border-color: var(--gg-accent-color) transparent var(--gg-accent-color) transparent;
+	animation: gg-spin 1.2s linear infinite;
+}
+
+@keyframes gg-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* Respect reduced motion for spinner */
+@media (prefers-reduced-motion: reduce) {
+	.gg-spinner {
+		animation: none;
+		border-color: var(--gg-accent-color);
+	}
+}

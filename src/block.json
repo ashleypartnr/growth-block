@@ -136,6 +136,10 @@
       "type": "string",
       "default": ""
     },
+    "postsPerPage": {
+      "type": "number",
+      "default": 3
+    },
     "align": {
       "type": "string",
       "default": "full"
