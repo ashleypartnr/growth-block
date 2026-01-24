@@ -112,6 +112,30 @@
       "type": "string",
       "default": "#c9a961"
     },
+    "mobileButtonTextColor": {
+      "type": "string",
+      "default": "#1b3a2f"
+    },
+    "mobileButtonBackgroundColor": {
+      "type": "string",
+      "default": "#f0f0f0"
+    },
+    "mobileButtonActiveTextColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "mobileButtonActiveBackgroundColor": {
+      "type": "string",
+      "default": "#1b3a2f"
+    },
+    "mobileButtonHoverTextColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "mobileButtonHoverBackgroundColor": {
+      "type": "string",
+      "default": "#c9a961"
+    },
     "showExploreButton": {
       "type": "boolean",
       "default": true

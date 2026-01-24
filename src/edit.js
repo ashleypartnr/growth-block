@@ -74,6 +74,12 @@ export default function Edit( props ) {
 		buttonHoverBackgroundColor,
 		buttonHoverTextColor,
 		buttonHoverBorderColor,
+		mobileButtonTextColor,
+		mobileButtonBackgroundColor,
+		mobileButtonActiveTextColor,
+		mobileButtonActiveBackgroundColor,
+		mobileButtonHoverTextColor,
+		mobileButtonHoverBackgroundColor,
 		showExploreButton,
 		exploreButtonText,
 		exploreButtonBackgroundColor,
@@ -112,6 +118,12 @@ export default function Edit( props ) {
 			'--gg-button-hover-bg': buttonHoverBackgroundColor,
 			'--gg-button-hover-text': buttonHoverTextColor,
 			'--gg-button-hover-border': buttonHoverBorderColor,
+			'--gg-mobile-button-text': mobileButtonTextColor,
+			'--gg-mobile-button-bg': mobileButtonBackgroundColor,
+			'--gg-mobile-button-active-text': mobileButtonActiveTextColor,
+			'--gg-mobile-button-active-bg': mobileButtonActiveBackgroundColor,
+			'--gg-mobile-button-hover-text': mobileButtonHoverTextColor,
+			'--gg-mobile-button-hover-bg': mobileButtonHoverBackgroundColor,
 			'--gg-explore-btn-bg': exploreButtonBackgroundColor,
 			'--gg-explore-btn-text': exploreButtonTextColor,
 			'--gg-explore-btn-border': exploreButtonBorderColor,
@@ -505,6 +517,140 @@ export default function Edit( props ) {
 								colors={ COLORS }
 								value={ buttonHoverTextColor }
 								onChange={ ( color ) => setAttributes( { buttonHoverTextColor: color } ) }
+							/>
+						</>
+					) }
+				</PanelBody>
+
+				{/* Mobile Filter Bar */}
+				<PanelBody
+					title={ __( 'Mobile Filter Bar', 'greengrowth-impact-showcase' ) }
+					initialOpen={ false }
+				>
+					<p className="components-base-control__help">
+						{ __( 'Overrides filter button colors on screens 768px and under.', 'greengrowth-impact-showcase' ) }
+					</p>
+
+					<Heading level={ 4 }>
+						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
+					</Heading>
+					<ColorPalette
+						colors={ COLORS }
+						value={ mobileButtonTextColor }
+						onChange={ ( color ) => setAttributes( { mobileButtonTextColor: color } ) }
+					/>
+
+					{ buttonStyle === 'button' && (
+						<>
+							<Heading level={ 4 } style={{ marginTop: '24px' }}>
+								{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ mobileButtonBackgroundColor }
+								onChange={ ( color ) =>
+									setAttributes( { mobileButtonBackgroundColor: color } )
+								}
+							/>
+						</>
+					) }
+
+					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
+
+					<Heading level={ 4 }>
+						{ __( 'Active State', 'greengrowth-impact-showcase' ) }
+					</Heading>
+
+					<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
+					</Heading>
+					<ColorPalette
+						colors={ COLORS }
+						value={ mobileButtonActiveTextColor }
+						onChange={ ( color ) =>
+							setAttributes( { mobileButtonActiveTextColor: color } )
+						}
+					/>
+
+					{ buttonStyle === 'button' && (
+						<>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ mobileButtonActiveBackgroundColor }
+								onChange={ ( color ) =>
+									setAttributes( { mobileButtonActiveBackgroundColor: color } )
+								}
+							/>
+						</>
+					) }
+
+					{ ( buttonStyle === 'text' || buttonStyle === 'underline' ) && (
+						<>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Accent Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<p className="components-base-control__help" style={{ marginTop: '-8px', marginBottom: '8px' }}>
+								{ __( 'Underline color for selected filter', 'greengrowth-impact-showcase' ) }
+							</p>
+							<ColorPalette
+								colors={ COLORS }
+								value={ mobileButtonActiveBackgroundColor }
+								onChange={ ( color ) =>
+									setAttributes( { mobileButtonActiveBackgroundColor: color } )
+								}
+							/>
+						</>
+					) }
+
+					<hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #ddd' }} />
+
+					<Heading level={ 4 }>
+						{ __( 'Hover State', 'greengrowth-impact-showcase' ) }
+					</Heading>
+
+					{ buttonStyle === 'button' && (
+						<>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Background Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ mobileButtonHoverBackgroundColor }
+								onChange={ ( color ) =>
+									setAttributes( { mobileButtonHoverBackgroundColor: color } )
+								}
+							/>
+
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<ColorPalette
+								colors={ COLORS }
+								value={ mobileButtonHoverTextColor }
+								onChange={ ( color ) =>
+									setAttributes( { mobileButtonHoverTextColor: color } )
+								}
+							/>
+						</>
+					) }
+
+					{ ( buttonStyle === 'text' || buttonStyle === 'underline' ) && (
+						<>
+							<Heading level={ 5 } style={{ fontSize: '13px', marginTop: '16px' }}>
+								{ __( 'Color', 'greengrowth-impact-showcase' ) }
+							</Heading>
+							<p className="components-base-control__help" style={{ marginTop: '-8px', marginBottom: '8px' }}>
+								{ __( 'Text and underline color', 'greengrowth-impact-showcase' ) }
+							</p>
+							<ColorPalette
+								colors={ COLORS }
+								value={ mobileButtonHoverTextColor }
+								onChange={ ( color ) =>
+									setAttributes( { mobileButtonHoverTextColor: color } )
+								}
 							/>
 						</>
 					) }

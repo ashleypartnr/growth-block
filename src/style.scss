@@ -552,6 +552,13 @@
 		@apply overflow-x-auto overflow-y-hidden;
 		@apply -mx-4 px-4;
 
+		--gg-button-text: var(--gg-mobile-button-text, var(--gg-button-text));
+		--gg-button-bg: var(--gg-mobile-button-bg, var(--gg-button-bg));
+		--gg-button-active-text: var(--gg-mobile-button-active-text, var(--gg-button-active-text));
+		--gg-button-active-bg: var(--gg-mobile-button-active-bg, var(--gg-button-active-bg));
+		--gg-button-hover-text: var(--gg-mobile-button-hover-text, var(--gg-button-hover-text));
+		--gg-button-hover-bg: var(--gg-mobile-button-hover-bg, var(--gg-button-hover-bg));
+
 		/* Smooth scrolling */
 		scroll-behavior: smooth;
 		-webkit-overflow-scrolling: touch;

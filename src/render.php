@@ -46,6 +46,12 @@ $button_border_width = isset( $attributes['buttonBorderWidth'] ) ? $attributes['
 $button_hover_bg = isset( $attributes['buttonHoverBackgroundColor'] ) ? $attributes['buttonHoverBackgroundColor'] : '#1a1a1a';
 $button_hover_text = isset( $attributes['buttonHoverTextColor'] ) ? $attributes['buttonHoverTextColor'] : '#d4af37';
 $button_hover_border = isset( $attributes['buttonHoverBorderColor'] ) ? $attributes['buttonHoverBorderColor'] : '#d4af37';
+$mobile_button_text = gg_get_color_value( $attributes, 'mobileButtonTextColor', '#1b3a2f' );
+$mobile_button_bg = gg_get_color_value( $attributes, 'mobileButtonBackgroundColor', '#f0f0f0' );
+$mobile_button_active_text = gg_get_color_value( $attributes, 'mobileButtonActiveTextColor', '#ffffff' );
+$mobile_button_active_bg = gg_get_color_value( $attributes, 'mobileButtonActiveBackgroundColor', '#1b3a2f' );
+$mobile_button_hover_text = gg_get_color_value( $attributes, 'mobileButtonHoverTextColor', '#ffffff' );
+$mobile_button_hover_bg = gg_get_color_value( $attributes, 'mobileButtonHoverBackgroundColor', '#c9a961' );
 $show_explore_button = isset( $attributes['showExploreButton'] ) ? $attributes['showExploreButton'] : true;
 $explore_button_text = isset( $attributes['exploreButtonText'] ) ? $attributes['exploreButtonText'] : 'Explore More';
 $explore_button_bg = isset( $attributes['exploreButtonBackgroundColor'] ) ? $attributes['exploreButtonBackgroundColor'] : '#1a1a1a';
@@ -140,7 +146,7 @@ $context = array(
 
 // Build inline styles from block attributes.
 $inline_styles = sprintf(
-	'--gg-primary-color: %s; --gg-accent-color: %s; --gg-background-color: %s; --gg-text-color: %s; --gg-card-bg-color: %s; --gg-title-size: %spx; --gg-excerpt-size: %spx; --gg-button-size: %spx; --gg-card-radius: %spx; --gg-card-gap: %spx; --gg-overlay-opacity: %s; --gg-button-bg: %s; --gg-button-text: %s; --gg-button-border: %s; --gg-button-active-bg: %s; --gg-button-active-text: %s; --gg-button-active-border: %s; --gg-button-radius: %spx; --gg-button-border-width: %spx; --gg-button-hover-bg: %s; --gg-button-hover-text: %s; --gg-button-hover-border: %s; --gg-explore-btn-bg: %s; --gg-explore-btn-text: %s; --gg-explore-btn-border: %s; --gg-explore-btn-border-width: %spx; --gg-explore-btn-radius: %spx; --gg-explore-btn-hover-bg: %s; --gg-explore-btn-hover-text: %s;',
+	'--gg-primary-color: %s; --gg-accent-color: %s; --gg-background-color: %s; --gg-text-color: %s; --gg-card-bg-color: %s; --gg-title-size: %spx; --gg-excerpt-size: %spx; --gg-button-size: %spx; --gg-card-radius: %spx; --gg-card-gap: %spx; --gg-overlay-opacity: %s; --gg-button-bg: %s; --gg-button-text: %s; --gg-button-border: %s; --gg-button-active-bg: %s; --gg-button-active-text: %s; --gg-button-active-border: %s; --gg-button-radius: %spx; --gg-button-border-width: %spx; --gg-button-hover-bg: %s; --gg-button-hover-text: %s; --gg-button-hover-border: %s; --gg-mobile-button-text: %s; --gg-mobile-button-bg: %s; --gg-mobile-button-active-text: %s; --gg-mobile-button-active-bg: %s; --gg-mobile-button-hover-text: %s; --gg-mobile-button-hover-bg: %s; --gg-explore-btn-bg: %s; --gg-explore-btn-text: %s; --gg-explore-btn-border: %s; --gg-explore-btn-border-width: %spx; --gg-explore-btn-radius: %spx; --gg-explore-btn-hover-bg: %s; --gg-explore-btn-hover-text: %s;',
 	esc_attr( $primary_color ),
 	esc_attr( $accent_color ),
 	esc_attr( $background_color ),
@@ -163,6 +169,12 @@ $inline_styles = sprintf(
 	esc_attr( $button_hover_bg ),
 	esc_attr( $button_hover_text ),
 	esc_attr( $button_hover_border ),
+	esc_attr( $mobile_button_text ),
+	esc_attr( $mobile_button_bg ),
+	esc_attr( $mobile_button_active_text ),
+	esc_attr( $mobile_button_active_bg ),
+	esc_attr( $mobile_button_hover_text ),
+	esc_attr( $mobile_button_hover_bg ),
 	esc_attr( $explore_button_bg ),
 	esc_attr( $explore_button_text_color ),
 	esc_attr( $explore_button_border ),
