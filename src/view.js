@@ -1,12 +1,13 @@
 /**
  * Interactivity for the Impact Showcase block.
+ *
+ * @package GreenGrowth_Impact_Showcase
  */
 
 import { store, getContext, getElement } from '@wordpress/interactivity';
 
 const getShowcaseRoot = ( element ) =>
-	element?.closest?.( '[data-wp-interactive="greengrowth-showcase"]' ) ||
-	null;
+	element?.closest?.( '[data-wp-interactive="greengrowth-showcase"]' ) || null;
 
 const getExploreConfig = ( root ) => {
 	if ( ! root ) {
@@ -14,7 +15,8 @@ const getExploreConfig = ( root ) => {
 	}
 
 	const showExploreButton = root.dataset.showExploreButton === 'true';
-	const exploreButtonText = root.dataset.exploreButtonText || 'Explore More';
+	const exploreButtonText =
+		root.dataset.exploreButtonText || 'Explore More';
 
 	return { showExploreButton, exploreButtonText };
 };
@@ -52,8 +54,6 @@ const scrollGridIntoView = ( root ) => {
 /**
  * Normalize heights of titles and excerpts within each row
  * so that cards align properly in the grid.
- *
- * @param {HTMLElement|null} root Root element for the block.
  */
 const normalizeCardHeights = ( root ) => {
 	if ( ! root ) {
@@ -66,9 +66,7 @@ const normalizeCardHeights = ( root ) => {
 	}
 
 	const cards = Array.from( grid.querySelectorAll( '.gg-project-card' ) );
-	const visibleCards = cards.filter(
-		( card ) => card.style.display !== 'none'
-	);
+	const visibleCards = cards.filter( ( card ) => card.style.display !== 'none' );
 
 	if ( visibleCards.length === 0 ) {
 		return;
@@ -131,10 +129,7 @@ const normalizeCardHeights = ( root ) => {
 				maxTitleHeight = Math.max( maxTitleHeight, title.offsetHeight );
 			}
 			if ( excerpt ) {
-				maxExcerptHeight = Math.max(
-					maxExcerptHeight,
-					excerpt.offsetHeight
-				);
+				maxExcerptHeight = Math.max( maxExcerptHeight, excerpt.offsetHeight );
 			}
 		} );
 
@@ -157,10 +152,7 @@ const createProjectCard = ( project, showExploreButton, exploreButtonText ) => {
 	const article = document.createElement( 'article' );
 	article.className = 'gg-project-card';
 	article.setAttribute( 'data-wp-key', project.id );
-	article.setAttribute(
-		'data-service-areas',
-		project.serviceAreas.join( ',' )
-	);
+	article.setAttribute( 'data-service-areas', project.serviceAreas.join( ',' ) );
 
 	const link = document.createElement( 'a' );
 	link.href = project.link;
@@ -199,10 +191,7 @@ const createProjectCard = ( project, showExploreButton, exploreButtonText ) => {
 		button.textContent = exploreButtonText;
 
 		// Add arrow icon
-		const svg = document.createElementNS(
-			'http://www.w3.org/2000/svg',
-			'svg'
-		);
+		const svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
 		svg.setAttribute( 'class', 'gg-explore-icon' );
 		svg.setAttribute( 'width', '20' );
 		svg.setAttribute( 'height', '20' );
@@ -210,10 +199,7 @@ const createProjectCard = ( project, showExploreButton, exploreButtonText ) => {
 		svg.setAttribute( 'fill', 'none' );
 		svg.setAttribute( 'aria-hidden', 'true' );
 
-		const path = document.createElementNS(
-			'http://www.w3.org/2000/svg',
-			'path'
-		);
+		const path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
 		path.setAttribute( 'd', 'M4 10H16M16 10L11 5M16 10L11 15' );
 		path.setAttribute( 'stroke', 'currentColor' );
 		path.setAttribute( 'stroke-width', '2' );
@@ -246,10 +232,7 @@ const loadMoreProjects = ( context, root ) => {
 	);
 
 	// Add them to displayed projects
-	context.displayedProjects = [
-		...context.displayedProjects,
-		...nextProjects,
-	];
+	context.displayedProjects = [ ...context.displayedProjects, ...nextProjects ];
 	context.currentOffset += nextProjects.length;
 	context.hasMore = context.currentOffset < context.filteredProjects.length;
 
@@ -257,20 +240,12 @@ const loadMoreProjects = ( context, root ) => {
 	const grid = root.querySelector( '.gg-projects-grid' );
 	if ( grid ) {
 		// Get block attributes from existing elements
-		const { showExploreButton, exploreButtonText } =
-			getExploreConfig( root );
+		const { showExploreButton, exploreButtonText } = getExploreConfig( root );
 
 		nextProjects.forEach( ( project ) => {
-			const card = createProjectCard(
-				project,
-				showExploreButton,
-				exploreButtonText
-			);
+			const card = createProjectCard( project, showExploreButton, exploreButtonText );
 			// Apply filter visibility
-			if (
-				context.selectedArea !== 'all' &&
-				! project.serviceAreas.includes( context.selectedArea )
-			) {
+			if ( context.selectedArea !== 'all' && ! project.serviceAreas.includes( context.selectedArea ) ) {
 				card.style.display = 'none';
 			}
 			grid.appendChild( card );
@@ -289,18 +264,16 @@ store( 'greengrowth-showcase', {
 	state: {
 		get hasProjects() {
 			const context = getContext();
-			return (
-				context.filteredProjects && context.filteredProjects.length > 0
-			);
+			return context.filteredProjects && context.filteredProjects.length > 0;
 		},
 		get announcement() {
 			const context = getContext();
 			const count = context.filteredProjects
 				? context.filteredProjects.length
 				: 0;
-			return `Showing ${ count } project${ count === 1 ? '' : 's' } in ${
-				context.selectedAreaLabel
-			}`;
+			return `Showing ${ count } project${
+				count === 1 ? '' : 's'
+			} in ${ context.selectedAreaLabel }`;
 		},
 		get isActive() {
 			const context = getContext();
@@ -309,13 +282,13 @@ store( 'greengrowth-showcase', {
 	},
 	actions: {
 		filterByArea( event ) {
+			const context = getContext();
 			const { ref } = getElement();
 			const button = event?.target?.closest( '.gg-filter-button' ) || ref;
 			if ( ! button ) {
 				return;
 			}
 
-			const context = getContext();
 			const area = button.getAttribute( 'data-area' ) || 'all';
 			const label = button.textContent.trim();
 
@@ -331,13 +304,9 @@ store( 'greengrowth-showcase', {
 					  );
 
 			// Reset pagination
-			context.displayedProjects = context.filteredProjects.slice(
-				0,
-				context.postsPerPage
-			);
+			context.displayedProjects = context.filteredProjects.slice( 0, context.postsPerPage );
 			context.currentOffset = context.postsPerPage;
-			context.hasMore =
-				context.currentOffset < context.filteredProjects.length;
+			context.hasMore = context.currentOffset < context.filteredProjects.length;
 
 			const root = getShowcaseRoot( button );
 			if ( ! root ) {
@@ -351,23 +320,17 @@ store( 'greengrowth-showcase', {
 				cards.forEach( ( card ) => card.remove() );
 
 				// Re-render displayed projects
-				const { showExploreButton, exploreButtonText } =
-					getExploreConfig( root );
+				const { showExploreButton, exploreButtonText } = getExploreConfig( root );
 
 				context.displayedProjects.forEach( ( project ) => {
-					const card = createProjectCard(
-						project,
-						showExploreButton,
-						exploreButtonText
-					);
+					const card = createProjectCard( project, showExploreButton, exploreButtonText );
 					grid.appendChild( card );
 				} );
 
 				// Show/hide empty state
 				const emptyState = root.querySelector( '.gg-empty-state' );
 				if ( emptyState ) {
-					emptyState.style.display =
-						context.displayedProjects.length === 0 ? '' : 'none';
+					emptyState.style.display = context.displayedProjects.length === 0 ? '' : 'none';
 				}
 
 				// Normalize card heights after filtering
@@ -381,6 +344,7 @@ store( 'greengrowth-showcase', {
 	},
 	callbacks: {
 		initInfiniteScroll() {
+			const context = getContext();
 			const { ref } = getElement();
 			const root = getShowcaseRoot( ref );
 
@@ -388,16 +352,11 @@ store( 'greengrowth-showcase', {
 				return;
 			}
 
-			const context = getContext();
 			// Create Intersection Observer
 			const observer = new IntersectionObserver(
 				( entries ) => {
 					entries.forEach( ( entry ) => {
-						if (
-							entry.isIntersecting &&
-							context.hasMore &&
-							! context.isLoading
-						) {
+						if ( entry.isIntersecting && context.hasMore && ! context.isLoading ) {
 							loadMoreProjects( context, root );
 						}
 					} );
@@ -493,15 +452,12 @@ store( 'greengrowth-showcase', {
 				placeholder.style.display = 'none';
 
 				let isSticky = false;
-				let initialTop =
-					filterButtons.getBoundingClientRect().top + window.scrollY;
+				let initialTop = filterButtons.getBoundingClientRect().top + window.scrollY;
 
 				// Function to recalculate initial position
 				const recalculatePosition = () => {
 					if ( ! isSticky ) {
-						initialTop =
-							filterButtons.getBoundingClientRect().top +
-							window.scrollY;
+						initialTop = filterButtons.getBoundingClientRect().top + window.scrollY;
 					}
 				};
 
@@ -519,10 +475,7 @@ store( 'greengrowth-showcase', {
 						filterButtons.classList.add( 'is-sticky' );
 						placeholder.style.display = 'block';
 						placeholder.style.height = `${ filterButtons.offsetHeight }px`;
-						filterButtons.parentNode.insertBefore(
-							placeholder,
-							filterButtons
-						);
+						filterButtons.parentNode.insertBefore( placeholder, filterButtons );
 						isSticky = true;
 					} else if ( ! shouldBeSticky && isSticky ) {
 						// Remove sticky
@@ -542,8 +495,7 @@ store( 'greengrowth-showcase', {
 					}
 
 					const scrollLeft = filterButtons.scrollLeft;
-					const maxScroll =
-						filterButtons.scrollWidth - filterButtons.clientWidth;
+					const maxScroll = filterButtons.scrollWidth - filterButtons.clientWidth;
 
 					// At start (hide left gradient)
 					if ( scrollLeft <= 5 ) {
@@ -563,11 +515,7 @@ store( 'greengrowth-showcase', {
 				// Handle resize (cleanup on desktop, recalculate position otherwise)
 				const handleResize = () => {
 					if ( ! isMobile() && isSticky ) {
-						filterButtons.classList.remove(
-							'is-sticky',
-							'at-start',
-							'at-end'
-						);
+						filterButtons.classList.remove( 'is-sticky', 'at-start', 'at-end' );
 						if ( placeholder.parentNode ) {
 							placeholder.parentNode.removeChild( placeholder );
 						}
@@ -581,23 +529,14 @@ store( 'greengrowth-showcase', {
 				handleHorizontalScroll();
 
 				// Attach event listeners
-				window.addEventListener( 'scroll', handleScroll, {
-					passive: true,
-				} );
-				filterButtons.addEventListener(
-					'scroll',
-					handleHorizontalScroll,
-					{ passive: true }
-				);
+				window.addEventListener( 'scroll', handleScroll, { passive: true } );
+				filterButtons.addEventListener( 'scroll', handleHorizontalScroll, { passive: true } );
 				window.addEventListener( 'resize', handleResize );
 
 				// Cleanup
 				return () => {
 					window.removeEventListener( 'scroll', handleScroll );
-					filterButtons.removeEventListener(
-						'scroll',
-						handleHorizontalScroll
-					);
+					filterButtons.removeEventListener( 'scroll', handleHorizontalScroll );
 					window.removeEventListener( 'resize', handleResize );
 					if ( placeholder.parentNode ) {
 						placeholder.parentNode.removeChild( placeholder );
