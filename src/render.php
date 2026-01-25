@@ -11,57 +11,65 @@
 
 // Helper function to get color with support for transparent when explicitly cleared.
 if ( ! function_exists( 'gg_get_color_value' ) ) {
-	function gg_get_color_value( $attributes, $key, $default ) {
+	/**
+	 * Get an attribute color value with a fallback.
+	 *
+	 * @param array  $attributes Block attributes.
+	 * @param string $key        Attribute key.
+	 * @param string $fallback   Default value when attribute is missing.
+	 * @return string
+	 */
+	function gg_get_color_value( $attributes, $key, $fallback ) {
 		if ( array_key_exists( $key, $attributes ) ) {
 			// Key exists - use value or transparent if empty/null.
 			return ! empty( $attributes[ $key ] ) ? $attributes[ $key ] : 'transparent';
 		}
 		// Key doesn't exist - use default for new blocks.
-		return $default;
+		return $fallback;
 	}
 }
 
 // Extract block attributes with defaults.
-$primary_color = gg_get_color_value( $attributes, 'primaryColor', '#1a1a1a' );
-$accent_color = gg_get_color_value( $attributes, 'accentColor', '#d4af37' );
-$background_color = gg_get_color_value( $attributes, 'backgroundColor', '#ffffff' );
-$text_color = gg_get_color_value( $attributes, 'textColor', '#1a1a1a' );
-$card_bg_color = gg_get_color_value( $attributes, 'cardBackgroundColor', '#ffffff' );
-$title_font_size = isset( $attributes['titleFontSize'] ) ? $attributes['titleFontSize'] : 24;
-$excerpt_font_size = isset( $attributes['excerptFontSize'] ) ? $attributes['excerptFontSize'] : 16;
-$button_font_size = isset( $attributes['buttonFontSize'] ) ? $attributes['buttonFontSize'] : 14;
-$card_border_radius = isset( $attributes['cardBorderRadius'] ) ? $attributes['cardBorderRadius'] : 0;
-$card_gap = isset( $attributes['cardGap'] ) ? $attributes['cardGap'] : 32;
-$shadow_intensity = isset( $attributes['shadowIntensity'] ) ? $attributes['shadowIntensity'] : 'medium';
-$overlay_opacity = isset( $attributes['overlayOpacity'] ) ? $attributes['overlayOpacity'] : 0;
-$button_style = isset( $attributes['buttonStyle'] ) ? $attributes['buttonStyle'] : 'minimal';
-$button_bg_color = gg_get_color_value( $attributes, 'buttonBackgroundColor', '#ffffff' );
-$button_text_color = gg_get_color_value( $attributes, 'buttonTextColor', '#1a1a1a' );
-$button_border_color = gg_get_color_value( $attributes, 'buttonBorderColor', '#e0e0e0' );
-$button_active_bg = gg_get_color_value( $attributes, 'buttonActiveBackgroundColor', '#1a1a1a' );
-$button_active_text = gg_get_color_value( $attributes, 'buttonActiveTextColor', '#ffffff' );
-$button_active_border = gg_get_color_value( $attributes, 'buttonActiveBorderColor', '#1a1a1a' );
-$button_border_radius = isset( $attributes['buttonBorderRadius'] ) ? $attributes['buttonBorderRadius'] : 0;
-$button_border_width = isset( $attributes['buttonBorderWidth'] ) ? $attributes['buttonBorderWidth'] : 1;
-$button_hover_bg = isset( $attributes['buttonHoverBackgroundColor'] ) ? $attributes['buttonHoverBackgroundColor'] : '#1a1a1a';
-$button_hover_text = isset( $attributes['buttonHoverTextColor'] ) ? $attributes['buttonHoverTextColor'] : '#d4af37';
-$button_hover_border = isset( $attributes['buttonHoverBorderColor'] ) ? $attributes['buttonHoverBorderColor'] : '#d4af37';
-$mobile_button_text = gg_get_color_value( $attributes, 'mobileButtonTextColor', '#1b3a2f' );
-$mobile_button_bg = gg_get_color_value( $attributes, 'mobileButtonBackgroundColor', '#f0f0f0' );
-$mobile_button_active_text = gg_get_color_value( $attributes, 'mobileButtonActiveTextColor', '#ffffff' );
-$mobile_button_active_bg = gg_get_color_value( $attributes, 'mobileButtonActiveBackgroundColor', '#1b3a2f' );
-$mobile_button_hover_text = gg_get_color_value( $attributes, 'mobileButtonHoverTextColor', '#ffffff' );
-$mobile_button_hover_bg = gg_get_color_value( $attributes, 'mobileButtonHoverBackgroundColor', '#c9a961' );
-$show_explore_button = isset( $attributes['showExploreButton'] ) ? $attributes['showExploreButton'] : true;
-$explore_button_text = isset( $attributes['exploreButtonText'] ) ? $attributes['exploreButtonText'] : 'Explore More';
-$explore_button_bg = isset( $attributes['exploreButtonBackgroundColor'] ) ? $attributes['exploreButtonBackgroundColor'] : '#1a1a1a';
-$explore_button_text_color = isset( $attributes['exploreButtonTextColor'] ) ? $attributes['exploreButtonTextColor'] : '#ffffff';
-$explore_button_border = isset( $attributes['exploreButtonBorderColor'] ) ? $attributes['exploreButtonBorderColor'] : '#1a1a1a';
+$primary_color               = gg_get_color_value( $attributes, 'primaryColor', '#1a1a1a' );
+$accent_color                = gg_get_color_value( $attributes, 'accentColor', '#d4af37' );
+$background_color            = gg_get_color_value( $attributes, 'backgroundColor', '#ffffff' );
+$text_color                  = gg_get_color_value( $attributes, 'textColor', '#1a1a1a' );
+$card_bg_color               = gg_get_color_value( $attributes, 'cardBackgroundColor', '#ffffff' );
+$title_font_size             = isset( $attributes['titleFontSize'] ) ? $attributes['titleFontSize'] : 24;
+$excerpt_font_size           = isset( $attributes['excerptFontSize'] ) ? $attributes['excerptFontSize'] : 16;
+$button_font_size            = isset( $attributes['buttonFontSize'] ) ? $attributes['buttonFontSize'] : 14;
+$card_border_radius          = isset( $attributes['cardBorderRadius'] ) ? $attributes['cardBorderRadius'] : 0;
+$card_gap                    = isset( $attributes['cardGap'] ) ? $attributes['cardGap'] : 32;
+$shadow_intensity            = isset( $attributes['shadowIntensity'] ) ? $attributes['shadowIntensity'] : 'medium';
+$overlay_opacity             = isset( $attributes['overlayOpacity'] ) ? $attributes['overlayOpacity'] : 0;
+$button_style                = isset( $attributes['buttonStyle'] ) ? $attributes['buttonStyle'] : 'minimal';
+$button_bg_color             = gg_get_color_value( $attributes, 'buttonBackgroundColor', '#ffffff' );
+$button_text_color           = gg_get_color_value( $attributes, 'buttonTextColor', '#1a1a1a' );
+$button_border_color         = gg_get_color_value( $attributes, 'buttonBorderColor', '#e0e0e0' );
+$button_active_bg            = gg_get_color_value( $attributes, 'buttonActiveBackgroundColor', '#1a1a1a' );
+$button_active_text          = gg_get_color_value( $attributes, 'buttonActiveTextColor', '#ffffff' );
+$button_active_border        = gg_get_color_value( $attributes, 'buttonActiveBorderColor', '#1a1a1a' );
+$button_border_radius        = isset( $attributes['buttonBorderRadius'] ) ? $attributes['buttonBorderRadius'] : 0;
+$button_border_width         = isset( $attributes['buttonBorderWidth'] ) ? $attributes['buttonBorderWidth'] : 1;
+$button_hover_bg             = isset( $attributes['buttonHoverBackgroundColor'] ) ? $attributes['buttonHoverBackgroundColor'] : '#1a1a1a';
+$button_hover_text           = isset( $attributes['buttonHoverTextColor'] ) ? $attributes['buttonHoverTextColor'] : '#d4af37';
+$button_hover_border         = isset( $attributes['buttonHoverBorderColor'] ) ? $attributes['buttonHoverBorderColor'] : '#d4af37';
+$mobile_button_text          = gg_get_color_value( $attributes, 'mobileButtonTextColor', '#1b3a2f' );
+$mobile_button_bg            = gg_get_color_value( $attributes, 'mobileButtonBackgroundColor', '#f0f0f0' );
+$mobile_button_active_text   = gg_get_color_value( $attributes, 'mobileButtonActiveTextColor', '#ffffff' );
+$mobile_button_active_bg     = gg_get_color_value( $attributes, 'mobileButtonActiveBackgroundColor', '#1b3a2f' );
+$mobile_button_hover_text    = gg_get_color_value( $attributes, 'mobileButtonHoverTextColor', '#ffffff' );
+$mobile_button_hover_bg      = gg_get_color_value( $attributes, 'mobileButtonHoverBackgroundColor', '#c9a961' );
+$show_explore_button         = isset( $attributes['showExploreButton'] ) ? $attributes['showExploreButton'] : true;
+$explore_button_text         = isset( $attributes['exploreButtonText'] ) ? $attributes['exploreButtonText'] : 'Explore More';
+$explore_button_bg           = isset( $attributes['exploreButtonBackgroundColor'] ) ? $attributes['exploreButtonBackgroundColor'] : '#1a1a1a';
+$explore_button_text_color   = isset( $attributes['exploreButtonTextColor'] ) ? $attributes['exploreButtonTextColor'] : '#ffffff';
+$explore_button_border       = isset( $attributes['exploreButtonBorderColor'] ) ? $attributes['exploreButtonBorderColor'] : '#1a1a1a';
 $explore_button_border_width = isset( $attributes['exploreButtonBorderWidth'] ) ? $attributes['exploreButtonBorderWidth'] : 0;
-$explore_button_radius = isset( $attributes['exploreButtonBorderRadius'] ) ? $attributes['exploreButtonBorderRadius'] : 0;
-$explore_button_hover_bg = isset( $attributes['exploreButtonHoverBackgroundColor'] ) ? $attributes['exploreButtonHoverBackgroundColor'] : '#d4af37';
-$explore_button_hover_text = isset( $attributes['exploreButtonHoverTextColor'] ) ? $attributes['exploreButtonHoverTextColor'] : '#1a1a1a';
-$posts_per_page = isset( $attributes['postsPerPage'] ) ? $attributes['postsPerPage'] : 3;
+$explore_button_radius       = isset( $attributes['exploreButtonBorderRadius'] ) ? $attributes['exploreButtonBorderRadius'] : 0;
+$explore_button_hover_bg     = isset( $attributes['exploreButtonHoverBackgroundColor'] ) ? $attributes['exploreButtonHoverBackgroundColor'] : '#d4af37';
+$explore_button_hover_text   = isset( $attributes['exploreButtonHoverTextColor'] ) ? $attributes['exploreButtonHoverTextColor'] : '#1a1a1a';
+$posts_per_page              = isset( $attributes['postsPerPage'] ) ? $attributes['postsPerPage'] : 3;
 
 /**
  * Filter the number of displayed projects.
@@ -92,7 +100,7 @@ $block_id = 'gg-projects-grid-' . wp_unique_id();
 
 // Initial context for Interactivity API.
 $displayed_projects = array_slice( $projects_data, 0, $posts_per_page );
-$context = array(
+$context            = array(
 	'selectedArea'      => 'all',
 	'selectedAreaLabel' => __( 'All Projects', 'greengrowth-impact-showcase' ),
 	'allProjects'       => $projects_data,
@@ -110,18 +118,18 @@ $inline_styles = gg_build_inline_styles( $attributes );
 // Wrapper classes and attributes.
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
-		'class'                 => 'wp-block-greengrowth-impact-showcase',
-	'data-wp-interactive'   => 'greengrowth-showcase',
-	'data-wp-context'       => wp_json_encode( $context ),
-	'data-show-explore-button' => $show_explore_button ? 'true' : 'false',
-	'data-explore-button-text' => esc_attr( $explore_button_text ),
-	'data-shadow'           => esc_attr( $shadow_intensity ),
-	'style'                 => $inline_styles,
+		'class'                    => 'wp-block-greengrowth-impact-showcase',
+		'data-wp-interactive'      => 'greengrowth-showcase',
+		'data-wp-context'          => wp_json_encode( $context ),
+		'data-show-explore-button' => $show_explore_button ? 'true' : 'false',
+		'data-explore-button-text' => esc_attr( $explore_button_text ),
+		'data-shadow'              => esc_attr( $shadow_intensity ),
+		'style'                    => $inline_styles,
 	)
 );
 ?>
 
-<div <?php echo $wrapper_attributes; ?>>
+<div <?php echo wp_kses_data( $wrapper_attributes ); ?>>
 
 	<nav class="gg-filter-buttons" role="group" aria-label="<?php esc_attr_e( 'Filter projects by service area', 'greengrowth-impact-showcase' ); ?>" data-button-style="<?php echo esc_attr( $button_style ); ?>" data-wp-init="callbacks.initStickyFilterBar">
 		<button
@@ -138,18 +146,18 @@ $wrapper_attributes = get_block_wrapper_attributes(
 		</button>
 
 		<?php if ( ! empty( $service_area_terms ) && ! is_wp_error( $service_area_terms ) ) : ?>
-			<?php foreach ( $service_area_terms as $term ) : ?>
+			<?php foreach ( $service_area_terms as $service_term ) : ?>
 				<button
 					type="button"
 					class="gg-filter-button"
 					data-wp-on--click="actions.filterByArea"
 					data-wp-class--active="state.isActive"
 					data-wp-bind--aria-pressed="state.isActive"
-					data-wp-context='<?php echo wp_json_encode( array( 'buttonArea' => $term->slug ) ); ?>'
-					data-area="<?php echo esc_attr( $term->slug ); ?>"
+					data-wp-context='<?php echo wp_json_encode( array( 'buttonArea' => $service_term->slug ) ); ?>'
+					data-area="<?php echo esc_attr( $service_term->slug ); ?>"
 					aria-pressed="false"
 					aria-controls="<?php echo esc_attr( $block_id ); ?>">
-					<?php echo esc_html( $term->name ); ?>
+					<?php echo esc_html( $service_term->name ); ?>
 				</button>
 			<?php endforeach; ?>
 		<?php endif; ?>

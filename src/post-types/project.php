@@ -214,7 +214,7 @@ function gg_download_and_attach_image( $image_url, $post_id, $title ) {
 
 	// Clean up temp file.
 	if ( file_exists( $tmp ) ) {
-		@unlink( $tmp );
+		wp_delete_file( $tmp );
 	}
 
 	if ( is_wp_error( $attachment_id ) ) {
@@ -514,7 +514,7 @@ function gg_create_sample_projects() {
 
 		if ( is_wp_error( $post_id ) ) {
 			gg_log_error( 'Failed to create project: ' . $post_id->get_error_message(), 'activation', array( 'title' => $project_data['title'] ) );
-			$failed_count++;
+			++$failed_count;
 			continue;
 		}
 
@@ -543,7 +543,7 @@ function gg_create_sample_projects() {
 				}
 			}
 
-			$created_count++;
+			++$created_count;
 		}
 	}
 

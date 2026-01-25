@@ -17,7 +17,7 @@
  */
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -44,7 +44,8 @@ add_action( 'init', 'gg_impact_load_textdomain' );
  */
 require_once GG_IMPACT_PLUGIN_DIR . 'src/includes/error-logger.php';
 require_once GG_IMPACT_PLUGIN_DIR . 'src/includes/style-helpers.php';
-require_once GG_IMPACT_PLUGIN_DIR . 'src/includes/class-projects-manager.php';
+require_once GG_IMPACT_PLUGIN_DIR . 'src/includes/class-gg-projects-manager.php';
+require_once GG_IMPACT_PLUGIN_DIR . 'src/includes/projects-manager.php';
 require_once GG_IMPACT_PLUGIN_DIR . 'src/post-types/project.php';
 
 /**
@@ -87,8 +88,8 @@ function gg_impact_enqueue_frontend_assets() {
 		return;
 	}
 
-	// Enqueue Interactivity API view script module
-	// Use source file directly to preserve ES module imports
+	// Enqueue Interactivity API view script module.
+	// Use source file directly to preserve ES module imports.
 	if ( function_exists( 'wp_enqueue_script_module' ) ) {
 		wp_enqueue_script_module(
 			'greengrowth-impact-showcase-view',
@@ -115,7 +116,7 @@ function gg_impact_showcase_activate() {
 
 	// Create sample data if no projects exist.
 	$existing_projects = wp_count_posts( 'gg_project' );
-	if ( $existing_projects->publish === 0 ) {
+	if ( 0 === $existing_projects->publish ) {
 		gg_create_sample_projects();
 	}
 }
@@ -160,7 +161,7 @@ function gg_fix_project_images() {
 
 			if ( $attachment_id && ! is_wp_error( $attachment_id ) ) {
 				set_post_thumbnail( $project->ID, $attachment_id );
-				$fixed_count++;
+				++$fixed_count;
 			}
 		}
 	}
@@ -251,19 +252,21 @@ function gg_show_missing_images_notice() {
 	}
 
 	// Check if any projects are missing images.
-	$projects_without_images = get_posts(
-		array(
-			'post_type'      => 'gg_project',
-			'posts_per_page' => 1,
-			'post_status'    => 'publish',
-			'meta_query'     => array(
-				array(
-					'key'     => '_thumbnail_id',
-					'compare' => 'NOT EXISTS',
+		$projects_without_images = get_posts(
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			array(
+				'post_type'      => 'gg_project',
+				'posts_per_page' => 1,
+				'post_status'    => 'publish',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				'meta_query'     => array(
+					array(
+						'key'     => '_thumbnail_id',
+						'compare' => 'NOT EXISTS',
+					),
 				),
-			),
-		)
-	);
+			)
+		);
 
 	if ( empty( $projects_without_images ) ) {
 		return;

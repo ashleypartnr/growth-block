@@ -1,6 +1,6 @@
 <?php
 /**
- * Projects Manager - Singleton for project data management and caching
+ * Projects Manager - Singleton for project data management and caching.
  *
  * @package GreenGrowth_Impact_Showcase
  */
@@ -201,6 +201,7 @@ class GG_Projects_Manager {
 
 		// Log cache invalidation for debugging.
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			error_log( 'GG Impact Showcase: Cache invalidated' );
 		}
 	}
@@ -234,13 +235,4 @@ class GG_Projects_Manager {
 		wp_cache_flush();
 		$this->projects = null;
 	}
-}
-
-/**
- * Get the Projects Manager instance.
- *
- * @return GG_Projects_Manager
- */
-function gg_get_projects_manager() {
-	return GG_Projects_Manager::get_instance();
 }

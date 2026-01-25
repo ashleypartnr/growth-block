@@ -42,16 +42,16 @@ const COLORS = [
 	{ name: 'Bronze', color: '#cd7f32' },
 ];
 
-const Heading = ( { level = 4, className, children, ...props } ) => {
-	const Tag = `h${ level }`;
+const Heading              = ( { level = 4, className, children, ...props } ) => {
+	const Tag              = `h${ level }`;
 	const headingClassName = [ 'components-base-control__label', className ]
 		.filter( Boolean )
 		.join( ' ' );
 
 	return (
-		<Tag className={ headingClassName } { ...props }>
+		< Tag className = { headingClassName } { ...props } >
 			{ children }
-		</Tag>
+		< / Tag >
 	);
 };
 
@@ -104,1016 +104,1052 @@ export default function Edit( props ) {
 		exploreButtonHoverBackgroundColor,
 		exploreButtonHoverTextColor,
 		postsPerPage,
-	} = attributes;
+	}                                   = attributes;
 
-	const blockProps = useBlockProps( {
-		'data-shadow': shadowIntensity,
-		'data-button-style': buttonStyle,
-		style: {
-			'--gg-primary-color': primaryColor,
-			'--gg-accent-color': accentColor,
-			'--gg-background-color': backgroundColor,
-			'--gg-text-color': textColor,
-			'--gg-card-bg-color': cardBackgroundColor,
-			'--gg-title-size': `${ titleFontSize }px`,
-			'--gg-excerpt-size': `${ excerptFontSize }px`,
-			'--gg-button-size': `${ buttonFontSize }px`,
-			'--gg-card-radius': `${ cardBorderRadius }px`,
-			'--gg-card-gap': `${ cardGap }px`,
-			'--gg-overlay-opacity': overlayOpacity / 100,
-			'--gg-button-bg': buttonBackgroundColor,
-			'--gg-button-text': buttonTextColor,
-			'--gg-button-border': buttonBorderColor,
-			'--gg-button-active-bg': buttonActiveBackgroundColor,
-			'--gg-button-active-text': buttonActiveTextColor,
-			'--gg-button-active-border': buttonActiveBorderColor,
-			'--gg-button-radius': `${ buttonBorderRadius }px`,
-			'--gg-button-border-width': `${ buttonBorderWidth }px`,
-			'--gg-button-hover-bg': buttonHoverBackgroundColor,
-			'--gg-button-hover-text': buttonHoverTextColor,
-			'--gg-button-hover-border': buttonHoverBorderColor,
-			'--gg-mobile-button-text': mobileButtonTextColor,
-			'--gg-mobile-button-bg': mobileButtonBackgroundColor,
-			'--gg-mobile-button-active-text': mobileButtonActiveTextColor,
-			'--gg-mobile-button-active-bg': mobileButtonActiveBackgroundColor,
-			'--gg-mobile-button-hover-text': mobileButtonHoverTextColor,
-			'--gg-mobile-button-hover-bg': mobileButtonHoverBackgroundColor,
-			'--gg-explore-btn-bg': exploreButtonBackgroundColor,
-			'--gg-explore-btn-text': exploreButtonTextColor,
-			'--gg-explore-btn-border': exploreButtonBorderColor,
-			'--gg-explore-btn-border-width': `${ exploreButtonBorderWidth }px`,
-			'--gg-explore-btn-radius': `${ exploreButtonBorderRadius }px`,
-			'--gg-explore-btn-hover-bg': exploreButtonHoverBackgroundColor,
-			'--gg-explore-btn-hover-text': exploreButtonHoverTextColor,
-		},
-	} );
+	const blockProps = useBlockProps(
+		{
+			'data-shadow': shadowIntensity,
+			'data-button-style': buttonStyle,
+			style: {
+				'--gg-primary-color': primaryColor,
+				'--gg-accent-color': accentColor,
+				'--gg-background-color': backgroundColor,
+				'--gg-text-color': textColor,
+				'--gg-card-bg-color': cardBackgroundColor,
+				'--gg-title-size': `${ titleFontSize }px`,
+				'--gg-excerpt-size': `${ excerptFontSize }px`,
+				'--gg-button-size': `${ buttonFontSize }px`,
+				'--gg-card-radius': `${ cardBorderRadius }px`,
+				'--gg-card-gap': `${ cardGap }px`,
+				'--gg-overlay-opacity': overlayOpacity / 100,
+				'--gg-button-bg': buttonBackgroundColor,
+				'--gg-button-text': buttonTextColor,
+				'--gg-button-border': buttonBorderColor,
+				'--gg-button-active-bg': buttonActiveBackgroundColor,
+				'--gg-button-active-text': buttonActiveTextColor,
+				'--gg-button-active-border': buttonActiveBorderColor,
+				'--gg-button-radius': `${ buttonBorderRadius }px`,
+				'--gg-button-border-width': `${ buttonBorderWidth }px`,
+				'--gg-button-hover-bg': buttonHoverBackgroundColor,
+				'--gg-button-hover-text': buttonHoverTextColor,
+				'--gg-button-hover-border': buttonHoverBorderColor,
+				'--gg-mobile-button-text': mobileButtonTextColor,
+				'--gg-mobile-button-bg': mobileButtonBackgroundColor,
+				'--gg-mobile-button-active-text': mobileButtonActiveTextColor,
+				'--gg-mobile-button-active-bg': mobileButtonActiveBackgroundColor,
+				'--gg-mobile-button-hover-text': mobileButtonHoverTextColor,
+				'--gg-mobile-button-hover-bg': mobileButtonHoverBackgroundColor,
+				'--gg-explore-btn-bg': exploreButtonBackgroundColor,
+				'--gg-explore-btn-text': exploreButtonTextColor,
+				'--gg-explore-btn-border': exploreButtonBorderColor,
+				'--gg-explore-btn-border-width': `${ exploreButtonBorderWidth }px`,
+				'--gg-explore-btn-radius': `${ exploreButtonBorderRadius }px`,
+				'--gg-explore-btn-hover-bg': exploreButtonHoverBackgroundColor,
+				'--gg-explore-btn-hover-text': exploreButtonHoverTextColor,
+			},
+		}
+	);
 
 	return (
-		<>
-			<InspectorControls>
+		< >
+			< InspectorControls >
 				{ /* General Colors */ }
-				<PanelBody
-					title={ __( 'Colors', 'greengrowth-impact-showcase' ) }
-					initialOpen={ true }
+				< PanelBody
+					title           = { __( 'Colors', 'greengrowth-impact-showcase' ) }
+					initialOpen     = { true }
 				>
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __(
 							'Background Color',
 							'greengrowth-impact-showcase'
 						) }
-					</Heading>
-					<p className="components-base-control__help">
+					< / Heading >
+					< p className   = "components-base-control__help" >
 						{ __(
 							'Main background color',
 							'greengrowth-impact-showcase'
 						) }
-					</p>
-					<ColorPalette
-						colors={ COLORS }
-						value={ backgroundColor }
-						onChange={ ( color ) =>
+					< / p >
+					< ColorPalette
+						colors      = { COLORS }
+						value       = { backgroundColor }
+						onChange    = { ( color ) =>
 							setAttributes( { backgroundColor: color } )
 						}
-					/>
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<p className="components-base-control__help">
+					< / Heading >
+					< p className   = "components-base-control__help" >
 						{ __(
 							'Main text color',
 							'greengrowth-impact-showcase'
 						) }
-					</p>
-					<ColorPalette
-						colors={ COLORS }
-						value={ textColor }
-						onChange={ ( color ) =>
+					< / p >
+					< ColorPalette
+						colors      = { COLORS }
+						value       = { textColor }
+						onChange    = { ( color ) =>
 							setAttributes( { textColor: color } )
 						}
-					/>
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Primary Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<p className="components-base-control__help">
+					< / Heading >
+					< p className   = "components-base-control__help" >
 						{ __(
 							'Brand color for accents',
 							'greengrowth-impact-showcase'
 						) }
-					</p>
-					<ColorPalette
-						colors={ COLORS }
-						value={ primaryColor }
-						onChange={ ( color ) =>
+					< / p >
+					< ColorPalette
+						colors      = { COLORS }
+						value       = { primaryColor }
+						onChange    = { ( color ) =>
 							setAttributes( { primaryColor: color } )
 						}
-					/>
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Accent Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<p className="components-base-control__help">
+					< / Heading >
+					< p className   = "components-base-control__help" >
 						{ __(
 							'Highlight color for hover states',
 							'greengrowth-impact-showcase'
 						) }
-					</p>
-					<ColorPalette
-						colors={ COLORS }
-						value={ accentColor }
-						onChange={ ( color ) =>
+					< / p >
+					< ColorPalette
+						colors      = { COLORS }
+						value       = { accentColor }
+						onChange    = { ( color ) =>
 							setAttributes( { accentColor: color } )
 						}
-					/>
-				</PanelBody>
+					/ >
+				< / PanelBody >
 
 				{ /* Card Settings */ }
-				<PanelBody
-					title={ __(
+				< PanelBody
+					title        = { __(
 						'Card Settings',
 						'greengrowth-impact-showcase'
 					) }
-					initialOpen={ false }
+					initialOpen  = { false }
 				>
-					<RangeControl
-						label={ __(
+					< RangeControl
+						label    = { __(
 							'Posts Per Page',
 							'greengrowth-impact-showcase'
 						) }
-						value={ postsPerPage }
-						onChange={ ( value ) =>
+						value    = { postsPerPage }
+						onChange = { ( value ) =>
 							setAttributes( { postsPerPage: value } )
 						}
-						min={ 1 }
-						max={ 12 }
-						step={ 1 }
-						help={ __(
+						min      = { 1 }
+						max      = { 12 }
+						step     = { 1 }
+						help     = { __(
 							'Number of projects to load initially and on each scroll',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
-					<hr
-						style={ {
+					< hr
+						style = { {
 							margin: '24px 0',
 							border: 'none',
 							borderTop: '1px solid #ddd',
-						} }
-					/>
+							} }
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __(
 							'Card Background',
 							'greengrowth-impact-showcase'
 						) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ cardBackgroundColor }
-						onChange={ ( color ) =>
+					< / Heading >
+					< ColorPalette
+						colors      = { COLORS }
+						value       = { cardBackgroundColor }
+						onChange    = { ( color ) =>
 							setAttributes( { cardBackgroundColor: color } )
 						}
-					/>
+					/ >
 
-					<RangeControl
-						label={ __(
+					< RangeControl
+						label    = { __(
 							'Card Border Radius',
 							'greengrowth-impact-showcase'
 						) }
-						value={ cardBorderRadius }
-						onChange={ ( value ) =>
+						value    = { cardBorderRadius }
+						onChange = { ( value ) =>
 							setAttributes( { cardBorderRadius: value } )
 						}
-						min={ 0 }
-						max={ 40 }
-						step={ 1 }
-						help={ __(
+						min      = { 0 }
+						max      = { 40 }
+						step     = { 1 }
+						help     = { __(
 							'0 for sharp edges, 40 for rounded',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
-					<RangeControl
-						label={ __(
+					< RangeControl
+						label    = { __(
 							'Card Gap',
 							'greengrowth-impact-showcase'
 						) }
-						value={ cardGap }
-						onChange={ ( value ) =>
+						value    = { cardGap }
+						onChange = { ( value ) =>
 							setAttributes( { cardGap: value } )
 						}
-						min={ 16 }
-						max={ 80 }
-						step={ 4 }
-						help={ __(
+						min      = { 16 }
+						max      = { 80 }
+						step     = { 4 }
+						help     = { __(
 							'Space between cards',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
-					<SelectControl
-						label={ __(
+					< SelectControl
+						label    = { __(
 							'Shadow Intensity',
 							'greengrowth-impact-showcase'
 						) }
-						value={ shadowIntensity }
-						options={ [
+						value    = { shadowIntensity }
+						options  = { [
 							{
 								label: __(
 									'None',
 									'greengrowth-impact-showcase'
 								),
-								value: 'none',
+							value: 'none',
 							},
 							{
 								label: __(
 									'Subtle',
 									'greengrowth-impact-showcase'
 								),
-								value: 'subtle',
+							value: 'subtle',
 							},
 							{
 								label: __(
 									'Medium',
 									'greengrowth-impact-showcase'
 								),
-								value: 'medium',
+							value: 'medium',
 							},
 							{
 								label: __(
 									'Strong',
 									'greengrowth-impact-showcase'
 								),
-								value: 'strong',
+							value: 'strong',
 							},
 							{
 								label: __(
 									'Dramatic',
 									'greengrowth-impact-showcase'
 								),
-								value: 'dramatic',
+							value: 'dramatic',
 							},
-						] }
-						onChange={ ( value ) =>
+							] }
+						onChange = { ( value ) =>
 							setAttributes( { shadowIntensity: value } )
 						}
-						help={ __(
+						help     = { __(
 							'Card shadow depth',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
-					<RangeControl
-						label={ __(
+					< RangeControl
+						label    = { __(
 							'Image Overlay Opacity',
 							'greengrowth-impact-showcase'
 						) }
-						value={ overlayOpacity }
-						onChange={ ( value ) =>
+						value    = { overlayOpacity }
+						onChange = { ( value ) =>
 							setAttributes( { overlayOpacity: value } )
 						}
-						min={ 0 }
-						max={ 70 }
-						step={ 5 }
-						help={ __(
+						min      = { 0 }
+						max      = { 70 }
+						step     = { 5 }
+						help     = { __(
 							'Dark overlay on images',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
-					<hr
-						style={ {
+					< hr
+						style = { {
 							margin: '24px 0',
 							border: 'none',
 							borderTop: '1px solid #ddd',
-						} }
-					/>
+							} }
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Explore Link', 'greengrowth-impact-showcase' ) }
-					</Heading>
+					< / Heading >
 
-					<ToggleControl
-						label={ __(
+					< ToggleControl
+						label    = { __(
 							'Show Explore Link',
 							'greengrowth-impact-showcase'
 						) }
-						checked={ showExploreButton }
-						onChange={ ( value ) =>
+						checked  = { showExploreButton }
+						onChange = { ( value ) =>
 							setAttributes( { showExploreButton: value } )
 						}
-						help={ __(
+						help     = { __(
 							'Display a link with arrow icon on each card',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
 					{ showExploreButton && (
-						<>
-							<TextControl
-								label={ __(
+						< >
+							< TextControl
+								label    = { __(
 									'Link Text',
 									'greengrowth-impact-showcase'
 								) }
-								value={ exploreButtonText }
-								onChange={ ( value ) =>
-									setAttributes( {
-										exploreButtonText: value,
-									} )
+								value    = { exploreButtonText }
+								onChange = { ( value ) =>
+									setAttributes(
+										{
+											exploreButtonText: value,
+										}
+									)
 								}
-							/>
+							/ >
 
-							<Heading
-								level={ 5 }
-								style={ {
+							< Heading
+								level    = { 5 }
+								style    = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Text Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ exploreButtonTextColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										exploreButtonTextColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { exploreButtonTextColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											exploreButtonTextColor: color,
+										}
+									)
 								}
-							/>
+							/ >
 
-							<Heading
-								level={ 5 }
-								style={ {
+							< Heading
+								level    = { 5 }
+								style    = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Hover Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ exploreButtonHoverTextColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										exploreButtonHoverTextColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { exploreButtonHoverTextColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											exploreButtonHoverTextColor: color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
-				</PanelBody>
+				< / PanelBody >
 
 				{ /* Typography */ }
-				<PanelBody
-					title={ __( 'Typography', 'greengrowth-impact-showcase' ) }
-					initialOpen={ false }
+				< PanelBody
+					title        = { __( 'Typography', 'greengrowth-impact-showcase' ) }
+					initialOpen  = { false }
 				>
-					<RangeControl
-						label={ __(
+					< RangeControl
+						label    = { __(
 							'Title Font Size',
 							'greengrowth-impact-showcase'
 						) }
-						value={ titleFontSize }
-						onChange={ ( value ) =>
+						value    = { titleFontSize }
+						onChange = { ( value ) =>
 							setAttributes( { titleFontSize: value } )
 						}
-						min={ 16 }
-						max={ 48 }
-						step={ 1 }
-						help={ __(
+						min      = { 16 }
+						max      = { 48 }
+						step     = { 1 }
+						help     = { __(
 							'Project card titles',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
-					<RangeControl
-						label={ __(
+					< RangeControl
+						label    = { __(
 							'Excerpt Font Size',
 							'greengrowth-impact-showcase'
 						) }
-						value={ excerptFontSize }
-						onChange={ ( value ) =>
+						value    = { excerptFontSize }
+						onChange = { ( value ) =>
 							setAttributes( { excerptFontSize: value } )
 						}
-						min={ 12 }
-						max={ 24 }
-						step={ 1 }
-						help={ __(
+						min      = { 12 }
+						max      = { 24 }
+						step     = { 1 }
+						help     = { __(
 							'Project descriptions',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
-					<RangeControl
-						label={ __(
+					< RangeControl
+						label    = { __(
 							'Button Font Size',
 							'greengrowth-impact-showcase'
 						) }
-						value={ buttonFontSize }
-						onChange={ ( value ) =>
+						value    = { buttonFontSize }
+						onChange = { ( value ) =>
 							setAttributes( { buttonFontSize: value } )
 						}
-						min={ 11 }
-						max={ 20 }
-						step={ 1 }
-						help={ __(
+						min      = { 11 }
+						max      = { 20 }
+						step     = { 1 }
+						help     = { __(
 							'Filter button text',
 							'greengrowth-impact-showcase'
 						) }
-					/>
-				</PanelBody>
+					/ >
+				< / PanelBody >
 
 				{ /* Filter Buttons */ }
-				<PanelBody
-					title={ __(
+				< PanelBody
+					title        = { __(
 						'Filter Buttons',
 						'greengrowth-impact-showcase'
 					) }
-					initialOpen={ false }
+					initialOpen  = { false }
 				>
-					<SelectControl
-						label={ __(
+					< SelectControl
+						label    = { __(
 							'Button Style',
 							'greengrowth-impact-showcase'
 						) }
-						value={ buttonStyle }
-						options={ [
+						value    = { buttonStyle }
+						options  = { [
 							{
 								label: __(
 									'Text Only',
 									'greengrowth-impact-showcase'
 								),
-								value: 'text',
+							value: 'text',
 							},
 							{
 								label: __(
 									'Button',
 									'greengrowth-impact-showcase'
 								),
-								value: 'button',
+							value: 'button',
 							},
 							{
 								label: __(
 									'Underline',
 									'greengrowth-impact-showcase'
 								),
-								value: 'underline',
+							value: 'underline',
 							},
-						] }
-						onChange={ ( value ) =>
+							] }
+						onChange = { ( value ) =>
 							setAttributes( { buttonStyle: value } )
 						}
-						help={ __(
+						help     = { __(
 							'Visual style of filters',
 							'greengrowth-impact-showcase'
 						) }
-					/>
+					/ >
 
-					<hr
-						style={ {
+					< hr
+						style = { {
 							margin: '24px 0',
 							border: 'none',
 							borderTop: '1px solid #ddd',
-						} }
-					/>
+							} }
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonTextColor }
-						onChange={ ( color ) =>
+					< / Heading >
+					< ColorPalette
+						colors      = { COLORS }
+						value       = { buttonTextColor }
+						onChange    = { ( color ) =>
 							setAttributes( { buttonTextColor: color } )
 						}
-					/>
+					/ >
 
 					{ buttonStyle === 'button' && (
-						<>
-							<Heading
-								level={ 4 }
-								style={ { marginTop: '24px' } }
+						< >
+							< Heading
+								level    = { 4 }
+								style    = { { marginTop: '24px' } }
 							>
 								{ __(
 									'Background Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ buttonBackgroundColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										buttonBackgroundColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { buttonBackgroundColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											buttonBackgroundColor: color,
+										}
+									)
 								}
-							/>
+							/ >
 
-							<RangeControl
-								label={ __(
+							< RangeControl
+								label    = { __(
 									'Border Radius',
 									'greengrowth-impact-showcase'
 								) }
-								value={ buttonBorderRadius }
-								onChange={ ( value ) =>
-									setAttributes( {
-										buttonBorderRadius: value,
-									} )
+								value    = { buttonBorderRadius }
+								onChange = { ( value ) =>
+									setAttributes(
+										{
+											buttonBorderRadius: value,
+										}
+									)
 								}
-								min={ 0 }
-								max={ 50 }
-								step={ 1 }
-							/>
-						</>
+								min      = { 0 }
+								max      = { 50 }
+								step     = { 1 }
+							/ >
+						< / >
 					) }
 
-					<hr
-						style={ {
+					< hr
+						style = { {
 							margin: '24px 0',
 							border: 'none',
 							borderTop: '1px solid #ddd',
-						} }
-					/>
+							} }
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Active State', 'greengrowth-impact-showcase' ) }
-					</Heading>
+					< / Heading >
 
-					<Heading
-						level={ 5 }
-						style={ { fontSize: '13px', marginTop: '16px' } }
+					< Heading
+						level    = { 5 }
+						style    = { { fontSize: '13px', marginTop: '16px' } }
 					>
 						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ buttonActiveTextColor }
-						onChange={ ( color ) =>
+					< / Heading >
+					< ColorPalette
+						colors   = { COLORS }
+						value    = { buttonActiveTextColor }
+						onChange = { ( color ) =>
 							setAttributes( { buttonActiveTextColor: color } )
 						}
-					/>
+					/ >
 
 					{ buttonStyle === 'button' && (
-						<>
-							<Heading
-								level={ 5 }
-								style={ {
+						< >
+							< Heading
+								level    = { 5 }
+								style    = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Background Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ buttonActiveBackgroundColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										buttonActiveBackgroundColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { buttonActiveBackgroundColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											buttonActiveBackgroundColor: color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
 
 					{ ( buttonStyle === 'text' ||
 						buttonStyle === 'underline' ) && (
-						<>
-							<Heading
-								level={ 5 }
-								style={ {
+						< >
+							< Heading
+								level     = { 5 }
+								style     = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Accent Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<p
-								className="components-base-control__help"
-								style={ {
+							< / Heading >
+							< p
+								className = "components-base-control__help"
+								style     = { {
 									marginTop: '-8px',
 									marginBottom: '8px',
-								} }
+									} }
 							>
 								{ __(
 									'Underline color for selected filter',
 									'greengrowth-impact-showcase'
 								) }
-							</p>
-							<ColorPalette
-								colors={ COLORS }
-								value={ buttonActiveBackgroundColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										buttonActiveBackgroundColor: color,
-									} )
+							< / p >
+							< ColorPalette
+								colors    = { COLORS }
+								value     = { buttonActiveBackgroundColor }
+								onChange  = { ( color ) =>
+									setAttributes(
+										{
+											buttonActiveBackgroundColor: color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
 
-					<hr
-						style={ {
+					< hr
+						style = { {
 							margin: '24px 0',
 							border: 'none',
 							borderTop: '1px solid #ddd',
-						} }
-					/>
+							} }
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Hover State', 'greengrowth-impact-showcase' ) }
-					</Heading>
+					< / Heading >
 
 					{ buttonStyle === 'button' && (
-						<>
-							<Heading
-								level={ 5 }
-								style={ {
+						< >
+							< Heading
+								level    = { 5 }
+								style    = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Background Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ buttonHoverBackgroundColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										buttonHoverBackgroundColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { buttonHoverBackgroundColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											buttonHoverBackgroundColor: color,
+										}
+									)
 								}
-							/>
+							/ >
 
-							<Heading
-								level={ 5 }
-								style={ {
+							< Heading
+								level    = { 5 }
+								style    = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Text Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ buttonHoverTextColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										buttonHoverTextColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { buttonHoverTextColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											buttonHoverTextColor: color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
 
 					{ ( buttonStyle === 'text' ||
 						buttonStyle === 'underline' ) && (
-						<>
-							<Heading
-								level={ 5 }
-								style={ {
+						< >
+							< Heading
+								level     = { 5 }
+								style     = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __( 'Color', 'greengrowth-impact-showcase' ) }
-							</Heading>
-							<p
-								className="components-base-control__help"
-								style={ {
+							< / Heading >
+							< p
+								className = "components-base-control__help"
+								style     = { {
 									marginTop: '-8px',
 									marginBottom: '8px',
-								} }
+									} }
 							>
 								{ __(
 									'Text and underline color',
 									'greengrowth-impact-showcase'
 								) }
-							</p>
-							<ColorPalette
-								colors={ COLORS }
-								value={ buttonHoverTextColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										buttonHoverTextColor: color,
-									} )
+							< / p >
+							< ColorPalette
+								colors    = { COLORS }
+								value     = { buttonHoverTextColor }
+								onChange  = { ( color ) =>
+									setAttributes(
+										{
+											buttonHoverTextColor: color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
-				</PanelBody>
+				< / PanelBody >
 
 				{ /* Mobile Filter Bar */ }
-				<PanelBody
-					title={ __(
+				< PanelBody
+					title         = { __(
 						'Mobile Filter Bar',
 						'greengrowth-impact-showcase'
 					) }
-					initialOpen={ false }
+					initialOpen   = { false }
 				>
-					<p className="components-base-control__help">
+					< p className = "components-base-control__help" >
 						{ __(
 							'Overrides filter button colors on screens 768px and under.',
 							'greengrowth-impact-showcase'
 						) }
-					</p>
+					< / p >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ mobileButtonTextColor }
-						onChange={ ( color ) =>
+					< / Heading >
+					< ColorPalette
+						colors      = { COLORS }
+						value       = { mobileButtonTextColor }
+						onChange    = { ( color ) =>
 							setAttributes( { mobileButtonTextColor: color } )
 						}
-					/>
+					/ >
 
 					{ buttonStyle === 'button' && (
-						<>
-							<Heading
-								level={ 4 }
-								style={ { marginTop: '24px' } }
+						< >
+							< Heading
+								level    = { 4 }
+								style    = { { marginTop: '24px' } }
 							>
 								{ __(
 									'Background Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ mobileButtonBackgroundColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										mobileButtonBackgroundColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { mobileButtonBackgroundColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											mobileButtonBackgroundColor: color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
 
-					<hr
-						style={ {
+					< hr
+						style = { {
 							margin: '24px 0',
 							border: 'none',
 							borderTop: '1px solid #ddd',
-						} }
-					/>
+							} }
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Active State', 'greengrowth-impact-showcase' ) }
-					</Heading>
+					< / Heading >
 
-					<Heading
-						level={ 5 }
-						style={ { fontSize: '13px', marginTop: '16px' } }
+					< Heading
+						level    = { 5 }
+						style    = { { fontSize: '13px', marginTop: '16px' } }
 					>
 						{ __( 'Text Color', 'greengrowth-impact-showcase' ) }
-					</Heading>
-					<ColorPalette
-						colors={ COLORS }
-						value={ mobileButtonActiveTextColor }
-						onChange={ ( color ) =>
-							setAttributes( {
-								mobileButtonActiveTextColor: color,
-							} )
+					< / Heading >
+					< ColorPalette
+						colors   = { COLORS }
+						value    = { mobileButtonActiveTextColor }
+						onChange = { ( color ) =>
+							setAttributes(
+								{
+									mobileButtonActiveTextColor: color,
+								}
+							)
 						}
-					/>
+					/ >
 
 					{ buttonStyle === 'button' && (
-						<>
-							<Heading
-								level={ 5 }
-								style={ {
+						< >
+							< Heading
+								level    = { 5 }
+								style    = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Background Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ mobileButtonActiveBackgroundColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										mobileButtonActiveBackgroundColor:
-											color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { mobileButtonActiveBackgroundColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											mobileButtonActiveBackgroundColor:
+												color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
 
 					{ ( buttonStyle === 'text' ||
 						buttonStyle === 'underline' ) && (
-						<>
-							<Heading
-								level={ 5 }
-								style={ {
+						< >
+							< Heading
+								level     = { 5 }
+								style     = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Accent Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<p
-								className="components-base-control__help"
-								style={ {
+							< / Heading >
+							< p
+								className = "components-base-control__help"
+								style     = { {
 									marginTop: '-8px',
 									marginBottom: '8px',
-								} }
+									} }
 							>
 								{ __(
 									'Underline color for selected filter',
 									'greengrowth-impact-showcase'
 								) }
-							</p>
-							<ColorPalette
-								colors={ COLORS }
-								value={ mobileButtonActiveBackgroundColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										mobileButtonActiveBackgroundColor:
-											color,
-									} )
+							< / p >
+							< ColorPalette
+								colors    = { COLORS }
+								value     = { mobileButtonActiveBackgroundColor }
+								onChange  = { ( color ) =>
+									setAttributes(
+										{
+											mobileButtonActiveBackgroundColor:
+												color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
 
-					<hr
-						style={ {
+					< hr
+						style = { {
 							margin: '24px 0',
 							border: 'none',
 							borderTop: '1px solid #ddd',
-						} }
-					/>
+							} }
+					/ >
 
-					<Heading level={ 4 }>
+					< Heading level = { 4 } >
 						{ __( 'Hover State', 'greengrowth-impact-showcase' ) }
-					</Heading>
+					< / Heading >
 
 					{ buttonStyle === 'button' && (
-						<>
-							<Heading
-								level={ 5 }
-								style={ {
+						< >
+							< Heading
+								level    = { 5 }
+								style    = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Background Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ mobileButtonHoverBackgroundColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										mobileButtonHoverBackgroundColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { mobileButtonHoverBackgroundColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											mobileButtonHoverBackgroundColor: color,
+										}
+									)
 								}
-							/>
+							/ >
 
-							<Heading
-								level={ 5 }
-								style={ {
+							< Heading
+								level    = { 5 }
+								style    = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __(
 									'Text Color',
 									'greengrowth-impact-showcase'
 								) }
-							</Heading>
-							<ColorPalette
-								colors={ COLORS }
-								value={ mobileButtonHoverTextColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										mobileButtonHoverTextColor: color,
-									} )
+							< / Heading >
+							< ColorPalette
+								colors   = { COLORS }
+								value    = { mobileButtonHoverTextColor }
+								onChange = { ( color ) =>
+									setAttributes(
+										{
+											mobileButtonHoverTextColor: color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
 
 					{ ( buttonStyle === 'text' ||
 						buttonStyle === 'underline' ) && (
-						<>
-							<Heading
-								level={ 5 }
-								style={ {
+						< >
+							< Heading
+								level     = { 5 }
+								style     = { {
 									fontSize: '13px',
 									marginTop: '16px',
-								} }
+									} }
 							>
 								{ __( 'Color', 'greengrowth-impact-showcase' ) }
-							</Heading>
-							<p
-								className="components-base-control__help"
-								style={ {
+							< / Heading >
+							< p
+								className = "components-base-control__help"
+								style     = { {
 									marginTop: '-8px',
 									marginBottom: '8px',
-								} }
+									} }
 							>
 								{ __(
 									'Text and underline color',
 									'greengrowth-impact-showcase'
 								) }
-							</p>
-							<ColorPalette
-								colors={ COLORS }
-								value={ mobileButtonHoverTextColor }
-								onChange={ ( color ) =>
-									setAttributes( {
-										mobileButtonHoverTextColor: color,
-									} )
+							< / p >
+							< ColorPalette
+								colors    = { COLORS }
+								value     = { mobileButtonHoverTextColor }
+								onChange  = { ( color ) =>
+									setAttributes(
+										{
+											mobileButtonHoverTextColor: color,
+										}
+									)
 								}
-							/>
-						</>
+							/ >
+						< / >
 					) }
-				</PanelBody>
-			</InspectorControls>
+				< / PanelBody >
+			< / InspectorControls >
 
-			<div { ...blockProps }>
-				<ServerSideRender
-					block={ metadata.name }
-					attributes={ attributes }
-					LoadingResponsePlaceholder={ () => (
-						<Placeholder
-							icon="admin-site-alt3"
-							label={ __(
+			< div { ...blockProps } >
+				< ServerSideRender
+					block                      = { metadata.name }
+					attributes                 = { attributes }
+					LoadingResponsePlaceholder = { () => (
+						< Placeholder
+							icon               = "admin-site-alt3"
+							label              = { __(
 								'Impact Showcase',
 								'greengrowth-impact-showcase'
 							) }
 						>
-							<Spinner />
-						</Placeholder>
+							< Spinner / >
+						< / Placeholder >
 					) }
-					ErrorResponsePlaceholder={ () => (
-						<Placeholder
-							icon="warning"
-							label={ __(
+					ErrorResponsePlaceholder = { () => (
+						< Placeholder
+							icon             = "warning"
+							label            = { __(
 								'Impact Showcase',
 								'greengrowth-impact-showcase'
 							) }
 						>
-							<p>
+							< p >
 								{ __(
 									'Error loading projects. Please ensure the GreenGrowth plugin is properly configured.',
 									'greengrowth-impact-showcase'
 								) }
-							</p>
-						</Placeholder>
+							< / p >
+						< / Placeholder >
 					) }
-					EmptyResponsePlaceholder={ () => (
-						<Placeholder
-							icon="admin-site-alt3"
-							label={ __(
+					EmptyResponsePlaceholder = { () => (
+						< Placeholder
+							icon             = "admin-site-alt3"
+							label            = { __(
 								'Impact Showcase',
 								'greengrowth-impact-showcase'
 							) }
 						>
-							<p>
+							< p >
 								{ __(
 									'No projects found. Add some projects to get started.',
 									'greengrowth-impact-showcase'
 								) }
-							</p>
-						</Placeholder>
+							< / p >
+						< / Placeholder >
 					) }
-				/>
-			</div>
-		</>
+				/ >
+			< / div >
+		< / >
 	);
 }

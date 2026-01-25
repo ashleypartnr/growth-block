@@ -21,8 +21,8 @@
 	"scripts": {
 		"test": "phpunit",
 		"test:coverage": "phpunit --coverage-html coverage",
-		"lint": "phpcs --standard=WordPress src/ greengrowth-impact-showcase.php",
-		"lint:fix": "phpcbf --standard=WordPress src/ greengrowth-impact-showcase.php"
+		"lint": "phpcs --standard=WordPress --extensions=php src/ greengrowth-impact-showcase.php",
+		"lint:fix": "phpcbf --standard=WordPress --extensions=php src/ greengrowth-impact-showcase.php"
 	},
 	"config": {
 		"allow-plugins": {

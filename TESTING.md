@@ -184,7 +184,7 @@ composer lint
 composer lint:fix
 
 # Check specific file
-vendor/bin/phpcs src/includes/class-projects-manager.php
+vendor/bin/phpcs src/includes/class-gg-projects-manager.php
 ```
 
 Standards: WordPress Coding Standards (WordPress-Extra + WordPress-Docs)

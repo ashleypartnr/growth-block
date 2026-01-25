@@ -482,7 +482,8 @@ greengrowth-impact-showcase/
 │   ├── post-types/
 │   │   └── project.php               # CPT & taxonomy
 │   ├── includes/
-│   │   ├── class-projects-manager.php # Caching singleton
+│   │   ├── class-gg-projects-manager.php # Caching singleton
+│   │   ├── projects-manager.php # Helper accessors
 │   │   ├── error-logger.php          # Error logging utility
 │   │   └── style-helpers.php         # Style generation
 │   └── __tests__/

@@ -13,7 +13,10 @@ import metadata from './block.json';
 /**
  * Register the Impact Showcase block.
  */
-registerBlockType( metadata.name, {
-	...metadata,
-	edit: Edit,
-} );
+registerBlockType(
+	metadata.name,
+	{
+		...metadata,
+		edit: Edit,
+	}
+);

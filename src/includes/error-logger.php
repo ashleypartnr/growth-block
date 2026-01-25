@@ -1,6 +1,6 @@
 <?php
 /**
- * Error Logging Utility
+ * Error Logging Utility.
  *
  * @package GreenGrowth_Impact_Showcase
  */
@@ -38,12 +38,15 @@ function gg_log_error( $message, $context = 'general', $data = null ) {
 
 	// Store in transient for admin notices (optional).
 	if ( is_admin() ) {
-		$errors = get_transient( 'gg_recent_errors' ) ?: array();
+		$errors = get_transient( 'gg_recent_errors' );
+		if ( ! is_array( $errors ) ) {
+			$errors = array();
+		}
 		$errors[] = array(
 			'message'   => $message,
 			'context'   => $context,
 			'data'      => $data,
-			'timestamp' => current_time( 'timestamp' ),
+			'timestamp' => time(),
 		);
 
 		// Keep only last 10 errors.
@@ -100,7 +103,7 @@ function gg_display_error_notices() {
 
 	// Show most recent error only.
 	$latest_error = end( $errors );
-	$age_seconds  = current_time( 'timestamp' ) - $latest_error['timestamp'];
+	$age_seconds  = time() - $latest_error['timestamp'];
 
 	// Only show errors from last hour.
 	if ( $age_seconds > HOUR_IN_SECONDS ) {
@@ -115,7 +118,12 @@ function gg_display_error_notices() {
 		</p>
 		<?php if ( isset( $latest_error['context'] ) ) : ?>
 			<p>
-				<em><?php echo esc_html( sprintf( __( 'Context: %s', 'greengrowth-impact-showcase' ), $latest_error['context'] ) ); ?></em>
+				<em>
+					<?php
+					/* translators: %s: error context. */
+					echo esc_html( sprintf( __( 'Context: %s', 'greengrowth-impact-showcase' ), $latest_error['context'] ) );
+					?>
+				</em>
 			</p>
 		<?php endif; ?>
 	</div>
@@ -136,5 +144,10 @@ function gg_clear_error_log() {
  * @return array Recent errors.
  */
 function gg_get_recent_errors() {
-	return get_transient( 'gg_recent_errors' ) ?: array();
+	$errors = get_transient( 'gg_recent_errors' );
+	if ( ! is_array( $errors ) ) {
+		return array();
+	}
+
+	return $errors;
 }
