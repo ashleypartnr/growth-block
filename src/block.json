@@ -1,198 +1,198 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "greengrowth/impact-showcase",
-  "version": "1.0.0",
-  "title": "Impact Showcase",
-  "category": "widgets",
-  "icon": "admin-site-alt3",
-  "description": "Display GreenGrowth projects in a filterable, responsive grid.",
-  "keywords": [
-    "projects",
-    "showcase",
-    "portfolio",
-    "filter",
-    "greengrowth"
-  ],
-  "textDomain": "greengrowth-impact-showcase",
-  "attributes": {
-    "primaryColor": {
-      "type": "string",
-      "default": "#1b3a2f"
-    },
-    "accentColor": {
-      "type": "string",
-      "default": "#c9a961"
-    },
-    "backgroundColor": {
-      "type": "string",
-      "default": "transparent"
-    },
-    "textColor": {
-      "type": "string",
-      "default": "#2d2d2d"
-    },
-    "cardBackgroundColor": {
-      "type": "string",
-      "default": "#ffffff"
-    },
-    "titleFontSize": {
-      "type": "number",
-      "default": 24
-    },
-    "excerptFontSize": {
-      "type": "number",
-      "default": 14
-    },
-    "buttonFontSize": {
-      "type": "number",
-      "default": 15
-    },
-    "cardBorderRadius": {
-      "type": "number",
-      "default": 16
-    },
-    "cardGap": {
-      "type": "number",
-      "default": 24
-    },
-    "shadowIntensity": {
-      "type": "string",
-      "default": "strong"
-    },
-    "overlayOpacity": {
-      "type": "number",
-      "default": 0
-    },
-    "buttonStyle": {
-      "type": "string",
-      "default": "button"
-    },
-    "buttonBackgroundColor": {
-      "type": "string",
-      "default": "#f0f0f0"
-    },
-    "buttonTextColor": {
-      "type": "string",
-      "default": "#1b3a2f"
-    },
-    "buttonBorderColor": {
-      "type": "string",
-      "default": "#f0f0f0"
-    },
-    "buttonActiveBackgroundColor": {
-      "type": "string",
-      "default": "#1b3a2f"
-    },
-    "buttonActiveTextColor": {
-      "type": "string",
-      "default": "#ffffff"
-    },
-    "buttonActiveBorderColor": {
-      "type": "string",
-      "default": "#1b3a2f"
-    },
-    "buttonBorderRadius": {
-      "type": "number",
-      "default": 8
-    },
-    "buttonBorderWidth": {
-      "type": "number",
-      "default": 0
-    },
-    "buttonHoverBackgroundColor": {
-      "type": "string",
-      "default": "#c9a961"
-    },
-    "buttonHoverTextColor": {
-      "type": "string",
-      "default": "#ffffff"
-    },
-    "buttonHoverBorderColor": {
-      "type": "string",
-      "default": "#c9a961"
-    },
-    "mobileButtonTextColor": {
-      "type": "string",
-      "default": "#1b3a2f"
-    },
-    "mobileButtonBackgroundColor": {
-      "type": "string",
-      "default": "#f0f0f0"
-    },
-    "mobileButtonActiveTextColor": {
-      "type": "string",
-      "default": "#ffffff"
-    },
-    "mobileButtonActiveBackgroundColor": {
-      "type": "string",
-      "default": "#1b3a2f"
-    },
-    "mobileButtonHoverTextColor": {
-      "type": "string",
-      "default": "#ffffff"
-    },
-    "mobileButtonHoverBackgroundColor": {
-      "type": "string",
-      "default": "#c9a961"
-    },
-    "showExploreButton": {
-      "type": "boolean",
-      "default": true
-    },
-    "exploreButtonText": {
-      "type": "string",
-      "default": "View Project"
-    },
-    "exploreButtonBackgroundColor": {
-      "type": "string",
-      "default": "transparent"
-    },
-    "exploreButtonTextColor": {
-      "type": "string",
-      "default": "#c9a961"
-    },
-    "exploreButtonBorderColor": {
-      "type": "string",
-      "default": "transparent"
-    },
-    "exploreButtonBorderWidth": {
-      "type": "number",
-      "default": 0
-    },
-    "exploreButtonBorderRadius": {
-      "type": "number",
-      "default": 0
-    },
-    "exploreButtonHoverBackgroundColor": {
-      "type": "string",
-      "default": "transparent"
-    },
-    "exploreButtonHoverTextColor": {
-      "type": "string",
-      "default": "#b89551"
-    },
-    "postsPerPage": {
-      "type": "number",
-      "default": 6
-    },
-    "align": {
-      "type": "string",
-      "default": "full"
-    }
-  },
-  "supports": {
-    "html": false,
-    "align": ["wide", "full"],
-    "spacing": {
-      "margin": true,
-      "padding": true
-    }
-  },
-  "editorScript": "file:./index.js",
-  "editorScriptModule": "file:./view.js",
-  "editorStyle": "file:./style-index.css",
-  "style": "file:./style-index.css",
-  "viewScriptModule": "file:./view.js",
-  "render": "file:./render.php"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "greengrowth/impact-showcase",
+	"version": "1.0.0",
+	"title": "Impact Showcase",
+	"category": "widgets",
+	"icon": "admin-site-alt3",
+	"description": "Display GreenGrowth projects in a filterable, responsive grid.",
+	"keywords": [
+		"projects",
+		"showcase",
+		"portfolio",
+		"filter",
+		"greengrowth"
+	],
+	"textDomain": "greengrowth-impact-showcase",
+	"attributes": {
+		"primaryColor": {
+			"type": "string",
+			"default": "#1b3a2f"
+		},
+		"accentColor": {
+			"type": "string",
+			"default": "#c9a961"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "transparent"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#2d2d2d"
+		},
+		"cardBackgroundColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"titleFontSize": {
+			"type": "number",
+			"default": 24
+		},
+		"excerptFontSize": {
+			"type": "number",
+			"default": 14
+		},
+		"buttonFontSize": {
+			"type": "number",
+			"default": 15
+		},
+		"cardBorderRadius": {
+			"type": "number",
+			"default": 16
+		},
+		"cardGap": {
+			"type": "number",
+			"default": 24
+		},
+		"shadowIntensity": {
+			"type": "string",
+			"default": "strong"
+		},
+		"overlayOpacity": {
+			"type": "number",
+			"default": 0
+		},
+		"buttonStyle": {
+			"type": "string",
+			"default": "button"
+		},
+		"buttonBackgroundColor": {
+			"type": "string",
+			"default": "#f0f0f0"
+		},
+		"buttonTextColor": {
+			"type": "string",
+			"default": "#1b3a2f"
+		},
+		"buttonBorderColor": {
+			"type": "string",
+			"default": "#f0f0f0"
+		},
+		"buttonActiveBackgroundColor": {
+			"type": "string",
+			"default": "#1b3a2f"
+		},
+		"buttonActiveTextColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"buttonActiveBorderColor": {
+			"type": "string",
+			"default": "#1b3a2f"
+		},
+		"buttonBorderRadius": {
+			"type": "number",
+			"default": 8
+		},
+		"buttonBorderWidth": {
+			"type": "number",
+			"default": 0
+		},
+		"buttonHoverBackgroundColor": {
+			"type": "string",
+			"default": "#c9a961"
+		},
+		"buttonHoverTextColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"buttonHoverBorderColor": {
+			"type": "string",
+			"default": "#c9a961"
+		},
+		"mobileButtonTextColor": {
+			"type": "string",
+			"default": "#1b3a2f"
+		},
+		"mobileButtonBackgroundColor": {
+			"type": "string",
+			"default": "#f0f0f0"
+		},
+		"mobileButtonActiveTextColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"mobileButtonActiveBackgroundColor": {
+			"type": "string",
+			"default": "#1b3a2f"
+		},
+		"mobileButtonHoverTextColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"mobileButtonHoverBackgroundColor": {
+			"type": "string",
+			"default": "#c9a961"
+		},
+		"showExploreButton": {
+			"type": "boolean",
+			"default": true
+		},
+		"exploreButtonText": {
+			"type": "string",
+			"default": "View Project"
+		},
+		"exploreButtonBackgroundColor": {
+			"type": "string",
+			"default": "transparent"
+		},
+		"exploreButtonTextColor": {
+			"type": "string",
+			"default": "#c9a961"
+		},
+		"exploreButtonBorderColor": {
+			"type": "string",
+			"default": "transparent"
+		},
+		"exploreButtonBorderWidth": {
+			"type": "number",
+			"default": 0
+		},
+		"exploreButtonBorderRadius": {
+			"type": "number",
+			"default": 0
+		},
+		"exploreButtonHoverBackgroundColor": {
+			"type": "string",
+			"default": "transparent"
+		},
+		"exploreButtonHoverTextColor": {
+			"type": "string",
+			"default": "#b89551"
+		},
+		"postsPerPage": {
+			"type": "number",
+			"default": 6
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorScriptModule": "file:./view.js",
+	"editorStyle": "file:./style-index.css",
+	"style": "file:./style-index.css",
+	"viewScriptModule": "file:./view.js",
+	"render": "file:./render.php"
 }

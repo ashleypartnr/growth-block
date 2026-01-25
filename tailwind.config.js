@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: [
-		'./src/blocks/impact-showcase/**/*.{js,jsx,php}',
-	],
+	content: [ './src/blocks/impact-showcase/**/*.{js,jsx,php}' ],
 	theme: {
 		extend: {
 			fontFamily: {
