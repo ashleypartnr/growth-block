@@ -158,7 +158,6 @@ git clone [repository-url] greengrowth-impact-showcase
 # Install dependencies
 cd greengrowth-impact-showcase
 npm install
-composer install
 
 # Build assets
 npm run build
@@ -369,36 +368,7 @@ Every aspect of the plugin meets WCAG 2.1 AA standards:
 
 ---
 
-## 🧪 Testing & Quality
-
-### Test Suite
-
-**JavaScript Tests (Jest):**
-- 9/9 tests passing ✅
-- Store initialization
-- Filter functionality
-- Infinite scroll
-- Sticky filter bar
-- Card height normalization
-- Accessibility features
-
-```bash
-npm run test:js
-```
-
-**PHP Tests (PHPUnit):**
-- 14+ test methods
-- Singleton pattern verification
-- Cache behavior testing
-- CPT/Taxonomy registration
-- REST API validation
-- Data structure tests
-
-```bash
-composer test
-```
-
-### Code Quality
+## ✅ Code Quality
 
 **Standards Compliance:**
 - ✅ WordPress Coding Standards (PHPCS)
@@ -406,9 +376,6 @@ composer test
 - ✅ CSS Standards (Stylelint)
 
 ```bash
-# Check PHP code standards
-composer lint
-
 # Check JavaScript code standards
 npm run lint:js
 
@@ -417,20 +384,6 @@ npm run lint:css
 ```
 
 ### Continuous Integration
-
-**GitHub Actions Pipeline:**
-- ✅ Tests on PHP 7.4, 8.0, 8.1, 8.2
-- ✅ Tests on WordPress 6.9 and latest
-- ✅ Automated code quality checks
-- ✅ Coverage reporting
-
-### Documentation
-
-- 📖 [TESTING.md](TESTING.md) - Comprehensive testing guide
-- 📖 [TESTING-LOCAL.md](TESTING-LOCAL.md) - Local development setup
-- 📖 [TEST-RESULTS.md](TEST-RESULTS.md) - Current test status
-
----
 
 ## 🌍 Internationalization
 
@@ -466,12 +419,8 @@ Fully internationalized with WordPress i18n functions.
 greengrowth-impact-showcase/
 ├── greengrowth-impact-showcase.php  # Main plugin file
 ├── package.json                      # Node dependencies & scripts
-├── composer.json                     # PHP dependencies & scripts
-├── phpunit.xml.dist                  # PHPUnit configuration
-├── jest.config.js                    # Jest configuration
 ├── .phpcs.xml.dist                   # Code standards config
 ├── README.md                         # This file
-├── TESTING.md                        # Testing documentation
 ├── src/
 │   ├── render.php                    # Block server-side rendering
 │   ├── view.js                       # Interactivity API logic
@@ -485,20 +434,11 @@ greengrowth-impact-showcase/
 │   │   ├── class-projects-manager.php # Caching singleton
 │   │   ├── error-logger.php          # Error logging utility
 │   │   └── style-helpers.php         # Style generation
-│   └── __tests__/
-│       └── view.test.js              # JavaScript tests
-├── tests/
-│   ├── bootstrap.php                 # PHPUnit bootstrap
-│   ├── test-projects-manager.php     # Manager tests
-│   └── test-post-type.php            # CPT tests
 ├── build/                            # Compiled assets (generated)
 │   ├── index.js
 │   ├── view.js
 │   ├── style-index.css
 │   └── style-index-rtl.css
-└── .github/
-    └── workflows/
-        └── tests.yml                 # CI/CD pipeline
 ```
 
 ### Build Scripts
@@ -510,13 +450,9 @@ npm run start
 # Production build
 npm run build
 
-# Run all tests
-npm test
-
 # Lint code
 npm run lint:js
 npm run lint:css
-composer lint
 
 # Create installable ZIP
 npm run plugin-zip
@@ -676,14 +612,12 @@ Built for **GreenGrowth** - A reforestation NGO committed to sustainable environ
 ### Code Metrics
 
 - **Total Lines of Code:** 2,500+
-- **Test Coverage:** 70%+ (target)
-- **Tests:** 14+ automated tests
 - **Documentation:** 1,500+ lines
 - **Bundle Size:** 6KB gzipped (JavaScript)
 - **CSS Size:** 5KB (minified)
 
 ---
 
-**Need help?** Check our comprehensive documentation in [TESTING.md](TESTING.md) or submit an issue on GitHub.
+**Need help?** Submit an issue on GitHub.
 
 **Love this plugin?** Star it on GitHub and share it with others! ⭐
