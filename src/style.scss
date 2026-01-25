@@ -7,8 +7,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import typography (Google Fonts via WordPress) */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+/* Typography now loaded via PHP with preconnect optimization */
 
 /* Design Tokens */
 :root {
@@ -170,7 +169,7 @@
 	}
 }
 
-/* Button Style - Filled background buttons (premium default) */
+/* Button Style - Filled background buttons */
 .gg-filter-buttons[data-button-style="button"] .gg-filter-button {
 	background-color: var(--gg-button-bg);
 	border-width: 0;

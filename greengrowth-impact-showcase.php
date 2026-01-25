@@ -42,6 +42,9 @@ add_action( 'init', 'gg_impact_load_textdomain' );
 /**
  * Include required files.
  */
+require_once GG_IMPACT_PLUGIN_DIR . 'src/includes/error-logger.php';
+require_once GG_IMPACT_PLUGIN_DIR . 'src/includes/style-helpers.php';
+require_once GG_IMPACT_PLUGIN_DIR . 'src/includes/class-projects-manager.php';
 require_once GG_IMPACT_PLUGIN_DIR . 'src/post-types/project.php';
 
 /**
@@ -51,6 +54,30 @@ function gg_impact_register_blocks() {
 	register_block_type( GG_IMPACT_PLUGIN_DIR . 'build' );
 }
 add_action( 'init', 'gg_impact_register_blocks' );
+
+/**
+ * Add preconnect for Google Fonts.
+ */
+function gg_impact_add_font_preconnect() {
+	?>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<?php
+}
+add_action( 'wp_head', 'gg_impact_add_font_preconnect', 1 );
+
+/**
+ * Enqueue Google Fonts with optimized loading.
+ */
+function gg_impact_enqueue_fonts() {
+	wp_enqueue_style(
+		'gg-impact-fonts',
+		'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap',
+		array(),
+		null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+	);
+}
+add_action( 'wp_enqueue_scripts', 'gg_impact_enqueue_fonts' );
 
 /**
  * Enqueue frontend script module.
@@ -142,35 +169,73 @@ function gg_fix_project_images() {
 }
 
 /**
- * Handle the fix images action.
+ * Handle the fix images action with rate limiting.
  */
 function gg_handle_fix_images_action() {
 	if ( ! isset( $_GET['gg_fix_images'] ) || ! isset( $_GET['_wpnonce'] ) ) {
 		return;
 	}
 
-	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'gg_fix_images' ) ) {
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	if ( ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'gg_fix_images' ) ) {
+		gg_log_warning( 'Invalid nonce for fix images action', 'security' );
 		return;
 	}
 
 	if ( ! current_user_can( 'manage_options' ) ) {
+		gg_log_warning( 'Unauthorized user attempted fix images action', 'security' );
 		return;
 	}
 
-	$fixed_count = gg_fix_project_images();
+	// Rate limiting - prevent hammering the endpoint.
+	$user_id       = get_current_user_id();
+	$transient_key = "gg_fix_images_throttle_{$user_id}";
 
-	add_action(
-		'admin_notices',
-		function () use ( $fixed_count ) {
-			echo '<div class="notice notice-success is-dismissible"><p>';
-			printf(
-				/* translators: %d: number of projects fixed */
-				esc_html__( 'Successfully added images to %d projects!', 'greengrowth-impact-showcase' ),
-				$fixed_count
-			);
-			echo '</p></div>';
-		}
-	);
+	if ( get_transient( $transient_key ) ) {
+		add_action(
+			'admin_notices',
+			function () {
+				echo '<div class="notice notice-error is-dismissible"><p>';
+				esc_html_e( 'Please wait a minute before trying again.', 'greengrowth-impact-showcase' );
+				echo '</p></div>';
+			}
+		);
+		gg_log_warning( 'Rate limit triggered for fix images action', 'rate_limit' );
+		return;
+	}
+
+	// Set rate limit transient (1 minute).
+	set_transient( $transient_key, true, MINUTE_IN_SECONDS );
+
+	try {
+		$fixed_count = gg_fix_project_images();
+
+		gg_log_info( "Fixed images for {$fixed_count} projects", 'fix_images' );
+
+		add_action(
+			'admin_notices',
+			function () use ( $fixed_count ) {
+				echo '<div class="notice notice-success is-dismissible"><p>';
+				printf(
+					/* translators: %d: number of projects fixed */
+					esc_html__( 'Successfully added images to %d projects!', 'greengrowth-impact-showcase' ),
+					(int) $fixed_count
+				);
+				echo '</p></div>';
+			}
+		);
+	} catch ( Exception $e ) {
+		gg_log_error( 'Failed to fix project images: ' . $e->getMessage(), 'fix_images' );
+
+		add_action(
+			'admin_notices',
+			function () use ( $e ) {
+				echo '<div class="notice notice-error is-dismissible"><p>';
+				esc_html_e( 'An error occurred while fixing images. Please check the error log.', 'greengrowth-impact-showcase' );
+				echo '</p></div>';
+			}
+		);
+	}
 }
 add_action( 'admin_init', 'gg_handle_fix_images_action' );
 

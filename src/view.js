@@ -444,94 +444,114 @@ store( 'greengrowth-showcase', {
 				return;
 			}
 
-			// Create placeholder to prevent layout shift when sticky
-			const placeholder = document.createElement( 'div' );
-			placeholder.className = 'gg-filter-placeholder';
-			placeholder.style.display = 'none';
+			// Initialize sticky behavior after layout stabilizes
+			const initSticky = () => {
+				// Create placeholder to prevent layout shift when sticky
+				const placeholder = document.createElement( 'div' );
+				placeholder.className = 'gg-filter-placeholder';
+				placeholder.style.display = 'none';
 
-			// Track initial position
-			const initialTop = filterButtons.getBoundingClientRect().top + window.scrollY;
-			let isSticky = false;
+				let isSticky = false;
+				let initialTop = filterButtons.getBoundingClientRect().top + window.scrollY;
 
-			// Handle vertical scroll (sticky behavior)
-			const handleScroll = () => {
-				if ( ! isMobile() ) {
-					return;
-				}
+				// Function to recalculate initial position
+				const recalculatePosition = () => {
+					if ( ! isSticky ) {
+						initialTop = filterButtons.getBoundingClientRect().top + window.scrollY;
+					}
+				};
 
-				const scrollTop = window.scrollY;
-				const shouldBeSticky = scrollTop > initialTop;
+				// Handle vertical scroll (sticky behavior)
+				const handleScroll = () => {
+					if ( ! isMobile() ) {
+						return;
+					}
 
-				if ( shouldBeSticky && ! isSticky ) {
-					// Make sticky
-					filterButtons.classList.add( 'is-sticky' );
-					placeholder.style.display = 'block';
-					placeholder.style.height = `${ filterButtons.offsetHeight }px`;
-					filterButtons.parentNode.insertBefore( placeholder, filterButtons );
-					isSticky = true;
-				} else if ( ! shouldBeSticky && isSticky ) {
-					// Remove sticky
-					filterButtons.classList.remove( 'is-sticky' );
-					placeholder.style.display = 'none';
+					const scrollTop = window.scrollY;
+					const shouldBeSticky = scrollTop > initialTop;
+
+					if ( shouldBeSticky && ! isSticky ) {
+						// Make sticky
+						filterButtons.classList.add( 'is-sticky' );
+						placeholder.style.display = 'block';
+						placeholder.style.height = `${ filterButtons.offsetHeight }px`;
+						filterButtons.parentNode.insertBefore( placeholder, filterButtons );
+						isSticky = true;
+					} else if ( ! shouldBeSticky && isSticky ) {
+						// Remove sticky
+						filterButtons.classList.remove( 'is-sticky' );
+						placeholder.style.display = 'none';
+						if ( placeholder.parentNode ) {
+							placeholder.parentNode.removeChild( placeholder );
+						}
+						isSticky = false;
+					}
+				};
+
+				// Handle horizontal scroll (fade gradient indicators)
+				const handleHorizontalScroll = () => {
+					if ( ! isMobile() ) {
+						return;
+					}
+
+					const scrollLeft = filterButtons.scrollLeft;
+					const maxScroll = filterButtons.scrollWidth - filterButtons.clientWidth;
+
+					// At start (hide left gradient)
+					if ( scrollLeft <= 5 ) {
+						filterButtons.classList.add( 'at-start' );
+					} else {
+						filterButtons.classList.remove( 'at-start' );
+					}
+
+					// At end (hide right gradient)
+					if ( scrollLeft >= maxScroll - 5 ) {
+						filterButtons.classList.add( 'at-end' );
+					} else {
+						filterButtons.classList.remove( 'at-end' );
+					}
+				};
+
+				// Handle resize (cleanup on desktop, recalculate position otherwise)
+				const handleResize = () => {
+					if ( ! isMobile() && isSticky ) {
+						filterButtons.classList.remove( 'is-sticky', 'at-start', 'at-end' );
+						if ( placeholder.parentNode ) {
+							placeholder.parentNode.removeChild( placeholder );
+						}
+						isSticky = false;
+					} else if ( isMobile() ) {
+						recalculatePosition();
+					}
+				};
+
+				// Initialize scroll position classes
+				handleHorizontalScroll();
+
+				// Attach event listeners
+				window.addEventListener( 'scroll', handleScroll, { passive: true } );
+				filterButtons.addEventListener( 'scroll', handleHorizontalScroll, { passive: true } );
+				window.addEventListener( 'resize', handleResize );
+
+				// Cleanup
+				return () => {
+					window.removeEventListener( 'scroll', handleScroll );
+					filterButtons.removeEventListener( 'scroll', handleHorizontalScroll );
+					window.removeEventListener( 'resize', handleResize );
 					if ( placeholder.parentNode ) {
 						placeholder.parentNode.removeChild( placeholder );
 					}
-					isSticky = false;
-				}
+				};
 			};
 
-			// Handle horizontal scroll (fade gradient indicators)
-			const handleHorizontalScroll = () => {
-				if ( ! isMobile() ) {
-					return;
-				}
-
-				const scrollLeft = filterButtons.scrollLeft;
-				const maxScroll = filterButtons.scrollWidth - filterButtons.clientWidth;
-
-				// At start (hide left gradient)
-				if ( scrollLeft <= 5 ) {
-					filterButtons.classList.add( 'at-start' );
-				} else {
-					filterButtons.classList.remove( 'at-start' );
-				}
-
-				// At end (hide right gradient)
-				if ( scrollLeft >= maxScroll - 5 ) {
-					filterButtons.classList.add( 'at-end' );
-				} else {
-					filterButtons.classList.remove( 'at-end' );
-				}
-			};
-
-			// Handle resize (cleanup on desktop)
-			const handleResize = () => {
-				if ( ! isMobile() && isSticky ) {
-					filterButtons.classList.remove( 'is-sticky', 'at-start', 'at-end' );
-					if ( placeholder.parentNode ) {
-						placeholder.parentNode.removeChild( placeholder );
-					}
-					isSticky = false;
-				}
-			};
-
-			// Initialize scroll position classes
-			handleHorizontalScroll();
-
-			// Attach event listeners
-			window.addEventListener( 'scroll', handleScroll, { passive: true } );
-			filterButtons.addEventListener( 'scroll', handleHorizontalScroll, { passive: true } );
-			window.addEventListener( 'resize', handleResize );
-
-			// Cleanup
-			return () => {
-				window.removeEventListener( 'scroll', handleScroll );
-				filterButtons.removeEventListener( 'scroll', handleHorizontalScroll );
-				window.removeEventListener( 'resize', handleResize );
-				if ( placeholder.parentNode ) {
-					placeholder.parentNode.removeChild( placeholder );
-				}
-			};
+			// Wait for layout to stabilize before initializing sticky behavior
+			if ( document.readyState === 'complete' ) {
+				// Page already loaded
+				initSticky();
+			} else {
+				// Wait for page load
+				window.addEventListener( 'load', initSticky, { once: true } );
+			}
 		},
 	},
 } );

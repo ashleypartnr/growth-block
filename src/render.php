@@ -63,64 +63,21 @@ $explore_button_hover_bg = isset( $attributes['exploreButtonHoverBackgroundColor
 $explore_button_hover_text = isset( $attributes['exploreButtonHoverTextColor'] ) ? $attributes['exploreButtonHoverTextColor'] : '#1a1a1a';
 $posts_per_page = isset( $attributes['postsPerPage'] ) ? $attributes['postsPerPage'] : 3;
 
-// Query all projects.
-$projects_query = new WP_Query(
-	array(
-		'post_type'      => 'gg_project',
-		'posts_per_page' => -1,
-		'post_status'    => 'publish',
-		'orderby'        => 'date',
-		'order'          => 'DESC',
-	)
-);
+/**
+ * Filter the number of displayed projects.
+ *
+ * @param int $posts_per_page Number of projects to display initially.
+ */
+$posts_per_page = apply_filters( 'gg_displayed_projects_count', $posts_per_page );
 
-// Prepare projects data for Interactivity API.
-$projects_data = array();
+/**
+ * Action before rendering block.
+ */
+do_action( 'gg_before_render_block', $attributes, $context ?? array() );
 
-if ( $projects_query->have_posts() ) {
-	while ( $projects_query->have_posts() ) {
-		$projects_query->the_post();
-		$post_id = get_the_ID();
-
-		// Get featured image.
-		$image_id   = get_post_thumbnail_id( $post_id );
-		$image_url  = $image_id ? wp_get_attachment_image_url( $image_id, 'medium_large' ) : '';
-		$image_alt  = $image_id ? get_post_meta( $image_id, '_wp_attachment_image_alt', true ) : get_the_title();
-
-		// If no featured image, check for placeholder.
-		if ( ! $image_url ) {
-			$image_url = get_post_meta( $post_id, '_gg_placeholder_image', true );
-		}
-
-		// Get service areas.
-		$terms          = get_the_terms( $post_id, 'gg_service_area' );
-		$service_areas  = array();
-		if ( $terms && ! is_wp_error( $terms ) ) {
-			foreach ( $terms as $term ) {
-				$service_areas[] = $term->slug;
-			}
-		}
-
-		// Get excerpt or generate from content.
-		$excerpt = get_the_excerpt();
-		if ( empty( $excerpt ) ) {
-			$excerpt = wp_trim_words( get_the_content(), 25, '...' );
-		}
-
-		$projects_data[] = array(
-			'id'           => $post_id,
-			'title'        => get_the_title(),
-			'excerpt'      => $excerpt,
-			'link'         => get_permalink(),
-			'image'        => array(
-				'url' => $image_url ? $image_url : 'https://placehold.co/800x600/CCCCCC/666666/png?text=No+Image',
-				'alt' => $image_alt ? $image_alt : get_the_title(),
-			),
-			'serviceAreas' => $service_areas,
-		);
-	}
-	wp_reset_postdata();
-}
+// Get projects from manager (with caching).
+$projects_manager = gg_get_projects_manager();
+$projects_data    = $projects_manager->get_all_projects();
 
 // Get service area terms for filter buttons.
 $service_area_terms = get_terms(
@@ -129,6 +86,9 @@ $service_area_terms = get_terms(
 		'hide_empty' => true,
 	)
 );
+
+// Generate unique block ID for accessibility.
+$block_id = 'gg-projects-grid-' . wp_unique_id();
 
 // Initial context for Interactivity API.
 $displayed_projects = array_slice( $projects_data, 0, $posts_per_page );
@@ -144,45 +104,8 @@ $context = array(
 	'hasMore'           => count( $projects_data ) > $posts_per_page,
 );
 
-// Build inline styles from block attributes.
-$inline_styles = sprintf(
-	'--gg-primary-color: %s; --gg-accent-color: %s; --gg-background-color: %s; --gg-text-color: %s; --gg-card-bg-color: %s; --gg-title-size: %spx; --gg-excerpt-size: %spx; --gg-button-size: %spx; --gg-card-radius: %spx; --gg-card-gap: %spx; --gg-overlay-opacity: %s; --gg-button-bg: %s; --gg-button-text: %s; --gg-button-border: %s; --gg-button-active-bg: %s; --gg-button-active-text: %s; --gg-button-active-border: %s; --gg-button-radius: %spx; --gg-button-border-width: %spx; --gg-button-hover-bg: %s; --gg-button-hover-text: %s; --gg-button-hover-border: %s; --gg-mobile-button-text: %s; --gg-mobile-button-bg: %s; --gg-mobile-button-active-text: %s; --gg-mobile-button-active-bg: %s; --gg-mobile-button-hover-text: %s; --gg-mobile-button-hover-bg: %s; --gg-explore-btn-bg: %s; --gg-explore-btn-text: %s; --gg-explore-btn-border: %s; --gg-explore-btn-border-width: %spx; --gg-explore-btn-radius: %spx; --gg-explore-btn-hover-bg: %s; --gg-explore-btn-hover-text: %s;',
-	esc_attr( $primary_color ),
-	esc_attr( $accent_color ),
-	esc_attr( $background_color ),
-	esc_attr( $text_color ),
-	esc_attr( $card_bg_color ),
-	esc_attr( $title_font_size ),
-	esc_attr( $excerpt_font_size ),
-	esc_attr( $button_font_size ),
-	esc_attr( $card_border_radius ),
-	esc_attr( $card_gap ),
-	esc_attr( $overlay_opacity / 100 ),
-	esc_attr( $button_bg_color ),
-	esc_attr( $button_text_color ),
-	esc_attr( $button_border_color ),
-	esc_attr( $button_active_bg ),
-	esc_attr( $button_active_text ),
-	esc_attr( $button_active_border ),
-	esc_attr( $button_border_radius ),
-	esc_attr( $button_border_width ),
-	esc_attr( $button_hover_bg ),
-	esc_attr( $button_hover_text ),
-	esc_attr( $button_hover_border ),
-	esc_attr( $mobile_button_text ),
-	esc_attr( $mobile_button_bg ),
-	esc_attr( $mobile_button_active_text ),
-	esc_attr( $mobile_button_active_bg ),
-	esc_attr( $mobile_button_hover_text ),
-	esc_attr( $mobile_button_hover_bg ),
-	esc_attr( $explore_button_bg ),
-	esc_attr( $explore_button_text_color ),
-	esc_attr( $explore_button_border ),
-	esc_attr( $explore_button_border_width ),
-	esc_attr( $explore_button_radius ),
-	esc_attr( $explore_button_hover_bg ),
-	esc_attr( $explore_button_hover_text )
-);
+// Build inline styles from block attributes (refactored for readability).
+$inline_styles = gg_build_inline_styles( $attributes );
 
 // Wrapper classes and attributes.
 $wrapper_attributes = get_block_wrapper_attributes(
@@ -209,7 +132,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
 			data-wp-bind--aria-pressed="state.isActive"
 			data-wp-context='<?php echo wp_json_encode( array( 'buttonArea' => 'all' ) ); ?>'
 			data-area="all"
-			aria-pressed="true">
+			aria-pressed="true"
+			aria-controls="<?php echo esc_attr( $block_id ); ?>">
 			<?php esc_html_e( 'All Projects', 'greengrowth-impact-showcase' ); ?>
 		</button>
 
@@ -223,14 +147,15 @@ $wrapper_attributes = get_block_wrapper_attributes(
 					data-wp-bind--aria-pressed="state.isActive"
 					data-wp-context='<?php echo wp_json_encode( array( 'buttonArea' => $term->slug ) ); ?>'
 					data-area="<?php echo esc_attr( $term->slug ); ?>"
-					aria-pressed="false">
+					aria-pressed="false"
+					aria-controls="<?php echo esc_attr( $block_id ); ?>">
 					<?php echo esc_html( $term->name ); ?>
 				</button>
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</nav>
 
-	<div class="gg-projects-grid" data-wp-init="callbacks.initCardHeightNormalization">
+	<div id="<?php echo esc_attr( $block_id ); ?>" class="gg-projects-grid" data-wp-init="callbacks.initCardHeightNormalization">
 		<?php if ( ! empty( $displayed_projects ) ) : ?>
 			<?php foreach ( $displayed_projects as $project ) : ?>
 				<article class="gg-project-card" data-wp-key="<?php echo esc_attr( $project['id'] ); ?>" data-service-areas="<?php echo esc_attr( implode( ',', $project['serviceAreas'] ) ); ?>">

@@ -1,0 +1,32 @@
+{
+  "name": "greengrowth/impact-showcase",
+  "description": "A high-performance, accessible project showcase block for GreenGrowth",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "GreenGrowth",
+      "homepage": "https://greengrowth.org"
+    }
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "yoast/phpunit-polyfills": "^1.0",
+    "wp-coding-standards/wpcs": "^3.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+  },
+  "scripts": {
+    "test": "phpunit",
+    "test:coverage": "phpunit --coverage-html coverage",
+    "lint": "phpcs --standard=WordPress src/ greengrowth-impact-showcase.php",
+    "lint:fix": "phpcbf --standard=WordPress src/ greengrowth-impact-showcase.php"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

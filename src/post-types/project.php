@@ -199,6 +199,7 @@ function gg_download_and_attach_image( $image_url, $post_id, $title ) {
 	$tmp = download_url( $image_url );
 
 	if ( is_wp_error( $tmp ) ) {
+		gg_log_error( 'Failed to download image: ' . $tmp->get_error_message(), 'image_download', array( 'url' => $image_url ) );
 		return $tmp;
 	}
 
@@ -217,6 +218,7 @@ function gg_download_and_attach_image( $image_url, $post_id, $title ) {
 	}
 
 	if ( is_wp_error( $attachment_id ) ) {
+		gg_log_error( 'Failed to create attachment: ' . $attachment_id->get_error_message(), 'image_download', array( 'post_id' => $post_id ) );
 		return $attachment_id;
 	}
 
@@ -230,6 +232,13 @@ function gg_download_and_attach_image( $image_url, $post_id, $title ) {
  * Create sample projects on plugin activation.
  */
 function gg_create_sample_projects() {
+	/**
+	 * Action before creating sample projects.
+	 */
+	do_action( 'gg_before_create_sample_projects' );
+
+	gg_log_info( 'Starting sample project creation', 'activation' );
+
 	// Create service area terms first.
 	$reforestation_term = wp_insert_term(
 		__( 'Reforestation', 'greengrowth-impact-showcase' ),
@@ -237,11 +246,21 @@ function gg_create_sample_projects() {
 		array( 'slug' => 'reforestation' )
 	);
 
+	if ( is_wp_error( $reforestation_term ) ) {
+		gg_log_error( 'Failed to create Reforestation term: ' . $reforestation_term->get_error_message(), 'activation' );
+		return;
+	}
+
 	$carbon_capture_term = wp_insert_term(
 		__( 'Carbon Capture', 'greengrowth-impact-showcase' ),
 		'gg_service_area',
 		array( 'slug' => 'carbon-capture' )
 	);
+
+	if ( is_wp_error( $carbon_capture_term ) ) {
+		gg_log_error( 'Failed to create Carbon Capture term: ' . $carbon_capture_term->get_error_message(), 'activation' );
+		return;
+	}
 
 	$sustainable_farming_term = wp_insert_term(
 		__( 'Sustainable Farming', 'greengrowth-impact-showcase' ),
@@ -249,10 +268,17 @@ function gg_create_sample_projects() {
 		array( 'slug' => 'sustainable-farming' )
 	);
 
+	if ( is_wp_error( $sustainable_farming_term ) ) {
+		gg_log_error( 'Failed to create Sustainable Farming term: ' . $sustainable_farming_term->get_error_message(), 'activation' );
+		return;
+	}
+
 	// Get term IDs.
 	$reforestation_id       = is_array( $reforestation_term ) ? $reforestation_term['term_id'] : 0;
 	$carbon_capture_id      = is_array( $carbon_capture_term ) ? $carbon_capture_term['term_id'] : 0;
 	$sustainable_farming_id = is_array( $sustainable_farming_term ) ? $sustainable_farming_term['term_id'] : 0;
+
+	gg_log_info( 'Created service area terms successfully', 'activation' );
 
 	// Sample project data.
 	$projects = array(
@@ -472,6 +498,9 @@ function gg_create_sample_projects() {
 	);
 
 	// Create projects and assign featured images.
+	$created_count = 0;
+	$failed_count  = 0;
+
 	foreach ( $projects as $project_data ) {
 		$post_id = wp_insert_post(
 			array(
@@ -483,10 +512,19 @@ function gg_create_sample_projects() {
 			)
 		);
 
-		if ( $post_id && ! is_wp_error( $post_id ) ) {
+		if ( is_wp_error( $post_id ) ) {
+			gg_log_error( 'Failed to create project: ' . $post_id->get_error_message(), 'activation', array( 'title' => $project_data['title'] ) );
+			$failed_count++;
+			continue;
+		}
+
+		if ( $post_id ) {
 			// Assign service area term.
 			if ( $project_data['term'] ) {
-				wp_set_object_terms( $post_id, (int) $project_data['term'], 'gg_service_area' );
+				$term_result = wp_set_object_terms( $post_id, (int) $project_data['term'], 'gg_service_area' );
+				if ( is_wp_error( $term_result ) ) {
+					gg_log_warning( 'Failed to assign term to project: ' . $term_result->get_error_message(), 'activation' );
+				}
 			}
 
 			// Generate a placeholder image URL.
@@ -500,7 +538,22 @@ function gg_create_sample_projects() {
 			} else {
 				// Fallback: store URL as meta field if download fails.
 				update_post_meta( $post_id, '_gg_placeholder_image', $image_url );
+				if ( is_wp_error( $attachment_id ) ) {
+					gg_log_warning( 'Image download failed, using fallback URL', 'activation', array( 'post_id' => $post_id ) );
+				}
 			}
+
+			$created_count++;
 		}
 	}
+
+	gg_log_info( "Sample project creation complete: {$created_count} created, {$failed_count} failed", 'activation' );
+
+	/**
+	 * Action after creating sample projects.
+	 *
+	 * @param int $created_count Number of projects successfully created.
+	 * @param int $failed_count  Number of projects that failed to create.
+	 */
+	do_action( 'gg_after_create_sample_projects', $created_count, $failed_count );
 }
