@@ -6,8 +6,9 @@
   "license": "GPL-2.0-or-later",
   "main": "build/index.js",
   "scripts": {
-    "build": "wp-scripts build src/index.js --output-path=build && npm run copy-files",
+    "build": "wp-scripts build src/index.js --output-path=build && npm run copy-files && npm run verify-build",
     "copy-files": "cp src/block.json build/ && cp src/render.php build/",
+    "verify-build": "node scripts/verify-build.js",
     "start": "wp-scripts start src/index.js --output-path=build",
     "lint:js": "wp-scripts lint-js",
     "lint:css": "wp-scripts lint-style",
@@ -15,7 +16,7 @@
     "plugin-zip": "wp-scripts plugin-zip"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^19.2.4",
+    "@wordpress/scripts": "^27.9.0",
     "autoprefixer": "^10.4.23",
     "tailwindcss": "^3.4.1"
   },

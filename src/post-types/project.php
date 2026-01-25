@@ -184,12 +184,69 @@ add_action( 'rest_api_init', 'gg_register_rest_fields' );
 /**
  * Download an image from a URL and attach it to a post.
  *
+ * Security: Validates URLs and restricts downloads to whitelisted domains to prevent SSRF attacks.
+ *
  * @param string $image_url The URL of the image to download.
  * @param int    $post_id   The post ID to attach the image to.
  * @param string $title     The title for the image.
  * @return int|WP_Error The attachment ID on success, WP_Error on failure.
  */
 function gg_download_and_attach_image( $image_url, $post_id, $title ) {
+	// Security: Validate URL format.
+	if ( ! filter_var( $image_url, FILTER_VALIDATE_URL ) ) {
+		gg_log_error( 'Invalid image URL provided', 'image_download', array( 'url' => $image_url ) );
+		return new WP_Error( 'invalid_url', __( 'Invalid image URL format.', 'greengrowth-impact-showcase' ) );
+	}
+
+	// Security: Whitelist allowed image hosting domains to prevent SSRF attacks.
+	$allowed_domains = array(
+		'placehold.co',        // Placeholder service used for sample data.
+		'picsum.photos',       // Alternative placeholder service.
+		'via.placeholder.com', // Alternative placeholder service.
+	);
+
+	/**
+	 * Filter allowed image download domains.
+	 *
+	 * @param array $allowed_domains Array of allowed domain names.
+	 */
+	$allowed_domains = apply_filters( 'gg_image_download_allowed_domains', $allowed_domains );
+
+	$parsed_url = wp_parse_url( $image_url );
+	if ( ! isset( $parsed_url['host'] ) ) {
+		gg_log_error( 'Could not parse image URL host', 'image_download', array( 'url' => $image_url ) );
+		return new WP_Error( 'invalid_url_host', __( 'Could not parse image URL.', 'greengrowth-impact-showcase' ) );
+	}
+
+	$host = strtolower( $parsed_url['host'] );
+
+	// Check if host is in allowed list.
+	$is_allowed = false;
+	foreach ( $allowed_domains as $allowed_domain ) {
+		if ( $host === strtolower( $allowed_domain ) || str_ends_with( $host, '.' . strtolower( $allowed_domain ) ) ) {
+			$is_allowed = true;
+			break;
+		}
+	}
+
+	if ( ! $is_allowed ) {
+		gg_log_warning( 'Image download blocked - domain not whitelisted', 'security', array( 'host' => $host ) );
+		return new WP_Error(
+			'blocked_domain',
+			sprintf(
+				/* translators: %s: hostname */
+				__( 'Image downloads from %s are not permitted for security reasons.', 'greengrowth-impact-showcase' ),
+				esc_html( $host )
+			)
+		);
+	}
+
+	// Security: Ensure HTTPS when available.
+	if ( isset( $parsed_url['scheme'] ) && 'http' === $parsed_url['scheme'] && ! defined( 'WP_DEBUG' ) ) {
+		gg_log_warning( 'Upgrading HTTP to HTTPS for image download', 'security', array( 'url' => $image_url ) );
+		$image_url = str_replace( 'http://', 'https://', $image_url );
+	}
+
 	// Require WordPress file functions.
 	require_once ABSPATH . 'wp-admin/includes/media.php';
 	require_once ABSPATH . 'wp-admin/includes/file.php';
